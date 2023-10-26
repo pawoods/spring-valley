@@ -65,6 +65,11 @@ def edit_recipe():
     return render_template("edit_recipe.html")
 
 
+@app.route("/categories")
+def categories():
+    return render_template("categories.html")
+
+
 @app.route("/add_category")
 def add_category():
     return render_template("add_category.html")
@@ -87,7 +92,7 @@ def users():
 
 @app.route("/sign_out")
 def sign_out():
-    return render_template("sign_out.html")
+    return render_template("home.html")
 
 
 if __name__ == "__main__":

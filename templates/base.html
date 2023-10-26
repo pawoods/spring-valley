@@ -10,10 +10,47 @@
     <title>Project 3</title>
 </head>
 <body>
-    
-    {% block content %}
+    <!-- Header -->
+    <header>
+        <ul id="slide-out" class="sidenav">
+            <li>
+                <div class="user-view">
+                    <div class="background teal darken-4">
+                    </div>
+                    <a href="{{ url_for('profile') }}"><img class="circle" src="https://media.licdn.com/dms/image/C4D03AQGJSARvOdak-A/profile-displayphoto-shrink_800_800/0/1620599895775?e=1703721600&v=beta&t=PEvJUBOqTRx_SORlRkFeXVW_ICRB2hSXdDfNMMSo7fs"></a>
+                    <span class="white-text name">user.f_name user.l_name</span>
+                    <span class="white-text email">user.username</span>
+                </div>
+            </li>
+            <li><a class="subheader">Menu</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="{{ url_for('home') }}"><i class="material-icons">cloud</i>Home</a></li>
+            <li><a href="{{ url_for('recipes') }}"><i class="material-icons">cloud</i>Recipes</a></li>
+            <li><a href="{{ url_for('categories') }}"><i class="material-icons">cloud</i>Categories</a></li>
+            <li><a href="{{ url_for('users') }}"><i class="material-icons">cloud</i>Users</a></li>
+            <li><a href="{{ url_for('contact') }}"><i class="material-icons">cloud</i>Contact</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="{{ url_for('sign_in') }}">Sign In</a></li>
+            <li><a href="{{ url_for('sign_out') }}">Sign Out</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+        </ul>
+        <a href="#" data-target="slide-out" class="sidenav-trigger right"><i class="material-icons teal-text text-darken-4">menu</i></a>
+        
+    </header>
+    <!-- Main section to contain template extensions -->
+    <main>
+        {% block content %}
 
-    {% endblock %}
+        {% endblock %}
+    </main>
+    <!-- Footer -->
+    <footer>
+        
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
