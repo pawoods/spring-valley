@@ -12,6 +12,9 @@
 <body>
     <!-- Header -->
     <header>
+        <a href="#" data-target="slide-out" class="sidenav-trigger right">
+            <i class="material-icons teal-text text-darken-4">menu</i>
+        </a>
         <ul id="slide-out" class="sidenav">
             <li>
                 <div class="user-view">
@@ -38,7 +41,6 @@
             <li><a href="{{ url_for('sign_out') }}">Sign Out</a></li>
             <li><a href="{{ url_for('register') }}">Register</a></li>
         </ul>
-        <a href="#" data-target="slide-out" class="sidenav-trigger right"><i class="material-icons teal-text text-darken-4">menu</i></a>
         
     </header>
     <!-- Main section to contain template extensions -->
@@ -52,8 +54,7 @@
         
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://kit.fontawesome.com/1704febde4.js" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
