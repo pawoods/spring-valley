@@ -25,6 +25,71 @@ def home():
     return render_template("home.html", recipes=recipes)
 
 
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
+
+@app.route("/sign_in")
+def sign_in():
+    return render_template("sign_in.html")
+
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
+
+
+@app.route("/edit_details")
+def edit_details():
+    return render_template("edit_details.html")
+
+
+@app.route("/recipe_details")
+def recipe_details():
+    return render_template("recipe_details.html")
+
+
+@app.route("/recipes")
+def recipes():
+    return render_template("recipes.html")
+
+
+@app.route("/add_recipe")
+def add_recipe():
+    return render_template("add_recipe.html")
+
+
+@app.route("/edit_recipe")
+def edit_recipe():
+    return render_template("edit_recipe.html")
+
+
+@app.route("/add_category")
+def add_category():
+    return render_template("add_category.html")
+
+
+@app.route("/edit_category")
+def edit_category():
+    return render_template("edit_category.html")
+
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+
+@app.route("/users")
+def users():
+    return render_template("users.html")
+
+
+@app.route("/sign_out")
+def sign_out():
+    return render_template("sign_out.html")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
