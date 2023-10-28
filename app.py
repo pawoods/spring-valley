@@ -37,39 +37,47 @@ def register():
         # check if username is already in users collection
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username")})
+        existing_email = mongo.db.users.find_one(
+            {"email": request.form.get("email")})
 
-        if existing_user:
+        if existing_user and existing_email:
+            flash("Username and email already exist")
+            return redirect(url_for("register"))
+        elif existing_user:
             flash("Username already exists")
             return redirect(url_for("register"))
+        elif existing_email:
+            flash("Email already exists")
+            return redirect(url_for("register"))
+        else:
+            # adds unique id to new user
+            user_id = 1
+            existing_id = True
+            while existing_id:
+                if not mongo.db.users.find_one({"user_id": user_id}):
+                    existing_id = False
+                    break
+                else:
+                    user_id += 1
 
-        # adds unique id to new user
-        user_id = 1
-        existing_id = True
-        while existing_id:
-            if not mongo.db.users.find_one({"user_id": user_id}):
-                existing_id = False
-                break
-            else:
-                user_id += 1
+            # builds new user dict with default superuser and admin permissions
+            new_user = {
+                "user_id": user_id,
+                "f_name": request.form.get("f_name"),
+                "l_name": request.form.get("l_name"),
+                "email": request.form.get("email"),
+                "username": request.form.get("username"),
+                "password": generate_password_hash(request.form.get("password")),
+                "photo_url": request.form.get("photo_url"),
+                "is_super": False,
+                "is_admin": False
+            }
+            mongo.db.users.insert_one(new_user)
 
-        # builds new user dict with default superuser and admin permissions
-        new_user = {
-            "user_id": user_id,
-            "f_name": request.form.get("f_name"),
-            "l_name": request.form.get("l_name"),
-            "email": request.form.get("email"),
-            "username": request.form.get("username"),
-            "password": generate_password_hash(request.form.get("password")),
-            "photo_url": request.form.get("photo_url"),
-            "is_super": False,
-            "is_admin": False
-        }
-        mongo.db.users.insert_one(new_user)
-
-        # puts new user id into session cookie
-        session["user"] = user_id
-        flash("Successfully Registered!")
-        return redirect(url_for("profile", user=session["user"]))
+            # puts new user id into session cookie
+            session["user"] = user_id
+            flash("Successfully Registered!")
+            return redirect(url_for("profile", user=session["user"]))
 
     return render_template("register.html")
 
