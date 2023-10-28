@@ -24,7 +24,7 @@ mongo = PyMongo(app)
 def home():
     recipes = mongo.db.recipes.find()
     # adds current user if signed in
-    if session:
+    if "user" in session:
         user = mongo.db.users.find_one({"user_id": session["user"]})
         return render_template("home.html", recipes=recipes, user=user)
 
@@ -175,7 +175,7 @@ def sign_out():
     # remove user_id from session cookie
     flash("You have been logged out")
     session.pop("user")
-    return render_template("home.html")
+    return redirect("home")
 
 
 if __name__ == "__main__":
