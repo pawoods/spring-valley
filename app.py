@@ -126,9 +126,14 @@ def edit_details():
     return render_template("edit_details.html")
 
 
-@app.route("/recipe_details")
-def recipe_details():
-    return render_template("recipe_details.html")
+@app.route("/recipe_details/<recipe_id>", methods=["GET", "POST"])
+def recipe_details(recipe_id):
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    if "user" in session:
+        user = mongo.db.users.find_one({"user_id": session["user"]})
+        return render_template("recipe_details.html", recipe=recipe, user=user)
+
+    return render_template("recipe_details.html", recipe=recipe)
 
 
 @app.route("/recipes")
