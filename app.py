@@ -23,6 +23,11 @@ mongo = PyMongo(app)
 @app.route("/home")
 def home():
     recipes = mongo.db.recipes.find()
+    # adds current user if signed in
+    if session:
+        user = mongo.db.users.find_one({"user_id": session["user"]})
+        return render_template("home.html", recipes=recipes, user=user)
+
     return render_template("home.html", recipes=recipes)
 
 
