@@ -12,17 +12,25 @@
 <body>
     <!-- Header -->
     <header>
-        <a href="#" data-target="slide-out" class="sidenav-trigger right">
-            <i class="material-icons teal-text text-darken-4">menu</i>
-        </a>
+        <nav>
+            <div class="nav-wrapper amber lighten-5">
+                <a href="#" class="brand-logo teal-text text-darken-4">CookBook</a>
+                <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large right">
+                    <i class="material-icons teal-text text-darken-4">menu</i>
+                </a>
+            </div>
+        </nav>
+        
         <ul id="slide-out" class="sidenav">
             <li>
                 <div class="user-view">
                     <div class="background teal darken-4">
                     </div>
                     <a href="{{ url_for('profile') }}"><img class="circle" src="https://media.licdn.com/dms/image/C4D03AQGJSARvOdak-A/profile-displayphoto-shrink_800_800/0/1620599895775?e=1703721600&v=beta&t=PEvJUBOqTRx_SORlRkFeXVW_ICRB2hSXdDfNMMSo7fs"></a>
-                    <span class="white-text name">user.f_name user.l_name</span>
-                    <span class="white-text email">user.username</span>
+                    {% if user %}
+                    <span class="white-text name">{{ user.f_name }} {{ user.l_name }}</span>
+                    <span class="white-text email">{{ user.username }}</span>
+                    {% endif %}
                 </div>
             </li>
             <li><a class="subheader">Menu</a></li>
