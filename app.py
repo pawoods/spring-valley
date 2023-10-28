@@ -49,6 +49,9 @@ def register():
         elif existing_email:
             flash("Email already exists")
             return redirect(url_for("register"))
+        elif request.form.get("password") != request.form.get("password_check"):
+            flash("Passwords do not match")
+            return redirect(url_for("register"))
         else:
             # adds unique id to new user
             user_id = 1
@@ -77,7 +80,7 @@ def register():
             # puts new user id into session cookie
             session["user"] = user_id
             flash("Successfully Registered!")
-            return redirect(url_for("profile", user=session["user"]))
+            return redirect(url_for("profile"))
 
     return render_template("register.html")
 
