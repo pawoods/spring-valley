@@ -96,6 +96,7 @@ def sign_in():
             # checks password matches user input
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
+                # puts signed in user id into session cookie
                 session["user"] = existing_user["user_id"]
                 flash("Welcome, {}".format(
                     existing_user["username"]))
@@ -132,7 +133,13 @@ def recipe_details():
 
 @app.route("/recipes")
 def recipes():
-    return render_template("recipes.html")
+    recipes = mongo.db.recipes.find()
+    # adds current user if signed in
+    if "user" in session:
+        user = mongo.db.users.find_one({"user_id": session["user"]})
+        return render_template("recipes.html", recipes=recipes, user=user)
+
+    return render_template("recipes.html", recipes=recipes)
 
 
 @app.route("/add_recipe")
