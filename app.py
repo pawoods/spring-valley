@@ -46,7 +46,7 @@ def register():
         user_id = 1
         existing_id = True
         while existing_id:
-            if not mongo.db.user.find_one({"user": user_id}):
+            if not mongo.db.user.find_one({"user_id": user_id}):
                 existing_id = False
                 break
             user_id += 1
@@ -59,6 +59,7 @@ def register():
             "email": request.form.get("email"),
             "username": request.form.get("username"),
             "password": generate_password_hash(request.form.get("password")),
+            "photo_url": request.form.get("photo_url"),
             "is_super": False,
             "is_admin": False
         }
@@ -79,7 +80,9 @@ def sign_in():
 
 @app.route("/profile")
 def profile():
-    return render_template("profile.html")
+    # pulls current user from datatbase using id from session cookie
+    user = mongo.db.users.find_one({"user_id": session["user"]})
+    return render_template("profile.html", user=user)
 
 
 @app.route("/edit_details")
