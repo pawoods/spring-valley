@@ -27,7 +27,7 @@
                     <div class="background teal darken-4">
                     </div>
                     {% if user %}
-                    <a href="{{ url_for('profile') }}"><img class="circle" src="{{ user.photo_url }}"></a>
+                    <a href="{{ url_for('profile') }}"><img class="circle" src="{{ user.photo_url }}" alt="Profile"></a>
                     <span class="white-text name">{{ user.f_name }} {{ user.l_name }}</span>
                     <span class="white-text email">{{ user.username }}</span>
                     {% endif %}
@@ -53,6 +53,20 @@
     </header>
     <!-- Main section to contain template extensions -->
     <main>
+        <section>
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="row flashes teal lighten-5">
+                            <h4 class="center-align">
+                                {{ message }}
+                            </h4>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </section>
         {% block content %}
 
         {% endblock %}

@@ -46,10 +46,11 @@ def register():
         user_id = 1
         existing_id = True
         while existing_id:
-            if not mongo.db.user.find_one({"user_id": user_id}):
+            if not mongo.db.users.find_one({"user_id": user_id}):
                 existing_id = False
                 break
-            user_id += 1
+            else:
+                user_id += 1
 
         # builds new user dict with default superuser and admin permissions
         new_user = {
@@ -73,8 +74,31 @@ def register():
     return render_template("register.html")
 
 
-@app.route("/sign_in")
+@app.route("/sign_in", methods=["GET", "POST"])
 def sign_in():
+    if request.method == "POST":
+        # checks if email exists on user in database
+        existing_user = mongo.db.users.find_one(
+            {"email": request.form.get("email")})
+
+        if existing_user:
+            # checks password matches user input
+            if check_password_hash(
+                    existing_user["password"], request.form.get("password")):
+                session["user"] = existing_user["user_id"]
+                flash("Welcome, {}".format(
+                    existing_user["username"]))
+                return redirect(url_for(
+                    "profile"))
+            else:
+                # Incorrect password
+                flash("Incorrect email and/or password")
+                return redirect(url_for("sign_in"))
+        else:
+            # Incorrect email address
+            flash("Incorrect email and/or password")
+            return redirect(url_for("sign_in"))
+
     return render_template("sign_in.html")
 
 
@@ -137,6 +161,9 @@ def users():
 
 @app.route("/sign_out")
 def sign_out():
+    # remove user_id from session cookie
+    flash("You have been logged out")
+    session.pop("user")
     return render_template("home.html")
 
 
