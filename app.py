@@ -114,6 +114,11 @@ def sign_in():
     return render_template("sign_in.html")
 
 
+def get_user(user_id):
+    user = mongo.db.users.find_one({"user_id": user_id})
+    return user
+
+
 @app.route("/profile")
 def profile():
     # pulls current user from datatbase using id from session cookie
@@ -130,7 +135,7 @@ def edit_details():
 def recipe_details(recipe_id):
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     if "user" in session:
-        user = mongo.db.users.find_one({"user_id": session["user"]})
+        user = get_user(session["user"])
         return render_template("recipe_details.html", recipe=recipe, user=user)
 
     return render_template("recipe_details.html", recipe=recipe)
@@ -159,12 +164,32 @@ def edit_recipe():
 
 @app.route("/categories")
 def categories():
-    return render_template("categories.html")
+    categories = mongo.db.categories.find()
+    if "user" in session:
+        user = get_user(session["user"])
+        return render_template(
+            "categories.html", 
+            categories=categories, 
+            user=user)
+
+    return render_template("categories.html", categories=categories)
 
 
-@app.route("/add_category")
+@app.route("/add_category", methods=["GET", "POST"])
 def add_category():
-    return render_template("add_category.html")
+    if request.method == "POST":
+        category = {
+            "category_name": request.form.get("category_name"),
+            "category_description": request.form.get("category_description"),
+            "category_color": request.form.get("category_color")
+        }
+        mongo.db.categories.insert_one(category)
+        flash("New category added!")
+        return redirect(url_for("categories"))
+    if "user" in session:
+        user = ""
+
+        return render_template("add_category.html")
 
 
 @app.route("/edit_category")

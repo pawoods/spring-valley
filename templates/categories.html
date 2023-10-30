@@ -1,4 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>Categories</h1>
+    <div class="row">
+        <div class="col s12">
+            <p class="center-align">
+                Add new category 
+                <a href="{{ url_for('add_category') }}" class="teal-text text-darken-4">Here!</a>
+            </p>
+            <div class="row">
+                {% for category in categories %}
+                    <div class="col s12 m4 center-align">
+                        <div class="card {{ category.category_color }}">
+                            <div class="card-content black-text">
+                                <span class="card-title">{{ category.category_name }}</span>
+                                <p>{{ category.category_description }}</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">Edit</a>
+                                <a href="#">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
 {% endblock %}
