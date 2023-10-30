@@ -2,4 +2,12 @@
 .card .image-height {
     height: 200px;
     overflow: hidden;
+}   
+
+.tags .col {
+    padding: 0.75rem 0;
+}
+
+.hidden {
+    display: none;
 }
