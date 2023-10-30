@@ -121,9 +121,10 @@ def get_user(user_id):
 
 @app.route("/profile")
 def profile():
-    # pulls current user from datatbase using id from session cookie
-    user = mongo.db.users.find_one({"user_id": session["user"]})
-    return render_template("profile.html", user=user)
+    # if signed in, adds current user to template for use on front end
+    if "user" in session:
+        user = get_user(session["user"])
+        return render_template("profile.html", user=user)
 
 
 @app.route("/edit_details")
@@ -134,6 +135,7 @@ def edit_details():
 @app.route("/recipe_details/<recipe_id>", methods=["GET", "POST"])
 def recipe_details(recipe_id):
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    # if signed in, adds current user to template for use on front end
     if "user" in session:
         user = get_user(session["user"])
         return render_template("recipe_details.html", recipe=recipe, user=user)
@@ -144,9 +146,9 @@ def recipe_details(recipe_id):
 @app.route("/recipes")
 def recipes():
     recipes = mongo.db.recipes.find()
-    # adds current user if signed in
+    # if signed in, adds current user to template for use on front end
     if "user" in session:
-        user = mongo.db.users.find_one({"user_id": session["user"]})
+        user = get_user(session["user"])
         return render_template("recipes.html", recipes=recipes, user=user)
 
     return render_template("recipes.html", recipes=recipes)
@@ -165,6 +167,7 @@ def edit_recipe():
 @app.route("/categories")
 def categories():
     categories = mongo.db.categories.find()
+    # if signed in, adds current user to template for use on front end
     if "user" in session:
         user = get_user(session["user"])
         return render_template(
@@ -186,10 +189,12 @@ def add_category():
         mongo.db.categories.insert_one(category)
         flash("New category added!")
         return redirect(url_for("categories"))
+    # if signed in, adds current user to template for use on front end
     if "user" in session:
-        user = ""
+        user = get_user(session["user"])
+        return render_template("add_category.html", user=user)
 
-        return render_template("add_category.html")
+    return render_template
 
 
 @app.route("/edit_category")
