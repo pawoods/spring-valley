@@ -19,6 +19,11 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+def get_user(user_id):
+    user = mongo.db.users.find_one({"user_id": user_id})
+    return user
+
+
 @app.route("/")
 @app.route("/home")
 def home():
@@ -114,11 +119,6 @@ def sign_in():
     return render_template("sign_in.html")
 
 
-def get_user(user_id):
-    user = mongo.db.users.find_one({"user_id": user_id})
-    return user
-
-
 @app.route("/profile")
 def profile():
     # if signed in, adds current user to template for use on front end
@@ -197,9 +197,46 @@ def add_category():
     return render_template
 
 
-@app.route("/edit_category")
-def edit_category():
-    return render_template("edit_category.html")
+@app.route("/edit_category/<category_id>", methods=["GET", "POST"])
+def edit_category(category_id):
+    if request.method == "POST":
+        # Updates the category in the database
+        edit = {
+            "category_name": request.form.get("category_name"),
+            "category_description": request.form.get("category_description"),
+            "category_color": request.form.get("category_color")
+        }
+        mongo.db.categories.update_one({"_id": ObjectId(category_id)}, {
+            "$set": edit})
+        # Updates the category on all applicable recipes in recipe database
+        query = {
+            "categories._id": ObjectId(category_id)
+        }
+        update = {"$set": {
+                "categories.$.category_name":
+                    request.form.get("category_name"),
+                "categories.$.category_color":
+                    request.form.get("category_color")}}
+        mongo.db.tasks.update_many(query, update)
+
+        flash("Category successfully updated")
+        return redirect(url_for("categories"))
+
+    if "user" in session:
+        user = get_user(session["user"])
+        category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+        return render_template("edit_category.html", category=category, user=user)
+    return render_template("edit_category.html", category=category)
+
+
+@app.route("/delete_category/<category_id>")
+def delete_category(category_id):
+    mongo.db.recipes.update_many(
+        {"categories._id": ObjectId(category_id)},
+        {"$pull": {"categories": {"_id": ObjectId(category_id)}}})
+    mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
+    flash("Category successfully deleted")
+    return redirect(url_for("categories"))
 
 
 @app.route("/contact")
