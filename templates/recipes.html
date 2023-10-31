@@ -33,7 +33,7 @@
                             <a href="#"><i class="material-icons">edit</i></a>
                         </div>
                         <div class="col s3 center-align">
-                            <a href="#"><i class="material-icons">delete</i></a>
+                            <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}"><i class="material-icons">delete</i></a>
                         </div>
                     </div>
                 </div>
