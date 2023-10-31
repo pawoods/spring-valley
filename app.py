@@ -78,8 +78,7 @@ def register():
                 "password": generate_password_hash(request.form.get("password")),
                 "photo_url": request.form.get("photo_url"),
                 "is_super": False,
-                "is_admin": False
-            }
+                "is_admin": False}
             mongo.db.users.insert_one(new_user)
 
             # puts new user id into session cookie
@@ -154,14 +153,49 @@ def recipes():
     return render_template("recipes.html", recipes=recipes)
 
 
-@app.route("/add_recipe")
+@app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
-    return render_template("add_recipe.html")
+    user = get_user(session["user"])
+
+    if request.method == "POST":
+        selected_categories = request.form.getlist("category_name")
+        recipe_categories = []
+        for category in selected_categories:
+            category_object = mongo.db.categories.find_one(
+                {"category_name": category})
+            recipe_categories.append(category_object)
+
+        recipe = {
+            "categories": recipe_categories,
+            "recipe_name": request.form.get("recipe_name"),
+            "ingredients": request.form.getlist("ingredient"),
+            "instructions": request.form.getlist("instruction"),
+            "recipe_description": request.form.get("recipe_description"),
+            "created_by": {
+                "username": user["username"],
+                "user_id": user["user_id"]
+            },
+            "serves": request.form.get("serves"),
+            "prep_time": request.form.get("prep_time"),
+            "cook_time": request.form.get("cook_time"),
+            "likes": []
+        }
+        mongo.db.recipes.insert_one(recipe)
+        flash("Recipe successfully added")
+        return redirect(url_for("recipes"))
+
+    categories = mongo.db.categories.find()
+    return render_template("add_recipe.html", categories=categories)
 
 
 @app.route("/edit_recipe")
 def edit_recipe():
     return render_template("edit_recipe.html")
+
+
+@app.route("/delete_recipe")
+def delete_recipe():
+    return redirect(url_for("recipes"))
 
 
 @app.route("/categories")
@@ -171,8 +205,8 @@ def categories():
     if "user" in session:
         user = get_user(session["user"])
         return render_template(
-            "categories.html", 
-            categories=categories, 
+            "categories.html",
+            categories=categories,
             user=user)
 
     return render_template("categories.html", categories=categories)
@@ -181,12 +215,13 @@ def categories():
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
     if request.method == "POST":
+        # Adds new category to the database
         category = {
             "category_name": request.form.get("category_name"),
             "category_description": request.form.get("category_description"),
-            "category_color": request.form.get("category_color")
-        }
+            "category_color": request.form.get("category_color")}
         mongo.db.categories.insert_one(category)
+
         flash("New category added!")
         return redirect(url_for("categories"))
     # if signed in, adds current user to template for use on front end
@@ -204,24 +239,22 @@ def edit_category(category_id):
         edit = {
             "category_name": request.form.get("category_name"),
             "category_description": request.form.get("category_description"),
-            "category_color": request.form.get("category_color")
-        }
+            "category_color": request.form.get("category_color")}
         mongo.db.categories.update_one({"_id": ObjectId(category_id)}, {
             "$set": edit})
         # Updates the category on all applicable recipes in recipe database
         query = {
-            "categories._id": ObjectId(category_id)
-        }
+            "categories._id": ObjectId(category_id)}
         update = {"$set": {
-                "categories.$.category_name":
-                    request.form.get("category_name"),
+            "categories.$.category_name":
+            request.form.get("category_name"),
                 "categories.$.category_color":
                     request.form.get("category_color")}}
         mongo.db.tasks.update_many(query, update)
 
         flash("Category successfully updated")
         return redirect(url_for("categories"))
-
+    # if signed in, adds current user to template for use on front end
     if "user" in session:
         user = get_user(session["user"])
         category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
@@ -235,6 +268,7 @@ def delete_category(category_id):
         {"categories._id": ObjectId(category_id)},
         {"$pull": {"categories": {"_id": ObjectId(category_id)}}})
     mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
+
     flash("Category successfully deleted")
     return redirect(url_for("categories"))
 
