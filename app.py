@@ -54,7 +54,8 @@ def register():
         elif existing_email:
             flash("Email already exists")
             return redirect(url_for("register"))
-        elif request.form.get("password") != request.form.get("password_check"):
+        elif request.form.get("password") != request.form.get(
+                "password_check"):
             flash("Passwords do not match")
             return redirect(url_for("register"))
         else:
@@ -75,7 +76,8 @@ def register():
                 "l_name": request.form.get("l_name"),
                 "email": request.form.get("email"),
                 "username": request.form.get("username"),
-                "password": generate_password_hash(request.form.get("password")),
+                "password": generate_password_hash(
+                    request.form.get("password")),
                 "photo_url": request.form.get("photo_url"),
                 "is_super": False,
                 "is_admin": False}
@@ -99,7 +101,8 @@ def sign_in():
         if existing_user:
             # checks password matches user input
             if check_password_hash(
-                    existing_user["password"], request.form.get("password")):
+                    existing_user["password"],
+                    request.form.get("password")):
                 # puts signed in user id into session cookie
                 session["user"] = existing_user["user_id"]
                 flash("Welcome, {}".format(
@@ -137,7 +140,10 @@ def recipe_details(recipe_id):
     # if signed in, adds current user to template for use on front end
     if "user" in session:
         user = get_user(session["user"])
-        return render_template("recipe_details.html", recipe=recipe, user=user)
+        return render_template(
+            "recipe_details.html",
+            recipe=recipe,
+            user=user)
 
     return render_template("recipe_details.html", recipe=recipe)
 
@@ -223,11 +229,11 @@ def edit_recipe(recipe_id):
             "prep_time": request.form.get("prep_time"),
             "cook_time": request.form.get("cook_time"),
             "likes": []}
-    
+
         mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
             "$set": edit})
         flash("Recipe successfully updated")
-        return redirect( url_for("recipes") )
+        return redirect(url_for("recipes"))
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     categories = mongo.db.categories.find()
@@ -306,7 +312,10 @@ def edit_category(category_id):
     if "user" in session:
         user = get_user(session["user"])
         category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
-        return render_template("edit_category.html", category=category, user=user)
+        return render_template(
+            "edit_category.html",
+            category=category,
+            user=user)
     return render_template("edit_category.html", category=category)
 
 
