@@ -337,7 +337,13 @@ def contact():
 
 @app.route("/users")
 def users():
-    return render_template("users.html")
+    if "user" in session:
+        user = get_user(session["user"])
+        if user["is_admin"]:
+            users = mongo.db.users.find()
+            return render_template("users.html", users=users, user=user)
+    flash("Access denied to users page")  
+    return redirect(url_for("home"))
 
 
 @app.route("/sign_out")
