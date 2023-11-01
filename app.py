@@ -252,6 +252,19 @@ def delete_recipe(recipe_id):
     return redirect(url_for("recipes"))
 
 
+@app.route("/recipe_like/<recipe_id>")
+def recipe_like(recipe_id):
+    likes = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})["likes"]
+    if session["user"] in likes:
+        mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
+            "$pull": {"likes": session["user"]}})
+        return redirect(url_for("recipes"))
+
+    mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
+        "$push": {"likes": session["user"]}})
+    return redirect(url_for("recipes"))
+
+
 @app.route("/categories")
 def categories():
     categories = mongo.db.categories.find()
@@ -342,7 +355,7 @@ def users():
         if user["is_admin"]:
             users = mongo.db.users.find()
             return render_template("users.html", users=users, user=user)
-    flash("Access denied to users page")  
+    flash("Access denied to users page")
     return redirect(url_for("home"))
 
 

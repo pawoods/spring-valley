@@ -2,7 +2,11 @@
 .card .image-height {
     height: 200px;
     overflow: hidden;
-}   
+}
+
+.card .card-action i {
+    color: dimgrey;
+}
 
 .tags .col {
     padding: 0.75rem 0;
