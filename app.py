@@ -164,12 +164,18 @@ def add_recipe():
             category_object = mongo.db.categories.find_one(
                 {"category_name": category})
             recipe_categories.append(category_object)
+        # gets ingredients and instructions lists and removed blank entries
+        ingredients = request.form.getlist("ingredient")
+        filtered_ingredients = [x for x in ingredients if x]
+
+        instructions = request.form.getlist("instruction")
+        filtered_instructions = [x for x in instructions if x]
 
         recipe = {
             "categories": recipe_categories,
             "recipe_name": request.form.get("recipe_name"),
-            "ingredients": request.form.getlist("ingredient"),
-            "instructions": request.form.getlist("instruction"),
+            "ingredients": filtered_ingredients,
+            "instructions": filtered_instructions,
             "recipe_description": request.form.get("recipe_description"),
             "created_by": {
                 "username": user["username"],
@@ -201,7 +207,7 @@ def edit_recipe(recipe_id):
         ingredients = request.form.getlist("ingredient")
         filtered_ingredients = [x for x in ingredients if x]
 
-        instructions = request.form.getlist("instructions")
+        instructions = request.form.getlist("instruction")
         filtered_instructions = [x for x in instructions if x]
 
         edit = {
