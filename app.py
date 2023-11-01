@@ -173,13 +173,11 @@ def add_recipe():
             "recipe_description": request.form.get("recipe_description"),
             "created_by": {
                 "username": user["username"],
-                "user_id": user["user_id"]
-            },
+                "user_id": user["user_id"]},
             "serves": request.form.get("serves"),
             "prep_time": request.form.get("prep_time"),
             "cook_time": request.form.get("cook_time"),
-            "likes": []
-        }
+            "likes": []}
         mongo.db.recipes.insert_one(recipe)
         flash("Recipe successfully added")
         return redirect(url_for("recipes"))
@@ -188,9 +186,50 @@ def add_recipe():
     return render_template("add_recipe.html", categories=categories)
 
 
-@app.route("/edit_recipe")
-def edit_recipe():
-    return render_template("edit_recipe.html")
+@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
+def edit_recipe(recipe_id):
+    user = get_user(session["user"])
+
+    if request.method == "POST":
+        selected_categories = request.form.getlist("category_name")
+        recipe_categories = []
+        for category in selected_categories:
+            category_object = mongo.db.categories.find_one(
+                {"category_name": category})
+            recipe_categories.append(category_object)
+        # gets ingredients and instructions lists and removed blank entries
+        ingredients = request.form.getlist("ingredient")
+        filtered_ingredients = [x for x in ingredients if x]
+
+        instructions = request.form.getlist("instructions")
+        filtered_instructions = [x for x in instructions if x]
+
+        edit = {
+            "categories": recipe_categories,
+            "recipe_name": request.form.get("recipe_name"),
+            "ingredients": filtered_ingredients,
+            "instructions": filtered_instructions,
+            "recipe_description": request.form.get("recipe_description"),
+            "created_by": {
+                "username": user["username"],
+                "user_id": user["user_id"]},
+            "serves": request.form.get("serves"),
+            "prep_time": request.form.get("prep_time"),
+            "cook_time": request.form.get("cook_time"),
+            "likes": []}
+    
+        mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
+            "$set": edit})
+        flash("Recipe successfully updated")
+        return redirect( url_for("recipes") )
+
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    categories = mongo.db.categories.find()
+    return render_template(
+        "edit_recipe.html",
+        categories=categories,
+        recipe=recipe,
+        user=user)
 
 
 @app.route("/delete_recipe/<recipe_id>")
