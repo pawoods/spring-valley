@@ -359,6 +359,24 @@ def users():
     return redirect(url_for("home"))
 
 
+@app.route("/super_user/<user_id>")
+def super_user(user_id):
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    if user["is_super"]:
+        mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+            "$set": {"is_super": False}})
+    else:
+        mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+            "$set": {"is_super": True}})
+    return redirect(url_for("users"))
+
+
+@app.route("/admin_user/<user_id>")
+def admin_user(user_id):
+
+    return redirect(url_for("users"))
+
+
 @app.route("/sign_out")
 def sign_out():
     # remove user_id from session cookie
