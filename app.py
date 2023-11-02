@@ -373,7 +373,13 @@ def super_user(user_id):
 
 @app.route("/admin_user/<user_id>")
 def admin_user(user_id):
-
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    if user["is_admin"]:
+        mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+            "$set": {"is_admin": False}})
+    else:
+        mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+            "$set": {"is_admin": True}})
     return redirect(url_for("users"))
 
 
