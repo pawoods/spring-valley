@@ -23,16 +23,23 @@
                 </div>
                 <div class="card-action">
                     <div class="row">
-                        {% if user.user_id in recipe.likes %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('recipe_like', recipe_id=recipe._id) }}"><i class="material-icons pink-text">favorite</i></a>
-                            <span>{{ recipe.likes|length }}</span>
-                        </div>
+                        {% if user %}
+                            {% if user.user_id in recipe.likes %}
+                                <div class="col s3 center-align">
+                                    <a href="{{ url_for('recipe_like', recipe_id=recipe._id) }}"><i class="material-icons pink-text">favorite</i></a>
+                                    <span>{{ recipe.likes|length }}</span>
+                                </div>
+                            {% else %}
+                                <div class="col s3 center-align">
+                                    <a href="{{ url_for('recipe_like', recipe_id=recipe._id) }}"><i class="material-icons">favorite</i></a>
+                                    <span>{{ recipe.likes|length }}</span>
+                                </div>
+                            {% endif %}
                         {% else %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('recipe_like', recipe_id=recipe._id) }}"><i class="material-icons">favorite</i></a>
-                            <span>{{ recipe.likes|length }}</span>
-                        </div>
+                            <div class="col s3 center-align">
+                                <div href="{{ url_for('recipe_like', recipe_id=recipe._id) }}"><i class="material-icons">favorite</i></div>
+                                <span>{{ recipe.likes|length }}</span>
+                            </div>
                         {% endif %}
                         <div class="col s3 center-align">
                             <a href="#"><i class="material-icons">add</i></a>

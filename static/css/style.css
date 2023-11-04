@@ -1,3 +1,10 @@
+.sidenav {
+    width: 250px;
+}
+
+.sidenav li>a>i {
+    margin: 0 16px 0 0;
+}
 
 .card .image-height {
     height: 200px;
@@ -8,10 +15,35 @@
     color: dimgrey;
 }
 
+.card .card-action .row {
+    margin: 0;
+}
+
+.card .card-action .col {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+    margin-right: 0;
+}
+
 .tags .col {
     padding: 0.75rem 0;
 }
 
-.hidden {
-    display: none;
+.page-footer {
+    background-color: #380000;
+}
+
+.social-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.social-links i {
+    font-size: 32px;
+    padding: 0 16px;
 }

@@ -6,20 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     <title>Project 3</title>
 </head>
 <body>
     <!-- Header -->
     <header>
-        <nav>
-            <div class="nav-wrapper amber lighten-5">
-                <a href="{{ url_for('home') }}" class="brand-logo teal-text text-darken-4">CookBook</a>
-                <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large right">
-                    <i class="material-icons teal-text text-darken-4">menu</i>
-                </a>
-            </div>
-        </nav>
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper teal darken-4">
+                    <a href="{{ url_for('home') }}" class="brand-logo center white-text">CookBook</a>
+                    <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large right">
+                        <i class="material-icons white-text">menu</i>
+                    </a>
+                </div>
+            </nav>
+        </div>
         
         <ul id="slide-out" class="sidenav">
             <li>
@@ -27,9 +30,11 @@
                     <div class="background teal darken-4">
                     </div>
                     {% if user %}
-                    <a href="{{ url_for('profile') }}"><img class="circle" src="{{ user.photo_url }}" alt="Profile"></a>
-                    <span class="white-text name">{{ user.f_name }} {{ user.l_name }}</span>
-                    <span class="white-text email">{{ user.username }}</span>
+                        <a href="{{ url_for('profile') }}">
+                            <img class="circle" src="{{ user.photo_url }}" alt="Profile">
+                        </a>
+                        <span class="white-text">{{ user.f_name }} {{ user.l_name }}</span>
+                        <span class="white-text email">{{ user.username }}</span>
                     {% endif %}
                 </div>
             </li>
@@ -37,17 +42,20 @@
             <li>
                 <div class="divider"></div>
             </li>
-            <li><a href="{{ url_for('home') }}"><i class="material-icons">cloud</i>Home</a></li>
-            <li><a href="{{ url_for('recipes') }}"><i class="material-icons">cloud</i>Recipes</a></li>
-            <li><a href="{{ url_for('categories') }}"><i class="material-icons">cloud</i>Categories</a></li>
-            <li><a href="{{ url_for('users') }}"><i class="material-icons">cloud</i>Users</a></li>
-            <li><a href="{{ url_for('contact') }}"><i class="material-icons">cloud</i>Contact</a></li>
+            <li><a href="{{ url_for('home') }}"><i class="fa-solid fa-house"></i>Home</a></li>
+            <li><a href="{{ url_for('recipes') }}"><i class="fa-solid fa-bowl-food"></i>Recipes</a></li>
+            <li><a href="{{ url_for('categories') }}"><i class="fa-solid fa-layer-group"></i>Categories</a></li>
+            <li><a href="{{ url_for('users') }}"><i class="fa-solid fa-users"></i>Users</a></li>
+            <li><a href="{{ url_for('contact') }}"><i class="fa-regular fa-envelope"></i>Get in touch</a></li>
             <li>
                 <div class="divider"></div>
             </li>
-            <li><a href="{{ url_for('sign_in') }}">Sign In</a></li>
-            <li><a href="{{ url_for('sign_out') }}">Sign Out</a></li>
-            <li><a href="{{ url_for('register') }}">Register</a></li>
+            {% if user %}
+                <li><a href="{{ url_for('sign_out') }}"><i class="fa-solid fa-arrow-right-from-bracket"></i>Sign Out</a></li>
+            {% else %}
+                <li><a href="{{ url_for('sign_in') }}"><i class="fa-solid fa-arrow-right-to-bracket"></i>Sign In</a></li>
+                <li><a href="{{ url_for('register') }}"><i class="fa-solid fa-user-plus"></i>Register</a></li>
+            {% endif %}
         </ul>
         
     </header>
@@ -72,8 +80,42 @@
         {% endblock %}
     </main>
     <!-- Footer -->
-    <footer>
-        
+    <footer class="page-footer">
+        <div class="container center-align">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Get in touch!</h5>
+                    <p class="grey-text text-lighten-4">
+                        Want to talk to us about any of the recipes on our site, got some suggestions for us or just want to say hi, get in touch <a href="{{ url_for('contact') }}">here!</a>
+                    </p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Social Media</h5>
+                    <ul class="social-links">
+                        <li>
+                            <a class="grey-text text-lighten-3" href="#!">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="#!">
+                                <i class="fa-brands fa-square-facebook"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="grey-text text-lighten-3" href="#!">
+                                <i class="fa-brands fa-square-youtube"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright center-align amber lighten-4 teal-text text-darken-4">
+            <div class="container">
+                © 2014 Copyright Text
+            </div>
+        </div>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

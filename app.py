@@ -39,7 +39,7 @@ def home():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        # check if username is already in users collection
+        # check if username and email are already in users collection
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username")})
         existing_email = mongo.db.users.find_one(
