@@ -252,17 +252,17 @@ def delete_recipe(recipe_id):
     return redirect(url_for("recipes"))
 
 
-@app.route("/recipe_like/<recipe_id>")
-def recipe_like(recipe_id):
+@app.route("/recipe_like/<recipe_id>/<page>")
+def recipe_like(recipe_id, page):
     likes = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})["likes"]
     if session["user"] in likes:
         mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
             "$pull": {"likes": session["user"]}})
-        return redirect(url_for("recipes"))
+        return redirect(url_for(page))
 
     mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
         "$push": {"likes": session["user"]}})
-    return redirect(url_for("recipes"))
+    return redirect(url_for(page))
 
 
 @app.route("/categories")
