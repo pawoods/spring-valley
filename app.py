@@ -3,6 +3,7 @@ from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
+from datetime import datetime
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
@@ -134,7 +135,7 @@ def edit_details():
     return render_template("edit_details.html")
 
 
-@app.route("/recipe_details/<recipe_id>", methods=["GET", "POST"])
+@app.route("/recipe_details/<recipe_id>")
 def recipe_details(recipe_id):
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     # if signed in, adds current user to template for use on front end
@@ -189,7 +190,8 @@ def add_recipe():
             "serves": request.form.get("serves"),
             "prep_time": request.form.get("prep_time"),
             "cook_time": request.form.get("cook_time"),
-            "likes": []}
+            "likes": [],
+            "created_date": datetime.now()}
         mongo.db.recipes.insert_one(recipe)
         flash("Recipe successfully added")
         return redirect(url_for("recipes"))
@@ -315,9 +317,12 @@ def edit_category(category_id):
         update = {"$set": {
             "categories.$.category_name":
             request.form.get("category_name"),
-                "categories.$.category_color":
-                    request.form.get("category_color")}}
-        mongo.db.tasks.update_many(query, update)
+            "categories.$.category_description":
+            request.form.get("category_description"),
+            "categories.$.category_color":
+            request.form.get("category_color")}
+        }
+        mongo.db.recipes.update_many(query, update)
 
         flash("Category successfully updated")
         return redirect(url_for("categories"))
