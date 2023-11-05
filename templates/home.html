@@ -42,7 +42,7 @@
                         </div>
                         {% endif %}
                         <div class="col s3 center-align">
-                            <a href="#" class="tooltipped" data-position="bottom" data-tooltip="See full recipe"><i class="material-icons">open_in_new</i></a>
+                            <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}" class="tooltipped" data-position="bottom" data-tooltip="See full recipe"><i class="material-icons">open_in_new</i></a>
                         </div>
                         {% if user %}
                             {% if recipe.created_by.user_id == user.user_id %}
