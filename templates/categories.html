@@ -2,38 +2,51 @@
 {% block content %}
     <h3 class="center-align teal-text text-darken-4">Categories</h3>
     <div class="row">
-        <div class="col s12">
-            <p class="center-align">
-                Add new category 
-                <a href="{{ url_for('add_category') }}" class="teal-text text-darken-4">Here!</a>
-            </p>
-            <div class="category-cards">
-                {% for category in categories %}
-                    <div class="col s12 m4 center-align">
-                        <div class="card {{ category.category_color }}">
-                            <div class="card-content black-text">
-                                <span class="card-title">{{ category.category_name }}</span>
-                                <p>{{ category.category_description }}</p>
-                            </div>
-                            <div class="card-action">
-                                <div class="row">
-                                    <div class="col s6 center-align">
-                                        <a href="{{ url_for('edit_category', category_id=category._id) }}">
-                                            <i class="material-icons">edit</i>
-                                        </a>
-                                    </div>
-                                    <div class="col s6 center-align">
-                                        <a href="{{ url_for('delete_category', category_id=category._id) }}">
-                                            <i class="material-icons">delete</i>
-                                        </a>
-                                    </div>
+        <div class="category-cards">
+            {% for category in categories %}
+                <div class="col s12 m4 center-align">
+                    <div class="card">
+                        <div class="card-content black-text">
+                            <span class="card-title btn black-text {{ category.category_color }}">{{ category.category_name }}</span>
+                            <p>{{ category.category_description }}</p>
+                        </div>
+                        <div class="card-action amber lighten-5">
+                            <div class="row">
+                                <!-- Search -->
+                                <div class="col s3 center-align">
+                                    <a href="#">
+                                        <i class="material-icons">search</i>
+                                    </a>
                                 </div>
+                                <!-- Blank -->
+                                <div class="col s3 center-align">
+                                </div>
+                                {% if user.is_super or user.is_admin %}
+                                <!-- Edit -->
+                                <div class="col s3 center-align">
+                                    <a href="{{ url_for('edit_category', category_id=category._id) }}">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                </div>
+                                <!-- Delete -->
+                                <div class="col s3 center-align">
+                                    <a href="{{ url_for('delete_category', category_id=category._id) }}">
+                                        <i class="material-icons">delete</i>
+                                    </a>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
-    
+    {% if user %}
+    <div class="fixed-action-btn">
+        <a href="{{ url_for('add_category') }}" class="btn-floating btn-large teal darken-4">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
+    {% endif %}
 {% endblock %}

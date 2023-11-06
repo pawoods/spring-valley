@@ -14,12 +14,10 @@
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">{{ recipe.recipe_name }}<i
                             class="material-icons right">more_vert</i></span>
-                    {% if recipe.created_datetime %}
                         <p>
                             <em>{{ recipe.created_by.username }} - 
-                            {{ recipe.created_datetime.day }}/{{ recipe.created_datetime.month }}/{{ recipe.created_datetime.year }}</em>
+                            {{ recipe.created_date.day }}/{{ recipe.created_date.month }}/{{ recipe.created_date.year }}</em>
                         </p>
-                    {% endif %}
                 </div>
                 <!-- Card Action -->
                 <div class="card-action amber lighten-5">
@@ -73,9 +71,7 @@
                             class="material-icons right">close</i></span>
                     <p>{{ recipe.recipe_description }}</p>
                     {% for category in recipe.categories %}
-                    <div class="col s12 center-align">
-                        <div class="card-panel {{ category.category_color }}">{{ category.category_name }}</div>
-                    </div>
+                        <div class="card-title btn black-text {{ category.category_color }}">{{ category.category_name }}</div>
                     {% endfor %}
                 </div>
             </div>

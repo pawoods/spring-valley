@@ -14,7 +14,10 @@
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">{{ recipe.recipe_name }}<i
                             class="material-icons right">more_vert</i></span>
-                    <p><em>{{ recipe.created_by.username }}</em></p>
+                    <p>
+                        <em>{{ recipe.created_by.username }} -
+                            {{ recipe.created_date.day }}/{{ recipe.created_date.month }}/{{ recipe.created_date.year }}</em>
+                    </p>
                 </div>
                 <!-- Card Action -->
                 <div class="card-action amber lighten-5">
