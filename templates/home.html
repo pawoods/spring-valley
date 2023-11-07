@@ -83,7 +83,7 @@
 
     <h4 class="center-align teal-text text-darken-4">Most Liked Recipes</h4>
     <div class="row">
-        {% for new_recipe in new_recipes %}
+        {% for popular_recipe in popular_recipes %}
         <!-- Card -->
         <div class="col s12 m6 l4">
             <div class="card sticky-action">
@@ -93,29 +93,29 @@
                 </div>
                 <!-- Card Content -->
                 <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">{{ new_recipe.recipe_name }}<i
+                    <span class="card-title activator grey-text text-darken-4">{{ popular_recipe.recipe_name }}<i
                             class="material-icons right">more_vert</i></span>
                     <p>
-                        <em>{{ new_recipe.created_by.username }} -
-                            {{ new_recipe.created_date.day }}/{{ new_recipe.created_date.month }}/{{
-                            new_recipe.created_date.year }}</em>
+                        <em>{{ popular_recipe.created_by.username }} -
+                            {{ popular_recipe.created_date.day }}/{{ popular_recipe.created_date.month }}/{{
+                            popular_recipe.created_date.year }}</em>
                     </p>
                 </div>
                 <!-- Card Action -->
                 <div class="card-action amber lighten-5">
                     <div class="row">
                         {% if user %}
-                        {% if user.user_id in new_recipe.likes.id %}
+                        {% if user.user_id in popular_recipe.likes.id %}
                         <div class="col s3 center-align">
-                            <a href="{{ url_for('recipe_like', recipe_id=new_recipe._id, page='home') }}"><i
+                            <a href="{{ url_for('recipe_like', recipe_id=popular_recipe._id, page='home') }}"><i
                                     class="material-icons pink-text">favorite</i></a>
-                            <span>{{ new_recipe.likes.count }}</span>
+                            <span>{{ popular_recipe.likes.count }}</span>
                         </div>
                         {% else %}
                         <div class="col s3 center-align">
-                            <a href="{{ url_for('recipe_like', recipe_id=new_recipe._id, page='home') }}"><i
+                            <a href="{{ url_for('recipe_like', recipe_id=popular_recipe._id, page='home') }}"><i
                                     class="material-icons">favorite</i></a>
-                            <span>{{ new_recipe.likes.count }}</span>
+                            <span>{{ popular_recipe.likes.count }}</span>
                         </div>
                         {% endif %}
                         {% else %}
@@ -123,18 +123,18 @@
                             <span class="tooltipped" data-position="bottom" data-tooltip="Likes">
                                 <i class="material-icons">favorite</i>
                             </span>
-                            <span>{{ new_recipe.likes.count }}</span>
+                            <span>{{ popular_recipe.likes.count }}</span>
                         </div>
                         {% endif %}
                         <div class="col s3 center-align">
-                            <a href="{{ url_for('recipe_details', recipe_id=new_recipe._id) }}" class="tooltipped"
+                            <a href="{{ url_for('recipe_details', recipe_id=popular_recipe._id) }}" class="tooltipped"
                                 data-position="bottom" data-tooltip="See full recipe"><i
                                     class="material-icons">open_in_new</i></a>
                         </div>
                         {% if user %}
-                        {% if new_recipe.created_by.user_id == user.user_id %}
+                        {% if popular_recipe.created_by.user_id == user.user_id %}
                         <div class="col s3 center-align">
-                            <a href="{{ url_for('edit_recipe', recipe_id=new_recipe._id) }}" class="tooltipped"
+                            <a href="{{ url_for('edit_recipe', recipe_id=popular_recipe._id) }}" class="tooltipped"
                                 data-position="bottom" data-tooltip="Edit">
                                 <div>
                                     <i class="material-icons">edit</i>
@@ -142,7 +142,7 @@
                             </a>
                         </div>
                         <div class="col s3 center-align">
-                            <a href="{{ url_for('delete_recipe', recipe_id=new_recipe._id) }}" class="tooltipped"
+                            <a href="{{ url_for('delete_recipe', recipe_id=popular_recipe._id) }}" class="tooltipped"
                                 data-position="bottom" data-tooltip="Delete"><i class="material-icons">delete</i></a>
                         </div>
                         {% endif %}
@@ -150,10 +150,10 @@
                     </div>
                 </div>
                 <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">{{ new_recipe.recipe_name }}<i
+                    <span class="card-title grey-text text-darken-4">{{ popular_recipe.recipe_name }}<i
                             class="material-icons right">close</i></span>
-                    <p>{{ new_recipe.recipe_description }}</p>
-                    {% for category in new_recipe.categories %}
+                    <p>{{ popular_recipe.recipe_description }}</p>
+                    {% for category in popular_recipe.categories %}
                     <div class="col s12 center-align">
                         <div class="card-panel {{ category.category_color }}">{{ category.category_name }}</div>
                     </div>

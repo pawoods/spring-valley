@@ -29,13 +29,13 @@ def get_user(user_id):
 @app.route("/home")
 def home():
     new_recipes = mongo.db.recipes.find().sort("created_date", -1).limit(3)
-    popular_recipes = mongo.db.recipes.find().sort("")
+    popular_recipes = mongo.db.recipes.find().sort("likes.count", -1).limit(3)
     # adds current user if signed in
     if "user" in session:
         user = mongo.db.users.find_one({"user_id": session["user"]})
-        return render_template("home.html", new_recipes=new_recipes, user=user)
+        return render_template("home.html", new_recipes=new_recipes, popular_recipes=popular_recipes, user=user)
 
-    return render_template("home.html", new_recipes=new_recipes)
+    return render_template("home.html", new_recipes=new_recipes, popular_recipes=popular_recipes)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -152,7 +152,7 @@ def recipe_details(recipe_id):
 
 @app.route("/recipes")
 def recipes():
-    recipes = mongo.db.recipes.find()
+    recipes = mongo.db.recipes.find().sort("recipe_name", 1)
     # if signed in, adds current user to template for use on front end
     if "user" in session:
         user = get_user(session["user"])
