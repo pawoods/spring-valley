@@ -144,6 +144,17 @@ def edit_details():
     return render_template("edit_details.html")
 
 
+@app.route("/delete_user/<user_id>/<page>")
+def delete_user(user_id, page):
+    deleted = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    if deleted["user_id"] == session["user"]:
+        session.pop("user")
+    mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+
+    flash("User successfully deleted")
+    return redirect(url_for(page))
+
+
 @app.route("/recipe_details/<recipe_id>")
 def recipe_details(recipe_id):
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
