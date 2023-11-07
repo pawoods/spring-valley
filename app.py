@@ -33,9 +33,16 @@ def home():
     # adds current user if signed in
     if "user" in session:
         user = mongo.db.users.find_one({"user_id": session["user"]})
-        return render_template("home.html", new_recipes=new_recipes, popular_recipes=popular_recipes, user=user)
+        return render_template(
+            "home.html",
+            new_recipes=new_recipes,
+            popular_recipes=popular_recipes,
+            user=user)
 
-    return render_template("home.html", new_recipes=new_recipes, popular_recipes=popular_recipes)
+    return render_template(
+        "home.html",
+        new_recipes=new_recipes,
+        popular_recipes=popular_recipes)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -74,12 +81,13 @@ def register():
             # builds new user dict with default superuser and admin permissions
             new_user = {
                 "user_id": user_id,
-                "f_name": request.form.get("f_name"),
-                "l_name": request.form.get("l_name"),
+                "f_name": request.form.get("f_name").capitalize(),
+                "l_name": request.form.get("l_name").capitalize(),
                 "email": request.form.get("email"),
-                "username": request.form.get("username"),
+                "username": request.form.get("username").lower(),
                 "password": generate_password_hash(
                     request.form.get("password")),
+                "user_since": datetime.now(),
                 "photo_url": request.form.get("photo_url"),
                 "is_super": False,
                 "is_admin": False}
