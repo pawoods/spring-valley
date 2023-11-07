@@ -275,7 +275,7 @@ def recipe_like(recipe_id, page):
 
 @app.route("/categories")
 def categories():
-    categories = mongo.db.categories.find()
+    categories = mongo.db.categories.find().sort("category_name", 1)
     # if signed in, adds current user to template for use on front end
     if "user" in session:
         user = get_user(session["user"])
@@ -364,8 +364,9 @@ def users():
     if "user" in session:
         user = get_user(session["user"])
         if user["is_admin"]:
-            users = mongo.db.users.find()
+            users = mongo.db.users.find().sort("username", 1)
             return render_template("users.html", users=users, user=user)
+    # Redirects non-admin users back home with "Access denied" flash
     flash("Access denied to users page")
     return redirect(url_for("home"))
 
