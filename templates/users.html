@@ -40,10 +40,13 @@
                     </div>
                 </div>
                 <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">{{ u.username }}<i
+                    <span class="card-title grey-text text-darken-4">Username: {{ u.username }}<i
                             class="material-icons right">close</i></span>
-                    <p>{{ u.f_name }} {{ u.l_name }}</p>
-                    <p>{{ u.email }}</p>
+                    <p>
+                        Name: {{ u.f_name }} {{ u.l_name }}<br>
+                        Email: {{ u.email }}<br>
+                        User since: {{ u.user_since.day }}/{{ u.user_since.month }}/{{ u.user_since.year }}
+                    </p>
                 </div>
             </div>
         </div>
