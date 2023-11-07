@@ -28,13 +28,14 @@ def get_user(user_id):
 @app.route("/")
 @app.route("/home")
 def home():
-    recipes = mongo.db.recipes.find().sort("created_date", -1).limit(3)
+    new_recipes = mongo.db.recipes.find().sort("created_date", -1).limit(3)
+    popular_recipes = mongo.db.recipes.find().sort("")
     # adds current user if signed in
     if "user" in session:
         user = mongo.db.users.find_one({"user_id": session["user"]})
-        return render_template("home.html", recipes=recipes, user=user)
+        return render_template("home.html", new_recipes=new_recipes, user=user)
 
-    return render_template("home.html", recipes=recipes)
+    return render_template("home.html", new_recipes=new_recipes)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -190,7 +191,9 @@ def add_recipe():
             "serves": request.form.get("serves"),
             "prep_time": request.form.get("prep_time"),
             "cook_time": request.form.get("cook_time"),
-            "likes": [],
+            "likes": {
+                "count": 0,
+                "id": []},
             "created_date": datetime.now()}
         mongo.db.recipes.insert_one(recipe)
         flash("Recipe successfully added")
@@ -229,8 +232,7 @@ def edit_recipe(recipe_id):
                 "user_id": user["user_id"]},
             "serves": request.form.get("serves"),
             "prep_time": request.form.get("prep_time"),
-            "cook_time": request.form.get("cook_time"),
-            "likes": []}
+            "cook_time": request.form.get("cook_time")}
 
         mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
             "$set": edit})
@@ -257,13 +259,17 @@ def delete_recipe(recipe_id):
 @app.route("/recipe_like/<recipe_id>/<page>")
 def recipe_like(recipe_id, page):
     likes = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})["likes"]
-    if session["user"] in likes:
+    if session["user"] in likes["id"]:
+        new_count = likes["count"]-1
         mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
-            "$pull": {"likes": session["user"]}})
+            "$pull": {"likes.id": session["user"]},
+            "$set": {"likes.count": new_count}})
         return redirect(url_for(page))
 
+    new_count = likes["count"]+1
     mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
-        "$push": {"likes": session["user"]}})
+        "$push": {"likes.id": session["user"]},
+        "$set": {"likes.count": new_count}})
     return redirect(url_for(page))
 
 

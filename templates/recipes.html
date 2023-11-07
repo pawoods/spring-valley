@@ -23,17 +23,17 @@
                 <div class="card-action amber lighten-5">
                     <div class="row">
                         {% if user %}
-                        {% if user.user_id in recipe.likes %}
+                        {% if user.user_id in recipe.likes.id %}
                         <div class="col s3 center-align">
                             <a href="{{ url_for('recipe_like', recipe_id=recipe._id, page='recipes') }}"><i
                                     class="material-icons pink-text">favorite</i></a>
-                            <span>{{ recipe.likes|length }}</span>
+                            <span>{{ recipe.likes.count }}</span>
                         </div>
                         {% else %}
                         <div class="col s3 center-align">
                             <a href="{{ url_for('recipe_like', recipe_id=recipe._id, page='recipes') }}"><i
                                     class="material-icons">favorite</i></a>
-                            <span>{{ recipe.likes|length }}</span>
+                            <span>{{ recipe.likes.count }}</span>
                         </div>
                         {% endif %}
                         {% else %}
@@ -41,7 +41,7 @@
                             <span class="tooltipped" data-position="bottom" data-tooltip="Likes">
                                 <i class="material-icons">favorite</i>
                             </span>
-                            <span>{{ recipe.likes|length }}</span>
+                            <span>{{ recipe.likes.count }}</span>
                         </div>
                         {% endif %}
                         <div class="col s3 center-align">
