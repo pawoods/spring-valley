@@ -146,6 +146,7 @@ def edit_details(user_id, page):
         user = get_user(session["user"])
     if request.method == "POST":
         # check if username and email are already in users collection
+        # excluding current user
         existing_user = mongo.db.users.find_one({
             "$and": [{"_id": {"$ne": ObjectId(user_id)}}, {
                 "username": request.form.get("username")}]})
@@ -171,6 +172,22 @@ def edit_details(user_id, page):
                 "edit_details",
                 user_id=user_id,
                 page=page))
+
+        edit = {
+            "f_name": request.form.get("f_name").capitalize(),
+            "l_name": request.form.get("l_name").capitalize(),
+            "email": request.form.get("email"),
+            "username": request.form.get("username").lower(),
+            "photo_url": request.form.get("photo_url")
+        }
+        mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+            "$set": edit})
+
+        query = {"created_by.user_id": editing["user_id"]}
+        update = {"$set": {
+            "created_by.username": request.form.get("username").lower()}}
+        mongo.db.recipes.update_many(query, update)
+        flash("User details updated successfuly")
         return redirect(url_for(page))
 
     return render_template(
