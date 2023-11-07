@@ -28,7 +28,7 @@ def get_user(user_id):
 @app.route("/")
 @app.route("/home")
 def home():
-    recipes = mongo.db.recipes.find()
+    recipes = mongo.db.recipes.find().sort("created_date", -1).limit(3)
     # adds current user if signed in
     if "user" in session:
         user = mongo.db.users.find_one({"user_id": session["user"]})
