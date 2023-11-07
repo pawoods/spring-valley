@@ -9,7 +9,7 @@
                     <span class="card-title activator grey-text text-darken-4">{{ u.username }}<i
                             class="material-icons right">more_vert</i></span>
                 </div>
-                <div class="card-action">
+                <div class="card-action amber lighten-5">
                     <div class="row">
                         {% if u.is_super %}
                         <div class="col s3 center-align">
@@ -31,6 +31,12 @@
                             <a href="{{ url_for('admin_user', user_id=u._id) }}"><i class="material-icons">person_outline</i></a>
                         </div>
                         {% endif %}
+                        <div class="col s3 center-align">
+                            <a href="#"><i class="material-icons">edit</i></a>
+                        </div>
+                        <div class="col s3 center-align">
+                            <a href="#"><i class="material-icons">delete</i></a>
+                        </div>
                     </div>
                 </div>
                 <div class="card-reveal">
