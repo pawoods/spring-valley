@@ -139,14 +139,51 @@ def profile():
         return render_template("profile.html", user=user)
 
 
-@app.route("/edit_details")
-def edit_details():
-    return render_template("edit_details.html")
+@app.route("/edit_details/<user_id>/<page>", methods=["GET", "POST"])
+def edit_details(user_id, page):
+    editing = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    if "user" in session:
+        user = get_user(session["user"])
+    if request.method == "POST":
+        # check if username and email are already in users collection
+        existing_user = mongo.db.users.find_one({
+            "$and": [{"_id": {"$ne": ObjectId(user_id)}}, {
+                "username": request.form.get("username")}]})
+        existing_email = mongo.db.users.find_one({
+            "$and": [{"_id": {"$ne": ObjectId(user_id)}}, {
+                "email": request.form.get("email")}]})
+
+        if existing_user and existing_email:
+            flash("Username and email already exist")
+            return redirect(url_for(
+                "edit_details",
+                user_id=user_id,
+                page=page))
+        elif existing_user:
+            flash("Username already exists")
+            return redirect(url_for(
+                "edit_details",
+                user_id=user_id,
+                page=page))
+        elif existing_email:
+            flash("Email already exists")
+            return redirect(url_for(
+                "edit_details",
+                user_id=user_id,
+                page=page))
+        return redirect(url_for(page))
+
+    return render_template(
+        "edit_details.html",
+        editing=editing,
+        user=user,
+        page=page)
 
 
 @app.route("/delete_user/<user_id>/<page>")
 def delete_user(user_id, page):
     deleted = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    # Remove user from session if they delete themself
     if deleted["user_id"] == session["user"]:
         session.pop("user")
     mongo.db.users.delete_one({"_id": ObjectId(user_id)})

@@ -1,4 +1,59 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Edit Details</h1>
+
+<h3 class="center-align teal-text text-darken-4">Edit Details</h3>
+
+<div class="row">
+    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('edit_details', user_id=editing._id, page=page) }}">
+        <div class="card-panel">
+            <div class="row">
+                <!-- f_name -->
+                <div class="input-field col s6">
+                    <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                    <input id="f_name" name="f_name" type="text" class="validate" value="{{ editing.f_name }}" required>
+                    <label for="f_name">First Name</label>
+                </div>
+                <!-- l_name -->
+                <div class="input-field col s6">
+                    <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                    <input id="l_name" name="l_name" type="text" class="validate" value="{{ editing.l_name }}" required>
+                    <label for="l_name">Last Name</label>
+                </div>
+            </div>
+            <!-- email -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                    <input id="email" name="email" type="email" class="validate" value="{{ editing.email }}" required>
+                    <label for="email">Email Address</label>
+                </div>
+            </div>
+            <!-- username -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                    <input id="username" name="username" type="text" pattern="^[a-zA-Z0-9]{5,15}$" minlength="5"
+                        maxlength="15" class="validate" value="{{ editing.username }}" required>
+                    <label for="username">Username</label>
+                </div>
+            </div>
+            <!-- photo_url -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                    <input id="photo_url" name="photo_url" type="url" class="validate" value="{{ editing.photo_url }}">
+                    <label for="photo_url">Photo URL Link (optional)</label>
+                </div>
+            </div>
+            <!-- Submit -->
+            <div class="row">
+                <button type="submit" class="col s10 offset-s1 teal darken-4 btn-large">
+                    <i class="material-icons prefix white-text">arrow_right_alt</i>
+                    Update
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
 {% endblock %}
