@@ -7,8 +7,11 @@
         <div class="col s12 m6 l4">
             <div class="card sticky-action">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator"
-                        src="https://img.sunset02.com/sites/default/files/image/recipes/su/14/06/steak-salad-tomato-cheese-su-x.jpg">
+                    {% if recipe.photo_url %}
+                    <img class="activator" src="{{ recipe.photo_url }}">
+                    {% else %}
+                    <img class="activator" src="{{ url_for('static', filename='images/dinnertable.webp') }}">
+                    {% endif %}
                 </div>
                 <!-- Card Content -->
                 <div class="card-content">
