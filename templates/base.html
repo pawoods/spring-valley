@@ -37,7 +37,7 @@
                             {% if user.photo_url %}
                             <img class="circle" src="{{ user.photo_url }}" alt="Profile">
                             {% else %}
-                            <img class="circle" src="{{ url_for('static', filename='images/blankProfile.webp') }}" alt="Profile">
+                            <img class="circle" src="{{ url_for('static', filename='images/blankprofile.webp') }}" alt="Profile">
                             {% endif %}
                         </a>
                         <span class="white-text">{{ user.f_name }} {{ user.l_name }}</span>
