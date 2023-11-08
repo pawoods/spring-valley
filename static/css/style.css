@@ -49,6 +49,13 @@ body {
     margin-right: 0;
 }
 
+.card-content .circle, .sidenav .user-view .circle {
+    height: unset;
+    width: unset;
+    max-height: 64px;
+    max-width: 128px;
+}
+
 .tags .col {
     padding: 0.75rem 0;
 }
