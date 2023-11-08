@@ -29,10 +29,15 @@ body {
 
 .card .card-content {
     height: 150px;
+    overflow: auto;
 }
 
 .card .card-action i {
     color: dimgrey;
+}
+
+.card .card-content, .card .card-reveal {
+    padding: 20px;
 }
 
 .card .card-action .row {

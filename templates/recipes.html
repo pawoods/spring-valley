@@ -16,7 +16,9 @@
                             class="material-icons right">more_vert</i></span>
                         <p>
                             <em>{{ recipe.created_by.username }} - 
-                            {{ recipe.created_date.day }}/{{ recipe.created_date.month }}/{{ recipe.created_date.year }}</em>
+                            {{ recipe.created_date.day }}/{{ recipe.created_date.month }}/{{ recipe.created_date.year }}</em><br>
+                            Total time: {{ recipe.prep_time + recipe.cook_time }} Minutes<br>
+                            Serves: {{ recipe.serves }} People
                         </p>
                 </div>
                 <!-- Card Action -->

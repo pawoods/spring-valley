@@ -261,9 +261,9 @@ def add_recipe():
             "created_by": {
                 "username": user["username"],
                 "user_id": user["user_id"]},
-            "serves": request.form.get("serves"),
-            "prep_time": request.form.get("prep_time"),
-            "cook_time": request.form.get("cook_time"),
+            "serves": int(request.form.get("serves")),
+            "prep_time": int(request.form.get("prep_time")),
+            "cook_time": int(request.form.get("cook_time")),
             "likes": {
                 "count": 0,
                 "id": []},
@@ -303,9 +303,9 @@ def edit_recipe(recipe_id):
             "created_by": {
                 "username": user["username"],
                 "user_id": user["user_id"]},
-            "serves": request.form.get("serves"),
-            "prep_time": request.form.get("prep_time"),
-            "cook_time": request.form.get("cook_time")}
+            "serves": int(request.form.get("serves")),
+            "prep_time": int(request.form.get("prep_time")),
+            "cook_time": int(request.form.get("cook_time"))}
 
         mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
             "$set": edit})
