@@ -37,7 +37,7 @@ body {
 }
 
 .card .card-content, .card .card-reveal {
-    padding: 20px;
+    padding: 16px 20px;
 }
 
 .card .card-action .row {

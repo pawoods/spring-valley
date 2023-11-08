@@ -18,7 +18,9 @@
                             class="material-icons right">more_vert</i></span>
                     <p>
                         <em>{{ new_recipe.created_by.username }} -
-                            {{ new_recipe.created_date.day }}/{{ new_recipe.created_date.month }}/{{ new_recipe.created_date.year }}</em>
+                            {{ new_recipe.created_date.day }}/{{ new_recipe.created_date.month }}/{{ new_recipe.created_date.year }}</em><br>
+                            Total time: {{ new_recipe.prep_time + new_recipe.cook_time }} Minutes<br>
+                            Serves: {{ new_recipe.serves }} People
                     </p>
                 </div>
                 <!-- Card Action -->
@@ -66,6 +68,7 @@
                         {% endif %}
                     </div>
                 </div>
+                <!-- Card Reveal -->
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">{{ new_recipe.recipe_name }}<i
                             class="material-icons right">close</i></span>
@@ -98,7 +101,9 @@
                     <p>
                         <em>{{ popular_recipe.created_by.username }} -
                             {{ popular_recipe.created_date.day }}/{{ popular_recipe.created_date.month }}/{{
-                            popular_recipe.created_date.year }}</em>
+                            popular_recipe.created_date.year }}</em><br>
+                            Total time: {{ popular_recipe.prep_time + popular_recipe.cook_time }} Minutes<br>
+                            Serves: {{ popular_recipe.serves }} People
                     </p>
                 </div>
                 <!-- Card Action -->
