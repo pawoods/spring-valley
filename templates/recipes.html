@@ -8,9 +8,9 @@
             <div class="card sticky-action">
                 <div class="card-image waves-effect waves-block waves-light">
                     {% if recipe.photo_url %}
-                    <img class="activator" src="{{ recipe.photo_url }}">
+                        <img class="activator" src="{{ recipe.photo_url }}">
                     {% else %}
-                    <img class="activator" src="{{ url_for('static', filename='images/dinnertable.webp') }}">
+                        <img class="activator" src="{{ url_for('static', filename='images/dinnertable.webp') }}">
                     {% endif %}
                 </div>
                 <!-- Card Content -->
@@ -77,9 +77,9 @@
                             class="material-icons right">close</i></span>
                     <p>{{ recipe.recipe_description }}</p>
                     {% for category in recipe.categories %}
-                        <div class="col s12 center-align">
-                            <div class="card-panel {{ category.category_color }}">{{ category.category_name }}</div>
-                        </div>
+                        <a href="{{ url_for('filter_recipes', category_name=category.category_name) }}">
+                            <div class="card-panel black-text center-align {{ category.category_color }}">{{ category.category_name }}</div>
+                        </a>
                     {% endfor %}
                 </div>
             </div>

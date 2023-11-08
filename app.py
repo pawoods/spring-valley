@@ -234,6 +234,23 @@ def recipes():
     return render_template("recipes.html", recipes=recipes)
 
 
+@app.route("/filter_recipes/<category_name>")
+def filter_recipes(category_name):
+    recipes = mongo.db.recipes.find({"categories.category_name": category_name})
+    if "user" in session:
+        user = get_user(session["user"])
+        return render_template(
+            "filter_recipes.html",
+            recipes=recipes,
+            category_name=category_name,
+            user=user)
+
+    return render_template(
+        "filter_recipes.html",
+        recipes=recipes,
+        category_name=category_name)
+
+
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
     user = get_user(session["user"])
@@ -301,9 +318,6 @@ def edit_recipe(recipe_id):
             "ingredients": filtered_ingredients,
             "instructions": filtered_instructions,
             "recipe_description": request.form.get("recipe_description"),
-            "created_by": {
-                "username": user["username"],
-                "user_id": user["user_id"]},
             "serves": int(request.form.get("serves")),
             "prep_time": int(request.form.get("prep_time")),
             "cook_time": int(request.form.get("cook_time")),
