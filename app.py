@@ -236,7 +236,8 @@ def recipes():
 
 @app.route("/filter_recipes/<category_name>")
 def filter_recipes(category_name):
-    recipes = mongo.db.recipes.find({"categories.category_name": category_name})
+    recipes = mongo.db.recipes.find({
+        "categories.category_name": category_name})
     if "user" in session:
         user = get_user(session["user"])
         return render_template(
