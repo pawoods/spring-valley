@@ -5,7 +5,7 @@
 
 <div class="row">
     <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('edit_details', user_id=editing._id, page=page) }}">
-        <div class="card-panel">
+        <div class="card-panel form">
             <div class="row">
                 <!-- f_name -->
                 <div class="input-field col s6">
@@ -15,7 +15,6 @@
                 </div>
                 <!-- l_name -->
                 <div class="input-field col s6">
-                    <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
                     <input id="l_name" name="l_name" type="text" class="validate" value="{{ editing.l_name }}" required>
                     <label for="l_name">Last Name</label>
                 </div>
@@ -23,7 +22,7 @@
             <!-- email -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                    <i class="material-icons prefix teal-text text-darken-4">email</i>
                     <input id="email" name="email" type="email" class="validate" value="{{ editing.email }}" required>
                     <label for="email">Email Address</label>
                 </div>
@@ -31,16 +30,15 @@
             <!-- username -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
-                    <input id="username" name="username" type="text" pattern="^[a-zA-Z0-9]{5,15}$" minlength="5"
-                        maxlength="15" class="validate" value="{{ editing.username }}" required>
+                    <i class="material-icons prefix teal-text text-darken-4">assignment_ind</i>
+                    <input id="username" name="username" type="text" pattern="^[a-zA-Z0-9]{5,15}$" minlength="5" maxlength="15" class="validate" value="{{ editing.username }}" required>
                     <label for="username">Username</label>
                 </div>
             </div>
             <!-- photo_url -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                    <i class="material-icons prefix teal-text text-darken-4">photo</i>
                     <input id="photo_url" name="photo_url" type="url" class="validate" value="{{ editing.photo_url }}">
                     <label for="photo_url">Photo URL Link (optional)</label>
                 </div>
