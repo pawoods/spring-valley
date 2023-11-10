@@ -4,11 +4,11 @@
     
     <div class="row">
         <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('add_recipe') }}">
-            <div class="card-panel">
+            <div class="card-panel form">
                 <!-- recipe_name -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                        <i class="material-icons prefix teal-text text-darken-4">title</i>
                         <input id="recipe_name" name="recipe_name" type="text" class="validate" required>
                         <label for="recipe_name">Recipe Name</label>
                     </div>
@@ -16,13 +16,18 @@
                 <!-- recipe_description -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">key</i>
+                        <i class="material-icons prefix teal-text text-darken-4">subject</i>
                         <textarea id="recipe_description" name="recipe_description"
                             class="materialize-textarea validate" required></textarea>
                         <label for="recipe_description">Description</label>
                     </div>
                 </div>
                 <!-- categories -->
+                <div class="row">
+                    <div class="col s12 label">
+                        <i class="material-icons teal-text text-darken-4">view_stream</i>Categories
+                    </div>
+                </div>
                 <div class="row">
                     {% for category in categories %}
                     <div class="col s12 m6 l4 center-align">
@@ -36,35 +41,35 @@
                     {% endfor %}
                 </div>
                 <!-- ingredients -->
-                <div class="row">
-                    <div class="col s11 offset-s1">
-                        <ul id="ingredients">
-                            <span>Ingredients</span>
-                            <li class="row">
-                                <input class="col s10" type="text" name="ingredient">
-                                <i class="col s1 center-align material-icons add" onclick="add(event)">add</i>
-                                <i class="col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
-                            </li>
-                        </ul>
+                <div class="row no-margin">
+                    <div class="col s12 label">
+                        <i class="material-icons teal-text text-darken-4">toc</i>Ingredients
                     </div>
                 </div>
+                <ul class="row" id="ingredients">
+                    <li class="col s12">
+                        <input class="col s10" type="text" name="ingredient">
+                        <i class="col s1 material-icons add" onclick="add(event)">add</i>
+                        <i class="col s1 material-icons remove" onclick="remove(event)">remove</i>
+                    </li>
+                </ul>
                 <!-- instructions -->
-                <div class="row">
-                    <div class="col s12">
-                        <ol id="instructions">
-                            <span>Instructions</span>
-                            <li class="row">
-                                <input class="col s10" type="text" name="instruction">
-                                <i class="col s1 center-align material-icons add" onclick="add(event)">add</i>
-                                <i class="col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
-                            </li>
-                        </ol>
+                <div class="row no-margin">
+                    <div class="col s12 label">
+                        <i class="material-icons teal-text text-darken-4">view_list</i>Instructions
                     </div>
                 </div>
+                <ol class="row" id="instructions">
+                    <li class="col s12">
+                        <input class="col s10" type="text" name="instruction">
+                        <i class="col s1 material-icons add" onclick="add(event)">add</i>
+                        <i class="col s1 material-icons remove" onclick="remove(event)">remove</i>
+                    </li>
+                </ol>
                 <!-- serves -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                        <i class="material-icons prefix teal-text text-darken-4">people</i>
                         <input id="serves" name="serves" type="number" class="validate" required>
                         <label for="serves">Serves</label>
                         <span class="helper-text" data-error="People must be whole numbers" data-success="">People</span>
@@ -73,7 +78,7 @@
                 <!-- prep_time -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                        <i class="material-icons prefix teal-text text-darken-4">timer</i>
                         <input id="prep_time" name="prep_time" type="number" class="validate" required>
                         <label for="prep_time">Prep Time</label>
                         <span class="helper-text" data-error="Minutes must be whole numbers" data-success="">Minutes</span>
@@ -82,7 +87,7 @@
                 <!-- cook_time -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                        <i class="material-icons prefix teal-text text-darken-4">timelapse</i>
                         <input id="cook_time" name="cook_time" type="number" class="validate" required>
                         <label for="cook_time">Cook Time</label>
                         <span class="helper-text" data-error="Minutes must be whole numbers" data-success="">Minutes</span>
@@ -91,16 +96,16 @@
                 <!-- photo_url -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
-                        <input id="photo_url" name="photo_url" type="text" class="validate">
+                        <i class="material-icons prefix teal-text text-darken-4">photo</i>
+                        <input id="photo_url" name="photo_url" type="url" class="validate">
                         <label for="photo_url">Photo URL Link (optional)</label>
                     </div>
                 </div>
                 <!-- submit -->
                 <div class="row">
                     <button type="submit" class="col s10 offset-s1 teal darken-4 btn-large">
-                        <i class="material-icons prefix white-text">arrow_right_alt</i>
-                        <span>Submit</span>
+                        Submit
+                        <i class="material-icons prefix white-text">forward</i>
                     </button>
                 </div>
             </div>

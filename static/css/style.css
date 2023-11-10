@@ -1,4 +1,4 @@
-body {
+body, button, input, optgroup, select, textarea {
     font-family: 'Nunito', sans-serif;
 }
 
@@ -69,11 +69,61 @@ body {
     padding: 0.75rem 0;
 }
 
+.tags label {
+    padding: 0 10px;
+}
+
+[type="radio"]:not(:checked)+span, [type="radio"]:checked+span {
+    padding-left: 25px;
+}
+
 .form {
     padding: 24px;
 }
 
-.page-footer {
+.form .label {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.form .label i {
+    font-size: 2rem;
+    width: 3rem;
+}
+
+.no-margin {
+    margin: unset;
+}
+
+ul.row, ol.row {
+    margin-top: unset;
+}
+
+ol.row {
+    padding-inline-start: 2rem;
+}
+
+ol li.col.s12 {
+    padding-left: 0;
+}
+
+li.col.s12 i {
+    font-size: 2rem;
+    padding: 0;
+}
+
+.form button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form button i {
+    padding: 0 0 0 10px;
+}
+
+.deep-red {
     background-color: #380000;
 }
 

@@ -5,7 +5,7 @@
     
     <div class="row">
         <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register') }}">
-            <div class="card-panel">
+            <div class="card-panel form">
                 <div class="row">
                     <!-- f_name -->
                     <div class="input-field col s6">
@@ -15,7 +15,6 @@
                     </div>
                     <!-- l_name -->
                     <div class="input-field col s6">
-                        <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
                         <input id="l_name" name="l_name" type="text" class="validate" required>
                         <label for="l_name">Last Name</label>
                     </div>
@@ -23,7 +22,7 @@
                 <!-- email -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                        <i class="material-icons prefix teal-text text-darken-4">email</i>
                         <input id="email" name="email" type="email" class="validate" required>
                         <label for="email">Email Address</label>
                     </div>
@@ -31,7 +30,7 @@
                 <!-- username -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                        <i class="material-icons prefix teal-text text-darken-4">assignment_ind</i>
                         <input id="username" name="username" type="text" pattern="^[a-zA-Z0-9]{5,15}$" minlength="5"
                             maxlength="15" class="validate" required>
                         <label for="username">Username</label>
@@ -58,16 +57,20 @@
                 <!-- photo_url -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                        <i class="material-icons prefix teal-text text-darken-4">photo</i>
                         <input id="photo_url" name="photo_url" type="text" class="validate">
                         <label for="photo_url">Photo URL Link (optional)</label>
                     </div>
                 </div>
                 <!-- Register -->
                 <div class="row">
-                    <button type="submit" class="col s10 offset-s1 teal darken-4 btn-large">
-                        <i class="material-icons prefix white-text">arrow_right_alt</i>
+                    <button type="reset" class="col s5 deep-red btn-large">
+                        Clear
+                        <i class="material-icons white-text">undo</i>
+                    </button>
+                    <button type="submit" class="col s5 right teal darken-4 btn-large">
                         Register
+                        <i class="material-icons white-text">forward</i>
                     </button>
                 </div>
             </div>
