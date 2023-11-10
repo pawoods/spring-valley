@@ -292,7 +292,10 @@ def add_recipe():
         return redirect(url_for("recipes"))
 
     categories = mongo.db.categories.find()
-    return render_template("add_recipe.html", categories=categories)
+    return render_template(
+        "add_recipe.html",
+        categories=categories,
+        user=user)
 
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
@@ -379,6 +382,8 @@ def categories():
 
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
+    user = get_user(session["user"])
+
     if request.method == "POST":
         # Adds new category to the database
         category = {
@@ -389,16 +394,13 @@ def add_category():
 
         flash("New category added!")
         return redirect(url_for("categories"))
-    # if signed in, adds current user to template for use on front end
-    if "user" in session:
-        user = get_user(session["user"])
-        return render_template("add_category.html", user=user)
 
-    return render_template
+    return render_template("add_category.html", user=user)
 
 
 @app.route("/edit_category/<category_id>", methods=["GET", "POST"])
 def edit_category(category_id):
+    user = get_user(session["user"])
     if request.method == "POST":
         # Updates the category in the database
         edit = {
@@ -422,15 +424,12 @@ def edit_category(category_id):
 
         flash("Category successfully updated")
         return redirect(url_for("categories"))
-    # if signed in, adds current user to template for use on front end
-    if "user" in session:
-        user = get_user(session["user"])
-        category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
-        return render_template(
-            "edit_category.html",
-            category=category,
-            user=user)
-    return render_template("edit_category.html", category=category)
+
+    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+    return render_template(
+        "edit_category.html",
+        category=category,
+        user=user)
 
 
 @app.route("/delete_category/<category_id>")
@@ -446,6 +445,9 @@ def delete_category(category_id):
 
 @app.route("/contact")
 def contact():
+    if "user" in session:
+        user = get_user(session["user"])
+        return render_template("contact.html", user=user)
     return render_template("contact.html")
 
 
