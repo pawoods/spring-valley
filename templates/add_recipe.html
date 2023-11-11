@@ -28,11 +28,11 @@
                         <i class="material-icons teal-text text-darken-4">view_stream</i>Categories
                     </div>
                 </div>
-                <div class="row">
+                <div class="categories-container row">
                     {% for category in categories %}
                     <div class="col s12 m6 l4 center-align">
                         <div class="row">
-                            <label class="btn {{ category.category_color }} black-text">
+                            <label class="btn col s10 offset-s1 center-align {{ category.category_color }} black-text">
                                 <input type="checkbox" name="category_name" value="{{ category.category_name }}">
                                 <span>{{ category.category_name }}</span>
                             </label>
@@ -43,26 +43,30 @@
                 <!-- ingredients -->
                 <ul class="row" id="ingredients">
                     <div class="col s12 label">
-                        <i class="material-icons teal-text text-darken-4">toc</i>Ingredients
+                        <i class="material-icons teal-text text-darken-4">toc</i>
+                        Ingredients
+                        <i class="green-text center-align material-icons add" onclick="newItem(event, 'ingredient')">add</i>
                     </div>
                     <li class="col s12">
                         <div class="li-container">
                             <input class="col s10" type="text" name="ingredient">
-                            <i class="col s1 center-align material-icons add" onclick="add(event)">add</i>
-                            <i class="col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
+                            <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
+                            <i class="red-text col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
                         </div>
                     </li>
                 </ul>
                 <!-- instructions -->
                 <ol class="row" id="instructions">
                     <div class="col s12 label">
-                        <i class="material-icons teal-text text-darken-4">view_list</i>Instructions
+                        <i class="material-icons teal-text text-darken-4">view_list</i>
+                        Instructions
+                        <i class="green-text center-align material-icons add" onclick="newItem(event, 'instruction')">add</i>
                     </div>
                     <li class="col s12">
                         <div class="li-container">
                             <input class="col s10" type="text" name="instruction">
-                            <i class="col s1 center-align material-icons add" onclick="add(event)">add</i>
-                            <i class="col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
+                            <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
+                            <i class="red-text col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
                         </div>
                     </li>
                 </ol>

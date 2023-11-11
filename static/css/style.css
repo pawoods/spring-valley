@@ -73,7 +73,7 @@ body, button, input, optgroup, select, textarea {
     padding: 0 10px;
 }
 
-[type="radio"]:not(:checked)+span, [type="radio"]:checked+span {
+[type="radio"]:not(:checked)+span, [type="radio"]:checked+span, [type="checkbox"]+span:not(.lever) {
     padding-left: 25px;
 }
 
@@ -90,6 +90,10 @@ body, button, input, optgroup, select, textarea {
 .form .label i {
     font-size: 2rem;
     width: 3rem;
+}
+
+.categories-container label.btn {
+    padding: 0 7px;
 }
 
 .no-margin {
