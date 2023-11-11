@@ -443,11 +443,23 @@ def delete_category(category_id):
     return redirect(url_for("categories"))
 
 
-@app.route("/contact")
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
+    if request.method == "POST":
+        message = {
+            "user_name": request.form.get("name"),
+            "user_email": request.form.get("email"),
+            "message_content": request.form.get("message"),
+            "message_date": datetime.now()}
+        mongo.db.messages.insert_one(message)
+        flash("Thanks for your message, "
+              "we will look to respond in the next 48 hours.")
+        return redirect(url_for("home"))
+
     if "user" in session:
         user = get_user(session["user"])
         return render_template("contact.html", user=user)
+        
     return render_template("contact.html")
 
 
@@ -460,6 +472,17 @@ def users():
             return render_template("users.html", users=users, user=user)
     # Redirects non-admin users back home with "Access denied" flash
     flash("Access denied to users page")
+    return redirect(url_for("home"))
+
+@app.route("/messages")
+def messages():
+    if "user" in session:
+        user = get_user(session["user"])
+        if user["is_admin"]:
+            messages = mongo.db.messages.find().sort("date", -1)
+            return render_template("messages.html", messages=messages, user=user)
+    # Redirects non-admin users back home with "Access denied" flash
+    flash("Access denied to messages page")
     return redirect(url_for("home"))
 
 

@@ -65,6 +65,7 @@
                 {% endif %}
                 {% if user.is_admin %}
                     <li><a href="{{ url_for('users') }}"><i class="fa-solid fa-users"></i>Users</a></li>
+                    <li><a href="{{ url_for('messages') }}"><i class="fa-solid fa-envelopes-bulk"></i>Messages</a></li>
                 {% endif %}
             {% endif %}
             <li><a href="{{ url_for('contact') }}"><i class="fa-regular fa-envelope"></i>Get in touch</a></li>
