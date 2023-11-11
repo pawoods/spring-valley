@@ -108,6 +108,15 @@ ol li.col.s12 {
     padding-left: 0;
 }
 
+ol.row .label.col.s12 {
+    margin-left: -2rem;
+}
+
+.li-container {
+    display: flex;
+    align-items: center;
+}
+
 li.col.s12 i {
     font-size: 2rem;
     padding: 0;

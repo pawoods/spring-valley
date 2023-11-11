@@ -5,7 +5,7 @@ $(document).ready(function () {
 
 function add(event) {
     console.log(event.target);
-    let element = event.target.parentNode;
+    let element = event.target.parentNode.parentNode;
     let newElement = element.cloneNode(true);
     newElement.querySelector("input").value = "";
     element.insertAdjacentElement('afterend', newElement);
@@ -13,6 +13,6 @@ function add(event) {
 
 function remove(event) {
     console.log(event.target);
-    let element = event.target.parentNode;
+    let element = event.target.parentNode.parentNode;
     element.remove();
 }
