@@ -18,6 +18,15 @@ body, button, input, optgroup, select, textarea {
     margin-left: 20px;
 }
 
+.detail-image {
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.detail-image img {
+    width: 100%;
+}
+
 .card, .card-image, .card-action, .card .card-action:last-child {
     border-radius: 20px;
 }

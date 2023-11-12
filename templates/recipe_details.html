@@ -2,4 +2,99 @@
 {% block content %}
     <h3 class="center-align teal-text text-darken-4">{{ recipe.recipe_name }}</h3>
     <p class="center-align">By: <em>{{ recipe.created_by.username }}</em></p>
+
+    <div class="row">
+        <div class="col s12 m8 offset-m2">
+            <div class="card-panel details">
+                <!-- Title Image -->
+                <div class="title row">
+                    <div class="detail-image col s12">
+                        {% if recipe.photo_url %}
+                        <img src="{{ recipe.photo_url }}" alt="{{ recipe.title }} Photo">
+                        {% else %}
+                        <img class="detail-image col s12" src="{{ url_for('static', filename='images/dinnertable.webp') }}" alt="Dinner Table Photo">
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- Timing and Serving -->
+                <div class="row">
+                    <div class="col s12 l4">
+                        <p class="center-align">Prep Time: {{ recipe.prep_time }} Minutes</p>
+                    </div>
+                    <div class="col s12 14">
+                        <p class="center-align">Cook Time: {{ recipe.cook_time }} Minutes</p>
+                    </div>
+                    <div class="col s12 l4">
+                        <p class="center-align">Serves: {{ recipe.serves }} People</p>
+                    </div>
+                </div>
+                <!-- Collapsible -->
+                <div class="row">
+                    <div class="col s10 offset-s1">
+                        <ul class="collapsible expandable">
+                            <!-- Description -->
+                            <li>
+                                <div class="collapsible-header teal darken-4 white-text">
+                                    <i class="material-icons">subject</i>
+                                    Description
+                                </div>
+                                <div class="collapsible-body">
+                                    <p>{{ recipe.recipe_description }}</p>
+                                </div>
+                            </li>
+                            <!-- Ingredients -->
+                            {% if recipe.ingredients|length > 0 %}
+                            <li>
+                                <div class="collapsible-header teal darken-4 white-text">
+                                    <i class="material-icons">toc</i>
+                                    Ingredients: {{ recipe.ingredients|length }}
+                                </div>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        {% for ingredient in recipe.ingredients %}
+                                        <li>{{ ingredient }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </li>
+                            {% endif %}
+                            <!-- Instructions -->
+                            {% if recipe.instructions|length > 0 %}
+                            <li>
+                                <div class="collapsible-header teal darken-4 white-text">
+                                    <i class="material-icons">toc</i>
+                                    Instructions: {{ recipe.instructions|length }}
+                                </div>
+                                <div class="collapsible-body">
+                                    <ol>
+                                        {% for instruction in recipe.instructions %}
+                                        <li>{{ instruction }}</li>
+                                        {% endfor %}
+                                    </ol>
+                                </div>
+                            </li>
+                            {% endif %}
+                            <!-- Categories -->
+                            <li>
+                                <div class="collapsible-header teal darken-4 white-text">
+                                    <i class="material-icons">toc</i>
+                                    Categories: {{ recipe.categories|length }}
+                                </div>
+                                <div class="collapsible-body">
+                                    
+                                    {% for category in recipe.categories %}
+                                    <a href="{{ url_for('filter_recipes', category_name=category.category_name) }}">
+                                        <div class="card-panel black-text center-align {{ category.category_color }}">{{ category.category_name }}</div>
+                                    </a>
+                                    {% endfor %}
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
