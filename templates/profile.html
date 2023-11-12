@@ -26,7 +26,7 @@
 					<a class="btn col s10 offset-s1 deep-red" href="#">Update Password</a>
 				</div>
 				<div class="col s12 m6 center-align">
-					<a class="btn col s10 offset-s1 teal darken-4" href="#">Update Details</a>
+					<a class="btn col s10 offset-s1 teal darken-4" href="">Edit Details</a>
 				</div>
 			</div>
 		</div>
@@ -38,7 +38,7 @@
 </h3>
 <div class="row">
 	{% for owned_recipe in owned_recipes %}
-	<!-- Card -->
+	<!-- Owned Recipe Card -->
 	<div class="col s12 m6 l4">
 		<div class="card sticky-action">
 			<div class="card-image waves-effect waves-block waves-light">
@@ -65,13 +65,13 @@
 				<div class="row">
 					{% if user.user_id in owned_recipe.likes.id %}
 					<div class="col s3 center-align">
-						<a href="{{ url_for('recipe_like', recipe_id=owned_recipe._id, page='profile') }}"><i
+						<a href="{{ url_for('recipe_like', recipe_id=owned_recipe._id) }}"><i
 								class="material-icons pink-text">favorite</i></a>
 						<span>{{ owned_recipe.likes.count }}</span>
 					</div>
 					{% else %}
 					<div class="col s3 center-align">
-						<a href="{{ url_for('recipe_like', recipe_id=owned_recipe._id, page='profile') }}"><i
+						<a href="{{ url_for('recipe_like', recipe_id=owned_recipe._id) }}"><i
 								class="material-icons">favorite</i></a>
 						<span>{{ owned_recipe.likes.count }}</span>
 					</div>
@@ -88,7 +88,7 @@
 						</a>
 					</div>
 					<div class="col s3 center-align">
-						<a href="{{ url_for('delete_recipe', recipe_id=owned_recipe._id, page='profile') }}" class="tooltipped"
+						<a href="{{ url_for('delete_recipe', recipe_id=owned_recipe._id) }}" class="tooltipped"
 							data-position="bottom" data-tooltip="Delete"><i class="material-icons red-text text-darken-4">delete</i></a>
 					</div>
 				</div>
@@ -114,7 +114,7 @@
 </h3>
 <div class="row">
 	{% for liked_recipe in liked_recipes %}
-	<!-- Card -->
+	<!-- Like Recipe Card -->
 	<div class="col s12 m6 l4">
 		<div class="card sticky-action">
 			<div class="card-image waves-effect waves-block waves-light">
@@ -141,13 +141,13 @@
 				<div class="row">
 					{% if user.user_id in liked_recipe.likes.id %}
 					<div class="col s3 center-align">
-						<a href="{{ url_for('recipe_like', recipe_id=liked_recipe._id, page='profile') }}"><i
+						<a href="{{ url_for('recipe_like', recipe_id=liked_recipe._id) }}"><i
 								class="material-icons pink-text">favorite</i></a>
 						<span>{{ liked_recipe.likes.count }}</span>
 					</div>
 					{% else %}
 					<div class="col s3 center-align">
-						<a href="{{ url_for('recipe_like', recipe_id=liked_recipe._id, page='profile') }}"><i
+						<a href="{{ url_for('recipe_like', recipe_id=liked_recipe._id) }}"><i
 								class="material-icons">favorite</i></a>
 						<span>{{ liked_recipe.likes.count }}</span>
 					</div>
@@ -164,7 +164,7 @@
 						</a>
 					</div>
 					<div class="col s3 center-align">
-						<a href="{{ url_for('delete_recipe', recipe_id=liked_recipe._id, page='profile') }}" class="tooltipped"
+						<a href="{{ url_for('delete_recipe', recipe_id=liked_recipe._id) }}" class="tooltipped"
 							data-position="bottom" data-tooltip="Delete"><i class="material-icons red-text text-darken-4">delete</i></a>
 					</div>
 				</div>

@@ -30,13 +30,13 @@
                         {% if user %}
                         {% if user.user_id in recipe.likes.id %}
                         <div class="col s3 center-align">
-                            <a href="{{ url_for('recipe_like', recipe_id=recipe._id, page='recipes') }}"><i
+                            <a href="{{ url_for('recipe_like', recipe_id=recipe._id) }}"><i
                                     class="material-icons pink-text">favorite</i></a>
                             <span>{{ recipe.likes.count }}</span>
                         </div>
                         {% else %}
                         <div class="col s3 center-align">
-                            <a href="{{ url_for('recipe_like', recipe_id=recipe._id, page='recipes') }}"><i
+                            <a href="{{ url_for('recipe_like', recipe_id=recipe._id) }}"><i
                                     class="material-icons">favorite</i></a>
                             <span>{{ recipe.likes.count }}</span>
                         </div>
@@ -62,7 +62,7 @@
                             </a>
                         </div>
                         <div class="col s3 center-align">
-                            <a href="{{ url_for('delete_recipe', recipe_id=recipe._id, page='recipes') }}" class="tooltipped"
+                            <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" class="tooltipped"
                                 data-position="bottom" data-tooltip="Delete">
                                 <i class="material-icons red-text text-darken-4">delete</i>
                             </a>

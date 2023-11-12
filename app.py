@@ -28,6 +28,7 @@ def get_user(user_id):
 @app.route("/")
 @app.route("/home")
 def home():
+    session["url"] = request.url
     new_recipes = mongo.db.recipes.find().sort("created_date", -1).limit(3)
     popular_recipes = mongo.db.recipes.find().sort("likes.count", -1).limit(3)
     # adds current user if signed in
@@ -133,6 +134,7 @@ def sign_in():
 
 @app.route("/profile")
 def profile():
+    session["url"] = request.url
     # if signed in, adds current user to template for use on front end
     if "user" in session:
         user = get_user(session["user"])
@@ -148,8 +150,8 @@ def profile():
             user=user)
 
 
-@app.route("/edit_details/<user_id>/<page>", methods=["GET", "POST"])
-def edit_details(user_id, page):
+@app.route("/edit_details/<user_id>", methods=["GET", "POST"])
+def edit_details(user_id):
     editing = mongo.db.users.find_one({"_id": ObjectId(user_id)})
     if "user" in session:
         user = get_user(session["user"])
@@ -167,20 +169,17 @@ def edit_details(user_id, page):
             flash("Username and email already exist")
             return redirect(url_for(
                 "edit_details",
-                user_id=user_id,
-                page=page))
+                user_id=user_id))
         elif existing_user:
             flash("Username already exists")
             return redirect(url_for(
                 "edit_details",
-                user_id=user_id,
-                page=page))
+                user_id=user_id))
         elif existing_email:
             flash("Email already exists")
             return redirect(url_for(
                 "edit_details",
-                user_id=user_id,
-                page=page))
+                user_id=user_id))
 
         edit = {
             "f_name": request.form.get("f_name").capitalize(),
@@ -197,25 +196,26 @@ def edit_details(user_id, page):
             "created_by.username": request.form.get("username").lower()}}
         mongo.db.recipes.update_many(query, update)
         flash("User details updated successfuly")
-        return redirect(url_for(page))
+        return redirect(session["url"])
 
     return render_template(
         "edit_details.html",
         editing=editing,
-        user=user,
-        page=page)
+        user=user)
 
 
-@app.route("/delete_user/<user_id>/<page>")
-def delete_user(user_id, page):
+@app.route("/delete_user/<user_id>")
+def delete_user(user_id):
     deleted = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    # Remove user from session if they delete themself
+    # Remove user from session and recirect to home if they delete themself
     if deleted["user_id"] == session["user"]:
         session.pop("user")
-    mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+        mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+        return redirect(url_for("home"))
 
+    mongo.db.users.delete_one({"_id": ObjectId(user_id)})
     flash("User successfully deleted")
-    return redirect(url_for(page))
+    return redirect(session["url"])
 
 
 @app.route("/recipe_details/<recipe_id>")
@@ -234,6 +234,7 @@ def recipe_details(recipe_id):
 
 @app.route("/recipes")
 def recipes():
+    session["url"] = request.url
     recipes = mongo.db.recipes.find().sort("recipe_name", 1)
     # if signed in, adds current user to template for use on front end
     if "user" in session:
@@ -245,6 +246,7 @@ def recipes():
 
 @app.route("/filter_recipes/<category_name>")
 def filter_recipes(category_name):
+    session["url"] = request.url
     recipes = mongo.db.recipes.find({
         "categories.category_name": category_name})
     if "user" in session:
@@ -350,29 +352,29 @@ def edit_recipe(recipe_id):
         user=user)
 
 
-@app.route("/delete_recipe/<recipe_id>/<page>")
-def delete_recipe(recipe_id, page):
+@app.route("/delete_recipe/<recipe_id>")
+def delete_recipe(recipe_id):
     mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
 
     flash("Recipe successfully deleted")
-    return redirect(url_for(page))
+    return redirect(session["url"])
 
 
-@app.route("/recipe_like/<recipe_id>/<page>")
-def recipe_like(recipe_id, page):
+@app.route("/recipe_like/<recipe_id>")
+def recipe_like(recipe_id):
     likes = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})["likes"]
     if session["user"] in likes["id"]:
         new_count = likes["count"]-1
         mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
             "$pull": {"likes.id": session["user"]},
             "$set": {"likes.count": new_count}})
-        return redirect(url_for(page))
+        return redirect(session["url"])
 
     new_count = likes["count"]+1
     mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
         "$push": {"likes.id": session["user"]},
         "$set": {"likes.count": new_count}})
-    return redirect(url_for(page))
+    return redirect(session["url"])
 
 
 @app.route("/categories")
@@ -474,6 +476,7 @@ def contact():
 
 @app.route("/users")
 def users():
+    session["url"] = request.url
     if "user" in session:
         user = get_user(session["user"])
         if user["is_admin"]:
@@ -504,7 +507,7 @@ def super_user(user_id):
     else:
         mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
             "$set": {"is_super": True}})
-    return redirect(url_for("users"))
+    return redirect(session["url"])
 
 
 @app.route("/admin_user/<user_id>")
@@ -516,7 +519,7 @@ def admin_user(user_id):
     else:
         mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
             "$set": {"is_admin": True}})
-    return redirect(url_for("users"))
+    return redirect(session["url"])
 
 
 @app.route("/sign_out")
