@@ -136,7 +136,16 @@ def profile():
     # if signed in, adds current user to template for use on front end
     if "user" in session:
         user = get_user(session["user"])
-        return render_template("profile.html", user=user)
+        owned_recipes = mongo.db.recipes.find({
+            "created_by.user_id": user["user_id"]})
+        liked_recipes = mongo.db.recipes.find({
+            "likes.id": user["user_id"]})
+
+        return render_template(
+            "profile.html",
+            owned_recipes=owned_recipes,
+            liked_recipes=liked_recipes,
+            user=user)
 
 
 @app.route("/edit_details/<user_id>/<page>", methods=["GET", "POST"])
@@ -341,12 +350,12 @@ def edit_recipe(recipe_id):
         user=user)
 
 
-@app.route("/delete_recipe/<recipe_id>")
-def delete_recipe(recipe_id):
+@app.route("/delete_recipe/<recipe_id>/<page>")
+def delete_recipe(recipe_id, page):
     mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
 
     flash("Recipe successfully deleted")
-    return redirect(url_for("recipes"))
+    return redirect(url_for(page))
 
 
 @app.route("/recipe_like/<recipe_id>/<page>")

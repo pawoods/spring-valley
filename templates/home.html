@@ -65,7 +65,7 @@
                                 </a>
                             </div>
                             <div class="col s3 center-align">
-                                <a href="{{ url_for('delete_recipe', recipe_id=new_recipe._id) }}" class="tooltipped" data-position="bottom" data-tooltip="Delete"><i
+                                <a href="{{ url_for('delete_recipe', recipe_id=new_recipe._id, page='home') }}" class="tooltipped" data-position="bottom" data-tooltip="Delete"><i
                                         class="material-icons red-text text-darken-4">delete</i></a>
                             </div>
                             {% endif %}
@@ -153,7 +153,7 @@
                             </a>
                         </div>
                         <div class="col s3 center-align">
-                            <a href="{{ url_for('delete_recipe', recipe_id=popular_recipe._id) }}" class="tooltipped"
+                            <a href="{{ url_for('delete_recipe', recipe_id=popular_recipe._id, page='home') }}" class="tooltipped"
                                 data-position="bottom" data-tooltip="Delete"><i class="material-icons red-text text-darken-4">delete</i></a>
                         </div>
                         {% endif %}

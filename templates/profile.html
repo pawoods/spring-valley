@@ -1,9 +1,182 @@
 {% extends "base.html" %} {% block content %}
 <h3 class="center-align teal-text text-darken-4">
-	{{ user.username }}'s Profile
+	Profile
 </h3>
 
 <div class="row">
-	<div class="col s12 m8 offset-m2 card-panel">{{ user.username }}</div>
+	<div class="col s12 m8 offset-m2">
+		<div class="card-panel details">
+			<div class="title row">
+				<div class="col s4 center-align">
+					<img class="circle" src="{{ user.photo_url }}" alt="Profile Picture">
+				</div>
+				<div class="col s8">
+					<h4 class="center-align teal-text text-darken-4">{{ user.f_name }} {{ user.l_name }}</h4>
+					<p class="center-align">Username: {{ user.username }}</p>
+					<p class="center-align">Email: {{ user.email }}</p>
+					<p class="center-align">User Since: {{ user.user_since.day }}/{{ user.user_since.month }}/{{ user.user_since.year }}</p>
+				</div>
+			</div>
+			<div class="buttons row">
+				<div class="col s12 m6 center-align">
+					<a class="btn col s10 offset-s1 deep-red" href="#">Update Password</a>
+				</div>
+				<div class="col s12 m6 center-align">
+					<a class="btn col s10 offset-s1 teal darken-4" href="#">Update Details</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-{% endblock %}
+
+<h3 class="center-align teal-text text-darken-4">
+	My Recipes
+</h3>
+<div class="row">
+	{% for owned_recipe in owned_recipes %}
+	<!-- Card -->
+	<div class="col s12 m6 l4">
+		<div class="card sticky-action">
+			<div class="card-image waves-effect waves-block waves-light">
+				{% if owned_recipe.photo_url %}
+				<img class="activator" src="{{ owned_recipe.photo_url }}">
+				{% else %}
+				<img class="activator" src="{{ url_for('static', filename='images/dinnertable.webp') }}">
+				{% endif %}
+			</div>
+			<!-- Card Content -->
+			<div class="card-content">
+				<span class="card-title activator grey-text text-darken-4">{{ owned_recipe.recipe_name }}<i
+						class="material-icons right">more_vert</i></span>
+				<p>
+					<em>{{ owned_recipe.created_by.username }} -
+						{{ owned_recipe.created_date.day }}/{{ owned_recipe.created_date.month }}/{{
+						owned_recipe.created_date.year }}</em><br>
+						Total time: {{ owned_recipe.prep_time + owned_recipe.cook_time }} Minutes<br>
+						Serves: {{ owned_recipe.serves }} People
+				</p>
+			</div>
+			<!-- Card Action -->
+			<div class="card-action amber lighten-5">
+				<div class="row">
+					{% if user.user_id in owned_recipe.likes.id %}
+					<div class="col s3 center-align">
+						<a href="{{ url_for('recipe_like', recipe_id=owned_recipe._id, page='profile') }}"><i
+								class="material-icons pink-text">favorite</i></a>
+						<span>{{ owned_recipe.likes.count }}</span>
+					</div>
+					{% else %}
+					<div class="col s3 center-align">
+						<a href="{{ url_for('recipe_like', recipe_id=owned_recipe._id, page='profile') }}"><i
+								class="material-icons">favorite</i></a>
+						<span>{{ owned_recipe.likes.count }}</span>
+					</div>
+					{% endif %}
+					<div class="col s3 center-align">
+						<a href="{{ url_for('recipe_details', recipe_id=owned_recipe._id) }}" class="tooltipped" data-position="bottom" data-tooltip="See full recipe">
+							<i class="material-icons">open_in_new</i>
+						</a>
+					</div>
+					<div class="col s3 center-align">
+						<a href="{{ url_for('edit_recipe', recipe_id=owned_recipe._id) }}" class="tooltipped"
+							data-position="bottom" data-tooltip="Edit">
+								<i class="material-icons green-text text-darken-2">edit</i>
+						</a>
+					</div>
+					<div class="col s3 center-align">
+						<a href="{{ url_for('delete_recipe', recipe_id=owned_recipe._id, page='profile') }}" class="tooltipped"
+							data-position="bottom" data-tooltip="Delete"><i class="material-icons red-text text-darken-4">delete</i></a>
+					</div>
+				</div>
+			</div>
+			<!-- Card Reveal -->
+			<div class="card-reveal">
+				<span class="card-title grey-text text-darken-4">{{ owned_recipe.recipe_name }}<i
+						class="material-icons right">close</i></span>
+				<p>{{ owned_recipe.recipe_description }}</p>
+				{% for category in owned_recipe.categories %}
+				<a href="{{ url_for('filter_recipes', category_name=category.category_name) }}">
+					<div class="card-panel black-text center-align {{ category.category_color }}">{{ category.category_name }}</div>
+				</a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+<h3 class="center-align teal-text text-darken-4">
+	Liked Recipes
+</h3>
+<div class="row">
+	{% for liked_recipe in liked_recipes %}
+	<!-- Card -->
+	<div class="col s12 m6 l4">
+		<div class="card sticky-action">
+			<div class="card-image waves-effect waves-block waves-light">
+				{% if liked_recipe.photo_url %}
+				<img class="activator" src="{{ liked_recipe.photo_url }}">
+				{% else %}
+				<img class="activator" src="{{ url_for('static', filename='images/dinnertable.webp') }}">
+				{% endif %}
+			</div>
+			<!-- Card Content -->
+			<div class="card-content">
+				<span class="card-title activator grey-text text-darken-4">{{ liked_recipe.recipe_name }}<i
+						class="material-icons right">more_vert</i></span>
+				<p>
+					<em>{{ liked_recipe.created_by.username }} -
+						{{ liked_recipe.created_date.day }}/{{ liked_recipe.created_date.month }}/{{
+						liked_recipe.created_date.year }}</em><br>
+						Total time: {{ liked_recipe.prep_time + liked_recipe.cook_time }} Minutes<br>
+						Serves: {{ liked_recipe.serves }} People
+				</p>
+			</div>
+			<!-- Card Action -->
+			<div class="card-action amber lighten-5">
+				<div class="row">
+					{% if user.user_id in liked_recipe.likes.id %}
+					<div class="col s3 center-align">
+						<a href="{{ url_for('recipe_like', recipe_id=liked_recipe._id, page='profile') }}"><i
+								class="material-icons pink-text">favorite</i></a>
+						<span>{{ liked_recipe.likes.count }}</span>
+					</div>
+					{% else %}
+					<div class="col s3 center-align">
+						<a href="{{ url_for('recipe_like', recipe_id=liked_recipe._id, page='profile') }}"><i
+								class="material-icons">favorite</i></a>
+						<span>{{ liked_recipe.likes.count }}</span>
+					</div>
+					{% endif %}
+					<div class="col s3 center-align">
+						<a href="{{ url_for('recipe_details', recipe_id=liked_recipe._id) }}" class="tooltipped" data-position="bottom" data-tooltip="See full recipe">
+							<i class="material-icons">open_in_new</i>
+						</a>
+					</div>
+					<div class="col s3 center-align">
+						<a href="{{ url_for('edit_recipe', recipe_id=liked_recipe._id) }}" class="tooltipped"
+							data-position="bottom" data-tooltip="Edit">
+								<i class="material-icons green-text text-darken-2">edit</i>
+						</a>
+					</div>
+					<div class="col s3 center-align">
+						<a href="{{ url_for('delete_recipe', recipe_id=liked_recipe._id, page='profile') }}" class="tooltipped"
+							data-position="bottom" data-tooltip="Delete"><i class="material-icons red-text text-darken-4">delete</i></a>
+					</div>
+				</div>
+			</div>
+			<!-- Card Reveal -->
+			<div class="card-reveal">
+				<span class="card-title grey-text text-darken-4">{{ liked_recipe.recipe_name }}<i
+						class="material-icons right">close</i></span>
+				<p>{{ liked_recipe.recipe_description }}</p>
+				{% for category in liked_recipe.categories %}
+				<a href="{{ url_for('filter_recipes', category_name=category.category_name) }}">
+					<div class="card-panel black-text center-align {{ category.category_color }}">{{ category.category_name }}</div>
+				</a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>{% endblock %}

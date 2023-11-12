@@ -77,7 +77,7 @@ body, button, input, optgroup, select, textarea {
     padding-left: 25px;
 }
 
-.form {
+.form, .details {
     padding: 24px;
 }
 
@@ -136,7 +136,28 @@ li.col.s12 i {
     padding: 0 0 0 10px;
 }
 
+.title.row {
+    display: flex;
+    align-items: center;
+}
+
+.title .circle {
+    max-width: 100%;    
+}
+
+.details .buttons .btn {
+    margin-bottom: 10px;
+}
+
 .deep-red {
+    background-color: #380000;
+}
+
+.deep-red:hover {
+    background-color: #380000;
+}
+
+.deep-red:visited {
     background-color: #380000;
 }
 
