@@ -2,11 +2,8 @@ $(document).ready(function () {
     $('.sidenav').sidenav({edge: "right"});
     $('.tooltipped').tooltip();
     $('.collapsible.messages').collapsible();
-});
-
-var elem = document.querySelector('.collapsible.expandable');
-var instance = M.Collapsible.init(elem, {
-  accordion: false
+    $('.collapsible.expandable').collapsible({accordion: false});
+    $('.fixed-action-btn').floatingActionButton({hoverEnabled: false});
 });
 
 function newItem(event, name) {
