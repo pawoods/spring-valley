@@ -305,7 +305,7 @@ def add_recipe():
         flash("Recipe successfully added")
         return redirect(url_for("recipe_details", recipe_id=new_recipe_id))
 
-    categories = mongo.db.categories.find()
+    categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template(
         "add_recipe.html",
         categories=categories,
@@ -347,7 +347,7 @@ def edit_recipe(recipe_id):
         return redirect(session["url"])
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    categories = mongo.db.categories.find()
+    categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template(
         "edit_recipe.html",
         categories=categories,
