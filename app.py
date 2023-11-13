@@ -220,6 +220,7 @@ def delete_user(user_id):
 
 @app.route("/recipe_details/<recipe_id>")
 def recipe_details(recipe_id):
+    session["url"] = request.url
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     # if signed in, adds current user to template for use on front end
     if "user" in session:
@@ -299,8 +300,10 @@ def add_recipe():
                 "id": []},
             "created_date": datetime.now()}
         mongo.db.recipes.insert_one(recipe)
+        # returns the _id of the newly created recipe to use in the redirect
+        new_recipe_id = mongo.db.recipes.find_one(recipe)["_id"]
         flash("Recipe successfully added")
-        return redirect(url_for("recipes"))
+        return redirect(url_for("recipe_details", recipe_id=new_recipe_id))
 
     categories = mongo.db.categories.find()
     return render_template(
@@ -341,7 +344,7 @@ def edit_recipe(recipe_id):
         mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
             "$set": edit})
         flash("Recipe successfully updated")
-        return redirect(url_for("recipes"))
+        return redirect(session["url"])
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     categories = mongo.db.categories.find()
@@ -355,8 +358,11 @@ def edit_recipe(recipe_id):
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
     mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
-
     flash("Recipe successfully deleted")
+    # Redirects the user to recipes page if they
+    # delete the recipe they were viewing in detail 
+    if session["url"].split("/")[-1] == request.url.split("/")[-1]:
+        return redirect(url_for("recipes"))
     return redirect(session["url"])
 
 
