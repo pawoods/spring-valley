@@ -12,7 +12,7 @@
                         {% if recipe.photo_url %}
                         <img src="{{ recipe.photo_url }}" alt="{{ recipe.title }} Photo">
                         {% else %}
-                        <img class="detail-image col s12" src="{{ url_for('static', filename='images/dinnertable.webp') }}" alt="Dinner Table Photo">
+                        <img src="{{ url_for('static', filename='images/dinnertable.webp') }}" alt="Dinner Table Photo">
                         {% endif %}
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                     <div class="col s12 l4">
                         <p class="center-align">Prep Time: {{ recipe.prep_time }} Minutes</p>
                     </div>
-                    <div class="col s12 14">
+                    <div class="col s12 l4">
                         <p class="center-align">Cook Time: {{ recipe.cook_time }} Minutes</p>
                     </div>
                     <div class="col s12 l4">
