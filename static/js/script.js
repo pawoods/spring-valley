@@ -32,3 +32,16 @@ function remove(event) {
     let element = event.target.parentNode.parentNode;
     element.remove();
 }
+
+// Allows users to show/hide password input, learned from https://www.w3schools.com/howto/howto_js_toggle_password.asp
+function visibility(event) {
+    element = event.target.parentNode.parentNode;
+    input = element.querySelector("input");
+    if (input.type === 'password') {
+        input.type = 'text';
+        event.target.innerText = 'visibility_off';
+    } else {
+        input.type = 'password';
+        event.target.innerText = 'visibility';
+    }
+}

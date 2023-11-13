@@ -125,9 +125,13 @@ ol.row .label.col.s12 {
     margin-left: -2rem;
 }
 
-.li-container {
+.li-container, .input-container {
     display: flex;
     align-items: center;
+}
+
+.input-field.col.s11 {
+    margin-left: 0;
 }
 
 li.col.s12 i {
