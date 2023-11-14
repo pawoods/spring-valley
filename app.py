@@ -211,10 +211,11 @@ def delete_user(user_id):
     if deleted["user_id"] == session["user"]:
         session.pop("user")
         mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+        flash("Account successfully removed")
         return redirect(url_for("home"))
 
     mongo.db.users.delete_one({"_id": ObjectId(user_id)})
-    flash("User successfully deleted")
+    flash("Account successfully removed")
     return redirect(session["url"])
 
 
