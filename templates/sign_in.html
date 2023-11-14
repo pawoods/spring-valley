@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
     <h3 class="center-align teal-text text-darken-4">Sign In</h3>
+    <p class="center-align">
+        No account?
+        <a href="{{ url_for('register') }}" class="teal-text text-darken-4">Sign up!</a>
+    </p>
     
     <div class="row">
         <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('sign_in') }}">
@@ -17,12 +21,12 @@
                 <div class="row input-container">
                     <div class="input-field col s12">
                         <i class="material-icons prefix teal-text text-darken-4">key</i>
-                        <input id="password" name="password" type="password" pattern="^[a-zA-Z0-9]{5,15}$" minlength="5"
-                            maxlength="15" class="validate" required>
+                        <input id="password" name="password" type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" 
+                            minlength="8" class="validate" required>
                         <label for="password">Password</label>
                     </div>
                     <div class="col s1">
-                        <i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
+                        <i class="material-icons teal-text text-darken-4 tooltipped" onclick="visibility(event)" data-position="left" data-tooltip="Show/Hide Password">visibility</i>
                     </div>
                 </div>
                 <!-- Register -->
@@ -34,14 +38,5 @@
                 </div>
             </div>
         </form>
-    </div>
-    
-    <div class="row">
-        <div class="col s12">
-            <p class="center-align">
-                No account?
-                <a href="{{ url_for('register') }}" class="teal-text text-darken-4">Sign up!</a>
-            </p>
-        </div>
     </div>
 {% endblock %}

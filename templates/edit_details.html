@@ -25,6 +25,7 @@
                     <i class="material-icons prefix teal-text text-darken-4">email</i>
                     <input id="email" name="email" type="email" class="validate" value="{{ editing.email }}" required>
                     <label for="email">Email Address</label>
+                    <span class="helper-text" data-error="Please ensure you input a valid email format" data-success=""></span>
                 </div>
             </div>
             <!-- username -->
@@ -33,6 +34,7 @@
                     <i class="material-icons prefix teal-text text-darken-4">assignment_ind</i>
                     <input id="username" name="username" type="text" pattern="^[a-zA-Z0-9]{5,15}$" minlength="5" maxlength="15" class="validate" value="{{ editing.username }}" required>
                     <label for="username">Username</label>
+                    <span class="helper-text" data-error="Username must be 5-15 characters long and can include uppercase letters, lowercase letters and numbers" data-success=""></span>
                 </div>
             </div>
             <!-- photo_url -->

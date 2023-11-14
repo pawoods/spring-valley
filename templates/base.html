@@ -25,7 +25,7 @@
                 <div class="nav-wrapper teal darken-4">
                     <a href="{{ url_for('home') }}" class="brand-logo center white-text">CookBook</a>
                     <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large right">
-                        <i class="material-icons white-text">menu</i>
+                        <i class="material-icons white-text tooltipped" data-position="left" data-tooltip="Menu">menu</i>
                     </a>
                 </div>
             </nav>
@@ -37,7 +37,7 @@
                     <div class="background teal darken-4">
                     </div>
                     {% if user %}
-                        <a href="{{ url_for('profile') }}">
+                        <a href="{{ url_for('profile') }}" class="tooltipped" data-position="left" data-tooltip="Profile">
                             {% if user.photo_url %}
                             <img class="circle" src="{{ user.photo_url }}" alt="Profile">
                             {% else %}
@@ -100,7 +100,7 @@
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     <div class="row flashes deep-red white-text">
-                        <i class="material-icons white-text right" onclick="closeFlash(event)">close</i>
+                        <i class="material-icons white-text right tooltipped" data-position="left" data-tooltip="Close" onclick="closeFlash(event)">close</i>
                         {% for message in messages %}
                             <p class="center-align">
                                 {{ message }}
