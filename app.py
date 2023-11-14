@@ -505,6 +505,13 @@ def messages():
     return redirect(url_for("home"))
 
 
+@app.route("/delete_message/<message_id>")
+def delete_message(message_id):
+    mongo.db.messages.delete_one({"_id": ObjectId(message_id)})
+    flash("Message successfully deleted")
+    return redirect(url_for("messages"))
+
+
 @app.route("/super_user/<user_id>")
 def super_user(user_id):
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
