@@ -44,8 +44,9 @@ function visibility(event) {
     }
 }
 
-function openModal(event) {
-    let element = event.target.closest(".col");
-    let modal = element.querySelector(".cust-modal");
-    modal.classList.remove("hidden");
+function closeFlash(event) {
+
+    let element = event.target.closest(".flashes");
+    element.classList.add("hidden")
+    console.log(element)
 }

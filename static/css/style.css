@@ -27,6 +27,21 @@ body, button, input, optgroup, select, textarea {
     width: 100%;
 }
 
+.flashes {
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.flashes i {
+    margin: 0;
+    font-size: 30px;
+}
+
+.flashes p {
+    margin: 10px 30px 10px 30px;
+    font-size: 20px;
+}
+
 .card, .card-image, .card-action, .card .card-action:last-child {
     border-radius: 20px;
 }
@@ -183,4 +198,8 @@ li.col.s12 i {
 .social-links i {
     font-size: 32px;
     padding: 0 16px;
+}
+
+.hidden {
+    display: none;
 }

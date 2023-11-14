@@ -99,13 +99,14 @@
             <!-- Flash Messages -->
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                    {% for message in messages %}
-                        <div class="row flashes teal lighten-4">
-                            <h4 class="center-align">
+                    <div class="row flashes deep-red white-text">
+                        <i class="material-icons white-text right" onclick="closeFlash(event)">close</i>
+                        {% for message in messages %}
+                            <p class="center-align">
                                 {{ message }}
-                            </h4>
-                        </div>
-                    {% endfor %}
+                            </p>
+                        {% endfor %}
+                    </div>
                 {% endif %}
             {% endwith %}
         </section>
