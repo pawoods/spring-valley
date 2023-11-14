@@ -65,7 +65,7 @@
                                 </a>
                             </div>
                             <div class="col s3 center-align">
-                                <a href="{{ url_for('delete_recipe', recipe_id=new_recipe._id) }}" class="tooltipped" data-position="bottom" data-tooltip="Delete"><i
+                                <a href="#modalA{{ loop.index }}" class="modal-trigger tooltipped" data-position="bottom" data-tooltip="Delete"><i
                                         class="material-icons red-text text-darken-4">delete</i></a>
                             </div>
                         {% endif %}
@@ -83,6 +83,16 @@
                     </a>
                     {% endfor %}
                 </div>
+            </div>
+        </div>
+        <div id="modalA{{ loop.index }}" class="modal">
+            <div class="modal-content">
+                <h4>{{ new_recipe.recipe_name }}</h4>
+                <p>Are you sure you want to delete "{{ new_recipe.recipe_name }}"? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                <a href="{{ url_for('delete_recipe', recipe_id=new_recipe._id) }}" class="waves-effect waves-red btn-flat">Delete</a>
             </div>
         </div>
         {% endfor %}
@@ -153,7 +163,7 @@
                             </a>
                         </div>
                         <div class="col s3 center-align">
-                            <a href="{{ url_for('delete_recipe', recipe_id=popular_recipe._id, page='home') }}" class="tooltipped"
+                            <a href="#modalB{{ loop.index }}" class="modal-trigger tooltipped"
                                 data-position="bottom" data-tooltip="Delete"><i class="material-icons red-text text-darken-4">delete</i></a>
                         </div>
                         {% endif %}
@@ -171,6 +181,16 @@
                     </a>
                     {% endfor %}
                 </div>
+            </div>
+        </div>
+        <div id="modalB{{ loop.index }}" class="modal">
+            <div class="modal-content">
+                <h4>{{ popular_recipe.recipe_name }}</h4>
+                <p>Are you sure you want to delete "{{ popular_recipe.recipe_name }}"? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                <a href="{{ url_for('delete_recipe', recipe_id=popular_recipe._id) }}" class="waves-effect waves-red btn-flat">Delete</a>
             </div>
         </div>
         {% endfor %}

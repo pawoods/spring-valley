@@ -88,7 +88,7 @@
 						</a>
 					</div>
 					<div class="col s3 center-align">
-						<a href="{{ url_for('delete_recipe', recipe_id=owned_recipe._id) }}" class="tooltipped"
+						<a href="#modalA{{ loop.index }}" class="modal-trigger tooltipped"
 							data-position="bottom" data-tooltip="Delete"><i class="material-icons red-text text-darken-4">delete</i></a>
 					</div>
 				</div>
@@ -106,6 +106,16 @@
 			</div>
 		</div>
 	</div>
+	<div id="modalA{{ loop.index }}" class="modal">
+        <div class="modal-content">
+            <h4>{{ owned_recipe.recipe_name }}</h4>
+            <p>Are you sure you want to delete "{{ owned_recipe.recipe_name }}"? This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="{{ url_for('delete_recipe', recipe_id=owned_recipe._id) }}" class="waves-effect waves-red btn-flat">Delete</a>
+        </div>
+    </div>
 	{% endfor %}
 </div>
 
@@ -164,7 +174,7 @@
 						</a>
 					</div>
 					<div class="col s3 center-align">
-						<a href="{{ url_for('delete_recipe', recipe_id=liked_recipe._id) }}" class="tooltipped"
+						<a href="#modalB{{ loop.index }}" class="modal-trigger tooltipped"
 							data-position="bottom" data-tooltip="Delete"><i class="material-icons red-text text-darken-4">delete</i></a>
 					</div>
 				</div>
@@ -182,5 +192,16 @@
 			</div>
 		</div>
 	</div>
+	<div id="modalB{{ loop.index }}" class="modal">
+        <div class="modal-content">
+            <h4>{{ liked_recipe.recipe_name }}</h4>
+            <p>Are you sure you want to delete "{{ liked_recipe.recipe_name }}"? This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="{{ url_for('delete_recipe', recipe_id=liked_recipe._id) }}" class="waves-effect waves-red btn-flat">Delete</a>
+        </div>
+    </div>
 	{% endfor %}
-</div>{% endblock %}
+</div>
+{% endblock %}

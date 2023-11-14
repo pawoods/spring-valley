@@ -122,11 +122,21 @@
             <a class="btn-floating deep-red" href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}"><i class="material-icons green-text">edit</i></a>
         </li>
         <li>
-            <a class="btn-floating deep-red" href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}"><i class="material-icons red-text text-darken-2">delete</i></a>
+            <a class="btn-floating deep-red modal-trigger" href="#modal"><i class="material-icons red-text text-darken-2">delete</i></a>
         </li>
         {% endif %}
     </ul>
 </div>
 {% endif %}
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <h4>{{ recipe.recipe_name }}</h4>
+        <p>Are you sure you want to delete "{{ recipe.recipe_name }}"? This action cannot be undone.</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+        <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" class="waves-effect waves-red btn-flat">Delete</a>
+    </div>
+</div>
 
 {% endblock %}

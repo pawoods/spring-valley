@@ -2,6 +2,7 @@ $(document).ready(function () {
     $('.sidenav').sidenav({edge: "right"});
     $('.tooltipped').tooltip();
     $('.collapsible.messages').collapsible();
+    $('.modal').modal();
     $('.collapsible.expandable').collapsible({accordion: false});
     $('.fixed-action-btn').floatingActionButton({hoverEnabled: false});
 });
@@ -32,8 +33,8 @@ function remove(event) {
 
 // Allows users to show/hide password input, learned from https://www.w3schools.com/howto/howto_js_toggle_password.asp
 function visibility(event) {
-    element = event.target.parentNode.parentNode;
-    input = element.querySelector("input");
+    let element = event.target.parentNode.parentNode;
+    let input = element.querySelector("input");
     if (input.type === 'password') {
         input.type = 'text';
         event.target.innerText = 'visibility_off';
@@ -41,4 +42,10 @@ function visibility(event) {
         input.type = 'password';
         event.target.innerText = 'visibility';
     }
+}
+
+function openModal(event) {
+    let element = event.target.closest(".col");
+    let modal = element.querySelector(".cust-modal");
+    modal.classList.remove("hidden");
 }

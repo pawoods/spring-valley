@@ -20,7 +20,7 @@
                     <div class="row">
                         <!-- Delete -->
                         <div class="col s3 right center-align">
-                            <a href="{{ url_for('delete_category', category_id=category._id) }}">
+                            <a href="#modal{{ loop.index }}" class="modal-trigger">
                                 <i class="material-icons red-text text-darken-4">delete</i>
                             </a>
                         </div>
@@ -33,6 +33,16 @@
                     </div>
                 </div>
                 {% endif %}
+            </div>
+        </div>
+        <div id="modal{{ loop.index }}" class="modal">
+            <div class="modal-content">
+                <h4>{{ category.category_name }}</h4>
+                <p>Are you sure you want to delete "{{ category.category_name }}"? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                <a href="{{ url_for('delete_category', category_id=category._id) }}" class="waves-effect waves-red btn-flat">Delete</a>
             </div>
         </div>
         {% endfor %}
