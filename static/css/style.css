@@ -32,6 +32,10 @@ body, button, input, optgroup, select, textarea {
     margin: 0 auto;
 }
 
+i[onclick] {
+    cursor: pointer;
+}
+
 .flashes i {
     margin: 0;
     font-size: 30px;
@@ -202,4 +206,4 @@ li.col.s12 i {
 
 .hidden {
     display: none;
-}
+}   
