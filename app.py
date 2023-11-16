@@ -158,7 +158,7 @@ def profile():
             user=user)
 
     flash("You are not signed in")
-    return redirect("/")
+    return redirect(url_for("home"))
 
 
 @app.route("/edit_details/<user_id>", methods=["GET", "POST"])
@@ -216,7 +216,7 @@ def edit_details(user_id):
             user=user)
 
     flash("You are not signed in")
-    return redirect("/")
+    return redirect(url_for("home"))
 
 
 @app.route("/delete_user/<user_id>")
@@ -329,7 +329,7 @@ def add_recipe():
             user=user)
 
     flash("You are not signed in")
-    return redirect("/")
+    return redirect(url_for("home"))
 
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
@@ -375,34 +375,41 @@ def edit_recipe(recipe_id):
             recipe=recipe,
             user=user)
 
-    return redirect("/")
+    return redirect(url_for("home"))
 
 
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
-    mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
-    flash("Recipe successfully deleted")
-    # Redirects the user to recipes page if they
-    # delete the recipe they were viewing in detail 
-    if session["url"].split("/")[-1] == request.url.split("/")[-1]:
-        return redirect(url_for("recipes"))
+    if "user" in session:
+        user = get_user(session["user"])
+        recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+        if user["user_id"] == recipe["created_by"]["user_id"] or user["is_admin"]:
+            mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
+            flash("Recipe successfully deleted")
+            # Redirects the user to recipes page if they
+            # delete the recipe they were viewing in detail 
+            if session["url"].split("/")[-1] == request.url.split("/")[-1]:
+                return redirect(url_for("recipes"))
+
     return redirect(session["url"])
 
 
 @app.route("/recipe_like/<recipe_id>")
 def recipe_like(recipe_id):
-    likes = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})["likes"]
-    if session["user"] in likes["id"]:
-        new_count = likes["count"]-1
-        mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
-            "$pull": {"likes.id": session["user"]},
-            "$set": {"likes.count": new_count}})
+    if "user" in session:
+        likes = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})["likes"]
+        if session["user"] in likes["id"]:
+            new_count = likes["count"]-1
+            mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
+                "$pull": {"likes.id": session["user"]},
+                "$set": {"likes.count": new_count}})
+        else:
+            new_count = likes["count"]+1
+            mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
+                "$push": {"likes.id": session["user"]},
+                "$set": {"likes.count": new_count}})
         return redirect(session["url"])
-
-    new_count = likes["count"]+1
-    mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
-        "$push": {"likes.id": session["user"]},
-        "$set": {"likes.count": new_count}})
+    flash("You are not signed in")
     return redirect(session["url"])
 
 
@@ -424,69 +431,75 @@ def categories():
 def add_category():
     if "user" in session:
         user = get_user(session["user"])
+        if user["is_super"] or user["is_admin"]:
+            if request.method == "POST":
+                # Adds new category to the database
+                category = {
+                    "category_name": request.form.get("category_name"),
+                    "category_description": request.form.get("category_description"),
+                    "category_color": request.form.get("category_color")}
+                mongo.db.categories.insert_one(category)
 
-        if request.method == "POST":
-            # Adds new category to the database
-            category = {
-                "category_name": request.form.get("category_name"),
-                "category_description": request.form.get("category_description"),
-                "category_color": request.form.get("category_color")}
-            mongo.db.categories.insert_one(category)
+                flash("New category added!")
+                return redirect(url_for("categories"))
 
-            flash("New category added!")
-            return redirect(url_for("categories"))
+            return render_template("add_category.html", user=user)
 
-        return render_template("add_category.html", user=user)
-
-    return redirect("/")
+    return redirect(url_for("home"))
 
 
 @app.route("/edit_category/<category_id>", methods=["GET", "POST"])
 def edit_category(category_id):
     if "user" in session:
         user = get_user(session["user"])
-        if request.method == "POST":
-            # Updates the category in the database
-            edit = {
-                "category_name": request.form.get("category_name"),
-                "category_description": request.form.get("category_description"),
-                "category_color": request.form.get("category_color")}
-            mongo.db.categories.update_one({"_id": ObjectId(category_id)}, {
-                "$set": edit})
-            # Updates the category on all applicable recipes in recipe database
-            query = {
-                "categories._id": ObjectId(category_id)}
-            update = {"$set": {
-                "categories.$.category_name":
-                request.form.get("category_name"),
-                "categories.$.category_description":
-                request.form.get("category_description"),
-                "categories.$.category_color":
-                request.form.get("category_color")}
-            }
-            mongo.db.recipes.update_many(query, update)
+        if user["is_super"] or user["is_admin"]:
+            if request.method == "POST":
+                # Updates the category in the database
+                edit = {
+                    "category_name": request.form.get("category_name"),
+                    "category_description": request.form.get("category_description"),
+                    "category_color": request.form.get("category_color")}
+                mongo.db.categories.update_one({"_id": ObjectId(category_id)}, {
+                    "$set": edit})
+                # Updates the category on all applicable recipes in recipe database
+                query = {
+                    "categories._id": ObjectId(category_id)}
+                update = {"$set": {
+                    "categories.$.category_name":
+                    request.form.get("category_name"),
+                    "categories.$.category_description":
+                    request.form.get("category_description"),
+                    "categories.$.category_color":
+                    request.form.get("category_color")}
+                }
+                mongo.db.recipes.update_many(query, update)
 
-            flash("Category successfully updated")
-            return redirect(url_for("categories"))
+                flash("Category successfully updated")
+                return redirect(url_for("categories"))
 
-        category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
-        return render_template(
-            "edit_category.html",
-            category=category,
-            user=user)
+            category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+            return render_template(
+                "edit_category.html",
+                category=category,
+                user=user)
 
-    return redirect("/")
+    return redirect(url_for("home"))
 
 
 @app.route("/delete_category/<category_id>")
 def delete_category(category_id):
-    mongo.db.recipes.update_many(
-        {"categories._id": ObjectId(category_id)},
-        {"$pull": {"categories": {"_id": ObjectId(category_id)}}})
-    mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
+    if "user" in session:
+        user = get_user(session["user"])
+        if user["is_super"] or user["is_admin"]:
+            mongo.db.recipes.update_many(
+                {"categories._id": ObjectId(category_id)},
+                {"$pull": {"categories": {"_id": ObjectId(category_id)}}})
+            mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
 
-    flash("Category successfully deleted")
-    return redirect(url_for("categories"))
+            flash("Category successfully deleted")
+            return redirect(url_for("categories"))
+
+    return redirect(url_for("home"))
 
 
 @app.route("/contact", methods=["GET", "POST"])
@@ -517,8 +530,7 @@ def users():
         if user["is_admin"]:
             users = mongo.db.users.find().sort("username", 1)
             return render_template("users.html", users=users, user=user)
-    # Redirects non-admin users back home with "Access denied" flash
-    flash("Access denied to users page")
+    # Redirects non-admin users back home
     return redirect(url_for("home"))
 
 @app.route("/messages")
@@ -528,48 +540,64 @@ def messages():
         if user["is_admin"]:
             messages = mongo.db.messages.find().sort("date", -1)
             return render_template("messages.html", messages=messages, user=user)
-    # Redirects non-admin users back home with "Access denied" flash
-    flash("Access denied to messages page")
+    # Redirects non-admin users back home
     return redirect(url_for("home"))
 
 
 @app.route("/delete_message/<message_id>")
 def delete_message(message_id):
-    mongo.db.messages.delete_one({"_id": ObjectId(message_id)})
-    flash("Message successfully deleted")
-    return redirect(url_for("messages"))
+    if "user" in session:
+        user = get_user(session["user"])
+        if user["is_admin"]:
+            mongo.db.messages.delete_one({"_id": ObjectId(message_id)})
+            flash("Message successfully deleted")
+            return redirect(url_for("messages"))
+    # Redirects non-admin users back home
+    return redirect(url_for("home"))
 
 
 @app.route("/super_user/<user_id>")
 def super_user(user_id):
-    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    if user["is_super"]:
-        mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
-            "$set": {"is_super": False}})
-    else:
-        mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
-            "$set": {"is_super": True}})
+    if "user" in session:
+        admin = get_user(session["user"])
+        if admin["is_admin"]:
+            user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+            if user["is_super"]:
+                mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+                    "$set": {"is_super": False}})
+            else:
+                mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+                    "$set": {"is_super": True}})
+        
     return redirect(session["url"])
 
 
 @app.route("/admin_user/<user_id>")
 def admin_user(user_id):
-    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    if user["is_admin"]:
-        mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
-            "$set": {"is_admin": False}})
-    else:
-        mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
-            "$set": {"is_admin": True}})
+    if "user" in session:
+        admin = get_user(session["user"])
+        if admin["is_admin"]:
+            user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+            if user["is_admin"]:
+                mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+                    "$set": {"is_admin": False}})
+            else:
+                mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+                    "$set": {"is_admin": True}})
+        
     return redirect(session["url"])
 
 
 @app.route("/sign_out")
 def sign_out():
-    # remove user_id from session cookie
-    flash("You have been logged out")
-    session.pop("user")
-    return redirect("home")
+    if "user" in session:
+        # remove user_id from session cookie
+        flash("You have been signed out")
+        session.pop("user")
+        return redirect(url_for("home"))
+
+    flash("You are not signed in")
+    return redirect(url_for("home"))
 
 
 if __name__ == "__main__":
