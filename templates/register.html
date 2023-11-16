@@ -1,100 +1,92 @@
 {% extends "base.html" %}
 {% block content %}
+<h3 class="center-align teal-text text-darken-4">Register</h3>
+<p class="center-align">
+    Already Registered?
+    <a href="{{ url_for('sign_in') }}" class="teal-text text-darken-4">Log In</a>
+</p>
 
-    <h3 class="center-align teal-text text-darken-4">Register</h3>
-    
-    <div class="row">
-        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register') }}">
-            <div class="card-panel form">
-                <div class="row">
-                    <!-- f_name -->
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
-                        <input id="f_name" name="f_name" type="text" class="validate" required autocomplete="given-name">
-                        <label for="f_name">First Name</label>
-                    </div>
-                    <!-- l_name -->
-                    <div class="input-field col s6">
-                        <input id="l_name" name="l_name" type="text" class="validate" required autocomplete="family-name">
-                        <label for="l_name">Last Name</label>
-                    </div>
+<div class="row">
+    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('register') }}">
+        <div class="card-panel form">
+            <div class="row">
+                <!-- f_name -->
+                <div class="input-field col s6">
+                    <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                    <input id="f_name" name="f_name" type="text" class="validate" required autocomplete="given-name">
+                    <label for="f_name">First Name</label>
                 </div>
-                <!-- email -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">email</i>
-                        <input id="email" name="email" type="email" class="validate" required autocomplete="email">
-                        <label for="email">Email Address</label>
-                        <span class="helper-text" data-error="Please ensure you input a valid email format" data-success=""></span>
-                    </div>
-                </div>
-                <!-- username -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">assignment_ind</i>
-                        <input id="username" name="username" type="text" pattern="^[a-zA-Z0-9]{5,15}$" minlength="5"
-                            maxlength="15" class="validate" required autocomplete="username">
-                        <label for="username">Username</label>
-                        <span class="helper-text" data-error="Username must be 5-15 characters long and can include uppercase letters, lowercase letters and numbers" data-success=""></span>
-                    </div>
-                </div>
-                <!-- password -->
-                <div class="row input-container">
-                    <div class="input-field col s11">
-                        <i class="material-icons prefix teal-text text-darken-4">key</i>
-                        <input id="password" name="password" type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" 
-                            minlength="8" class="validate" required>
-                        <label for="password">Password</label>
-                        <span class="helper-text" data-error="Password must be at least 8 characters long, containing at least one lowercase letter, one uppercase letter and one number." data-success=""></span>
-                    </div>
-                    <div class="col s1">
-                        <i class="material-icons teal-text text-darken-4 tooltipped" onclick="visibility(event)" data-position="left" data-tooltip="Show/Hide Password">visibility</i>
-                    </div>
-                </div>
-                <!-- password_check -->
-                <div class="row input-container">
-                    <div class="input-field col s11">
-                        <i class="material-icons prefix teal-text text-darken-4">key</i>
-                        <input id="password_check" name="password_check" type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" 
-                            minlength="8" class="validate" required>
-                        <label for="password_check">Re-type Password</label>
-                        <span class="helper-text" data-error="Password must be at least 8 characters long, containing at least one lowercase letter, one uppercase letter and one number." data-success=""></span>
-                    </div>
-                    <div class="col s1">
-                        <i class="material-icons teal-text text-darken-4 tooltipped" onclick="visibility(event)" data-position="left" data-tooltip="Show/Hide Password">visibility</i>
-                    </div>
-                </div>
-                <!-- photo_url -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">photo</i>
-                        <input id="photo_url" name="photo_url" type="text" class="validate">
-                        <label for="photo_url">Photo URL Link (optional)</label>
-                    </div>
-                </div>
-                <!-- Register -->
-                <div class="row">
-                    <button type="reset" class="col s5 deep-red btn-large">
-                        Clear
-                        <i class="material-icons white-text">undo</i>
-                    </button>
-                    <button type="submit" class="col s5 right teal darken-4 btn-large">
-                        Register
-                        <i class="material-icons white-text">forward</i>
-                    </button>
+                <!-- l_name -->
+                <div class="input-field col s6">
+                    <input id="l_name" name="l_name" type="text" class="validate" required autocomplete="family-name">
+                    <label for="l_name">Last Name</label>
                 </div>
             </div>
-        </form>
-    </div>
-    
-    <div class="row">
-        <div class="col s12">
-            <p class="center-align">
-                Already Registered?
-                <a href="{{ url_for('sign_in') }}" class="teal-text text-darken-4">Log In</a>
-            </p>
+            <!-- email -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">email</i>
+                    <input id="email" name="email" type="email" class="validate" required autocomplete="email">
+                    <label for="email">Email Address</label>
+                    <span class="helper-text" data-error="Please ensure you input a valid email format" data-success=""></span>
+                </div>
+            </div>
+            <!-- username -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">assignment_ind</i>
+                    <input id="username" name="username" type="text" pattern="^[a-zA-Z0-9@._\-]{5,15}$" minlength="5"
+                        maxlength="15" class="validate" required autocomplete="username">
+                    <label for="username">Username</label>
+                    <span class="helper-text" data-error="Username must be 5-15 characters long and may include uppercase letters, lowercase letters, numbers and special characters @._-" data-success=""></span>
+                </div>
+            </div>
+            <!-- password -->
+            <div class="row input-container">
+                <div class="input-field col s11">
+                    <i class="material-icons prefix teal-text text-darken-4">key</i>
+                    <input id="password" name="password" type="password" pattern="^[a-zA-Z0-9!&$?@#_\-]{8,}$" 
+                        minlength="8" class="validate" required>
+                    <label for="password">Password</label>
+                    <span class="helper-text" data-error="Password must be at least 8 characters long and may contain lowercase letters, uppercase letters, numbers and special characters !&$?@#_-" data-success=""></span>
+                </div>
+                <div class="col s1">
+                    <i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
+                </div>
+            </div>
+            <!-- password_check -->
+            <div class="row input-container">
+                <div class="input-field col s11">
+                    <i class="material-icons prefix teal-text text-darken-4">key</i>
+                    <input id="password_check" name="password_check" type="password" pattern="^^[a-zA-Z0-9!&$?@#_\-]{8,}$" 
+                        minlength="8" class="validate" required>
+                    <label for="password_check">Re-type Password</label>
+                    <span class="helper-text" data-error="Password must be at least 8 characters long and may contain lowercase letters, uppercase letters, numbers and special characters !&$?@#_-" data-success=""></span>
+                </div>
+                <div class="col s1">
+                    <i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
+                </div>
+            </div>
+            <!-- photo_url -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">photo</i>
+                    <input id="photo_url" name="photo_url" type="text" class="validate">
+                    <label for="photo_url">Photo URL Link (optional)</label>
+                </div>
+            </div>
+            <!-- Register -->
+            <div class="row">
+                <button type="reset" class="col s5 deep-red btn-large">
+                    Clear
+                    <i class="material-icons white-text">undo</i>
+                </button>
+                <button type="submit" class="col s5 right teal darken-4 btn-large">
+                    Register
+                    <i class="material-icons white-text">forward</i>
+                </button>
+            </div>
         </div>
-    </div>
-
-
+    </form>
+</div>
 {% endblock %}

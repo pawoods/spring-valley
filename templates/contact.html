@@ -1,51 +1,51 @@
 {% extends "base.html" %}
 {% block content %}
-    <h3 class="center-align teal-text text-darken-4">Contact Us</h3>
-    
-    <div class="row">
-        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('contact') }}">
-            <div class="card-panel form">
-                <!-- Name -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
-                        {% if user %}
-                        <input id="name" name="name" type="text" class="validate" value="{{ user.f_name }} {{ user.l_name }}" required>
-                        {% else %}
-                        <input id="name" name="name" type="text" class="validate" required>
-                        {% endif %}
-                        <label for="name">Name</label>
-                    </div>
-                </div>
-                <!-- Email -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">email</i>
-                        {% if user %}
-                        <input id="email" name="email" type="email" class="validate" value="{{ user.email }}" required>
-                        {% else %}
-                        <input id="email" name="email" type="email" class="validate" required>
-                        {% endif %}
-                        <label for="email">Email</label>
-                    </div>
-                </div>
-                <!-- message -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">message</i>
-                        <textarea id="message" name="message"
-                            class="materialize-textarea validate" required></textarea>
-                        <label for="message">Message</label>
-                    </div>
-                </div>
-                <!-- submit -->
-                <div class="row">
-                    <button type="submit" class="col s10 offset-s1 teal darken-4 btn-large">
-                        Submit
-                        <i class="material-icons prefix white-text">forward</i>
-                    </button>
+<h3 class="center-align teal-text text-darken-4">Contact Us</h3>
+
+<div class="row">
+    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('contact') }}">
+        <div class="card-panel form">
+            <!-- Name -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">account_circle</i>
+                    {% if user %}
+                    <input id="name" name="name" type="text" class="validate" value="{{ user.f_name }} {{ user.l_name }}" required>
+                    {% else %}
+                    <input id="name" name="name" type="text" class="validate" required>
+                    {% endif %}
+                    <label for="name">Name</label>
                 </div>
             </div>
-        </form>
-    </div>
+            <!-- Email -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">email</i>
+                    {% if user %}
+                    <input id="email" name="email" type="email" class="validate" value="{{ user.email }}" required>
+                    {% else %}
+                    <input id="email" name="email" type="email" class="validate" required>
+                    {% endif %}
+                    <label for="email">Email</label>
+                </div>
+            </div>
+            <!-- message -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">message</i>
+                    <textarea id="message" name="message"
+                        class="materialize-textarea validate" required></textarea>
+                    <label for="message">Message</label>
+                </div>
+            </div>
+            <!-- submit -->
+            <div class="row">
+                <button type="submit" class="col s10 offset-s1 teal darken-4 btn-large">
+                    Submit
+                    <i class="material-icons prefix white-text">forward</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}

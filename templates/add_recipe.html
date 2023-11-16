@@ -1,118 +1,118 @@
 {% extends "base.html" %}
 {% block content %}
-    <h3 class="center-align teal-text text-darken-4">Add Recipe</h3>
-    
-    <div class="row">
-        <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('add_recipe') }}">
-            <div class="card-panel form">
-                <!-- recipe_name -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">title</i>
-                        <input id="recipe_name" name="recipe_name" type="text" class="validate" required>
-                        <label for="recipe_name">Recipe Name</label>
-                    </div>
-                </div>
-                <!-- recipe_description -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">subject</i>
-                        <textarea id="recipe_description" name="recipe_description"
-                            class="materialize-textarea validate" required></textarea>
-                        <label for="recipe_description">Description</label>
-                    </div>
-                </div>
-                <!-- categories -->
-                <div class="row">
-                    <div class="col s12 label">
-                        <i class="material-icons teal-text text-darken-4">view_stream</i>Categories
-                    </div>
-                </div>
-                <div class="categories-container row">
-                    {% for category in categories %}
-                    <div class="col s12 m6 l4 center-align">
-                        <div class="row">
-                            <label class="btn col s10 offset-s1 center-align {{ category.category_color }} black-text">
-                                <input type="checkbox" name="category_name" value="{{ category.category_name }}">
-                                <span>{{ category.category_name }}</span>
-                            </label>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                <!-- ingredients -->
-                <ul class="row" id="ingredients">
-                    <div class="col s12 label">
-                        <i class="material-icons teal-text text-darken-4">toc</i>
-                        Ingredients
-                        <i class="green-text center-align material-icons add" onclick="newItem(event, 'ingredient')">add</i>
-                    </div>
-                    <li class="col s12">
-                        <div class="li-container">
-                            <input class="col s10" type="text" name="ingredient">
-                            <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
-                            <i class="red-text col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
-                        </div>
-                    </li>
-                </ul>
-                <!-- instructions -->
-                <ol class="row" id="instructions">
-                    <div class="col s12 label">
-                        <i class="material-icons teal-text text-darken-4">view_list</i>
-                        Instructions
-                        <i class="green-text center-align material-icons add" onclick="newItem(event, 'instruction')">add</i>
-                    </div>
-                    <li class="col s12">
-                        <div class="li-container">
-                            <input class="col s10" type="text" name="instruction">
-                            <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
-                            <i class="red-text col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
-                        </div>
-                    </li>
-                </ol>
-                <!-- serves -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">people</i>
-                        <input id="serves" name="serves" type="number" class="validate" required>
-                        <label for="serves">Serves</label>
-                        <span class="helper-text" data-error="People must be whole numbers" data-success="">People</span>
-                    </div>
-                </div>
-                <!-- prep_time -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">timer</i>
-                        <input id="prep_time" name="prep_time" type="number" class="validate" required>
-                        <label for="prep_time">Prep Time</label>
-                        <span class="helper-text" data-error="Minutes must be whole numbers" data-success="">Minutes</span>
-                    </div>
-                </div>
-                <!-- cook_time -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">timelapse</i>
-                        <input id="cook_time" name="cook_time" type="number" class="validate" required>
-                        <label for="cook_time">Cook Time</label>
-                        <span class="helper-text" data-error="Minutes must be whole numbers" data-success="">Minutes</span>
-                    </div>
-                </div>
-                <!-- photo_url -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix teal-text text-darken-4">photo</i>
-                        <input id="photo_url" name="photo_url" type="url" class="validate">
-                        <label for="photo_url">Photo URL Link (optional)</label>
-                    </div>
-                </div>
-                <!-- submit -->
-                <div class="row">
-                    <button type="submit" class="col s10 offset-s1 teal darken-4 btn-large">
-                        Submit
-                        <i class="material-icons prefix white-text">forward</i>
-                    </button>
+<h3 class="center-align teal-text text-darken-4">Add Recipe</h3>
+
+<div class="row">
+    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('add_recipe') }}">
+        <div class="card-panel form">
+            <!-- recipe_name -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">title</i>
+                    <input id="recipe_name" name="recipe_name" type="text" class="validate" required>
+                    <label for="recipe_name">Recipe Name</label>
                 </div>
             </div>
-        </form>
-    </div>
+            <!-- recipe_description -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">subject</i>
+                    <textarea id="recipe_description" name="recipe_description"class="materialize-textarea validate" required></textarea>
+                    <label for="recipe_description">Description</label>
+                </div>
+            </div>
+            <!-- categories -->
+            <div class="row">
+                <div class="col s12 label">
+                    <i class="material-icons teal-text text-darken-4">view_stream</i>
+                    Categories
+                </div>
+            </div>
+            <div class="categories-container row">
+                {% for category in categories %}
+                <div class="col s12 m6 l4 center-align">
+                    <div class="row">
+                        <label class="btn col s10 offset-s1 center-align {{ category.category_color }} black-text">
+                            <input type="checkbox" name="category_name" value="{{ category.category_name }}">
+                            <span>{{ category.category_name }}</span>
+                        </label>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- ingredients -->
+            <ul class="row" id="ingredients">
+                <div class="col s12 label">
+                    <i class="material-icons teal-text text-darken-4">toc</i>
+                    Ingredients
+                    <i class="green-text center-align material-icons add" onclick="newItem(event, 'ingredient')">add</i>
+                </div>
+                <li class="col s12">
+                    <div class="li-container">
+                        <input class="col s10" type="text" name="ingredient">
+                        <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
+                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
+                    </div>
+                </li>
+            </ul>
+            <!-- instructions -->
+            <ol class="row" id="instructions">
+                <div class="col s12 label">
+                    <i class="material-icons teal-text text-darken-4">view_list</i>
+                    Instructions
+                    <i class="green-text center-align material-icons add" onclick="newItem(event, 'instruction')">add</i>
+                </div>
+                <li class="col s12">
+                    <div class="li-container">
+                        <input class="col s10" type="text" name="instruction">
+                        <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
+                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
+                    </div>
+                </li>
+            </ol>
+            <!-- serves -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">people</i>
+                    <input id="serves" name="serves" type="number" class="validate" min="1" required>
+                    <label for="serves">Serves</label>
+                    <span class="helper-text" data-error="People must be whole numbers" data-success="">People</span>
+                </div>
+            </div>
+            <!-- prep_time -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">timer</i>
+                    <input id="prep_time" name="prep_time" type="number" class="validate" min="0" required>
+                    <label for="prep_time">Prep Time</label>
+                    <span class="helper-text" data-error="Minutes must be whole numbers" data-success="">Minutes</span>
+                </div>
+            </div>
+            <!-- cook_time -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">timelapse</i>
+                    <input id="cook_time" name="cook_time" type="number" class="validate" min="0" required>
+                    <label for="cook_time">Cook Time</label>
+                    <span class="helper-text" data-error="Minutes must be whole numbers" data-success="">Minutes</span>
+                </div>
+            </div>
+            <!-- photo_url -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix teal-text text-darken-4">photo</i>
+                    <input id="photo_url" name="photo_url" type="url" class="validate">
+                    <label for="photo_url">Photo URL Link (optional)</label>
+                </div>
+            </div>
+            <!-- submit -->
+            <div class="row">
+                <button type="submit" class="col s10 offset-s1 teal darken-4 btn-large">
+                    Submit
+                    <i class="material-icons prefix white-text">forward</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}

@@ -1,69 +1,88 @@
 {% extends "base.html" %}
 {% block content %}
-    <h3 class="center-align teal-text text-darken-4">Users</h3>
-    <div class="row">
+<h3 class="center-align teal-text text-darken-4">Users</h3>
+<div class="row">
     {% for u in users %}
-        <div class="col s12 m6 l4">
-            <div class="card sticky-action">
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">{{ u.username }}<i
-                            class="material-icons right">more_vert</i></span>
-                    {% if u.photo_url %}
-                    <img class="circle" src="{{ u.photo_url }}" alt="Profile">
+    <div class="col s12 m6 l4">
+        <div class="card sticky-action">
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">
+                    {{ u.username }}
+                    <i class="material-icons right">more_vert</i>
+                </span>
+                {% if u.photo_url %}
+                <img class="circle" src="{{ u.photo_url }}" alt="Profile">
+                {% else %}
+                <img class="circle" src="{{ url_for('static', filename='images/blankprofile.webp') }}" alt="Profile">
+                {% endif %}
+            </div>
+            <div class="card-action amber lighten-5">
+                <div class="row">
+                    {% if u.is_super %}
+                    <div class="col s3 center-align">
+                        <a href="{{ url_for('super_user', user_id=u._id) }}" 
+                            class="tooltipped" data-position="bottom" data-tooltip="Remove Super">
+                            <i class="material-icons pink-text">star</i>
+                        </a>
+                    </div>
                     {% else %}
-                    <img class="circle" src="{{ url_for('static', filename='images/blankprofile.webp') }}" alt="Profile">
+                    <div class="col s3 center-align">
+                        <a href="{{ url_for('super_user', user_id=u._id) }}"
+                            class="tooltipped" data-position="bottom" data-tooltip="Add Super">
+                            <i class="material-icons">star_border</i>
+                        </a>
+                    </div>
                     {% endif %}
-                </div>
-                <div class="card-action amber lighten-5">
-                    <div class="row">
-                        {% if u.is_super %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('super_user', user_id=u._id) }}"><i
-                                    class="material-icons pink-text">star</i></a>
-                        </div>
-                        {% else %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('super_user', user_id=u._id) }}"><i
-                                    class="material-icons">star_border</i></a>
-                        </div>
-                        {% endif %}
-                        {% if u.is_admin %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('admin_user', user_id=u._id) }}"><i class="material-icons pink-text">person</i></a>
-                        </div>
-                        {% else %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('admin_user', user_id=u._id) }}"><i class="material-icons">person_outline</i></a>
-                        </div>
-                        {% endif %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('edit_details', user_id=u._id) }}"><i class="material-icons green-text text-darken-2">edit</i></a>
-                        </div>
-                        <div class="col s3 center-align">
-                            <a href="#modal{{ loop.index }}" class="modal-trigger"><i class="material-icons red-text text-darken-4">delete</i></a>
-                        </div>
+                    {% if u.is_admin %}
+                    <div class="col s3 center-align">
+                        <a href="{{ url_for('admin_user', user_id=u._id) }}"
+                            class="tooltipped" data-position="bottom" data-tooltip="Remove Admin">
+                            <i class="material-icons pink-text">person</i>
+                        </a>
+                    </div>
+                    {% else %}
+                    <div class="col s3 center-align">
+                        <a href="{{ url_for('admin_user', user_id=u._id) }}"
+                            class="tooltipped" data-position="bottom" data-tooltip="Add Admin">
+                            <i class="material-icons">person_outline</i>
+                        </a>
+                    </div>
+                    {% endif %}
+                    <div class="col s3 center-align">
+                        <a href="{{ url_for('edit_details', user_id=u._id) }}"
+                            class="tooltipped" data-position="bottom" data-tooltip="Edit">
+                            <i class="material-icons green-text text-darken-2">edit</i>
+                        </a>
+                    </div>
+                    <div class="col s3 center-align">
+                        <a href="#modal{{ loop.index }}" class="modal-trigger"
+                            class="tooltipped" data-position="bottom" data-tooltip="Delete">
+                            <i class="material-icons red-text text-darken-4">delete</i>
+                        </a>
                     </div>
                 </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Username: {{ u.username }}<i
-                            class="material-icons right">close</i></span>
-                    <p>
-                        Name: {{ u.f_name }} {{ u.l_name }}<br>
-                        Email: {{ u.email }}<br>
-                        User since: {{ u.user_since.day }}/{{ u.user_since.month }}/{{ u.user_since.year }}
-                    </p>
-                </div>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Username: {{ u.username }}<i
+                        class="material-icons right">close</i></span>
+                <p>
+                    Name: {{ u.f_name }} {{ u.l_name }}<br>
+                    Email: {{ u.email }}<br>
+                    User since: {{ u.user_since.day }}/{{ u.user_since.month }}/{{ u.user_since.year }}
+                </p>
             </div>
         </div>
-        <div id="modal{{ loop.index }}" class="modal">
-            <div class="modal-content">
-                <h4>{{ user.username }}</h4>
-                <p>Are you sure you want to delete {{ u.username }}? This action cannot be undone.</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-                <a href="{{ url_for('delete_user', user_id=u._id) }}" class="waves-effect waves-red btn-flat">Delete</a>
-            </div>
+    </div>
+    <div id="modal{{ loop.index }}" class="modal">
+        <div class="modal-content">
+            <h4>{{ user.username }}</h4>
+            <p>Are you sure you want to delete {{ u.username }}? This action cannot be undone.</p>
         </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="{{ url_for('delete_user', user_id=u._id) }}" 
+                class="waves-effect waves-red btn-flat">Delete</a>
+        </div>
+    </div>
     {% endfor %}
 {% endblock %}
