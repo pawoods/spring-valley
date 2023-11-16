@@ -9,4 +9,9 @@ Bugs
 5. Bug found where admin cannot see edit and delete buttons on other users recipe cards on home screen under popular recipes - fixed by adding in the missing or user.is_admin to the jinja if statement
 6. Bug found where users could edit or delete other users recipes from the liked recipe section of their profile page - Fixed by adding in the missing jinja if statement around the edit and delete buttons.
 
+Remaining bugs
+
+1. Redirect using the session url works well in majority of normal use cases, although where a user navigates using back button, the browser will load a cahced version of the page and won't overwrite the url in session. Meaning, when a user then triggers another function (like, delete etc.), they will be returned to the last page that stores the url in session. 
+
+
 $ne operator learned from <https://developerslogblog.wordpress.com/2019/10/15/mongodb-how-to-filter-by-multiple-fields/>

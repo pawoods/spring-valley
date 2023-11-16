@@ -99,6 +99,10 @@ def register():
             flash("Successfully Registered!")
             return redirect(url_for("profile"))
 
+    if "user" in session:
+        flash("You are already registered")
+        return redirect(url_for("profile"))
+
     return render_template("register.html")
 
 
@@ -129,6 +133,10 @@ def sign_in():
             flash("Incorrect email and/or password")
             return redirect(url_for("sign_in"))
 
+    if "user" in session:
+        flash("You are already signed in")
+        return redirect(url_for("profile"))
+
     return render_template("sign_in.html")
 
 
@@ -149,59 +157,66 @@ def profile():
             liked_recipes=liked_recipes,
             user=user)
 
+    flash("You are not signed in")
+    return redirect("/")
+
 
 @app.route("/edit_details/<user_id>", methods=["GET", "POST"])
 def edit_details(user_id):
-    editing = mongo.db.users.find_one({"_id": ObjectId(user_id)})
     if "user" in session:
         user = get_user(session["user"])
-    if request.method == "POST":
-        # check if username and email are already in users collection
-        # excluding current user
-        existing_user = mongo.db.users.find_one({
-            "$and": [{"_id": {"$ne": ObjectId(user_id)}}, {
-                "username": request.form.get("username")}]})
-        existing_email = mongo.db.users.find_one({
-            "$and": [{"_id": {"$ne": ObjectId(user_id)}}, {
-                "email": request.form.get("email")}]})
+        editing = mongo.db.users.find_one({"_id": ObjectId(user_id)})
 
-        if existing_user and existing_email:
-            flash("Username and email already exist")
-            return redirect(url_for(
-                "edit_details",
-                user_id=user_id))
-        elif existing_user:
-            flash("Username already exists")
-            return redirect(url_for(
-                "edit_details",
-                user_id=user_id))
-        elif existing_email:
-            flash("Email already exists")
-            return redirect(url_for(
-                "edit_details",
-                user_id=user_id))
+        if request.method == "POST":
+            # check if username and email are already in users collection
+            # excluding current user
+            existing_user = mongo.db.users.find_one({
+                "$and": [{"_id": {"$ne": ObjectId(user_id)}}, {
+                    "username": request.form.get("username")}]})
+            existing_email = mongo.db.users.find_one({
+                "$and": [{"_id": {"$ne": ObjectId(user_id)}}, {
+                    "email": request.form.get("email")}]})
 
-        edit = {
-            "f_name": request.form.get("f_name").capitalize(),
-            "l_name": request.form.get("l_name").capitalize(),
-            "email": request.form.get("email"),
-            "username": request.form.get("username").lower(),
-            "photo_url": request.form.get("photo_url")
-        }
-        mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
-            "$set": edit})
+            if existing_user and existing_email:
+                flash("Username and email already exist")
+                return redirect(url_for(
+                    "edit_details",
+                    user_id=user_id))
+            elif existing_user:
+                flash("Username already exists")
+                return redirect(url_for(
+                    "edit_details",
+                    user_id=user_id))
+            elif existing_email:
+                flash("Email already exists")
+                return redirect(url_for(
+                    "edit_details",
+                    user_id=user_id))
 
-        query = {"created_by.user_id": editing["user_id"]}
-        update = {"$set": {
-            "created_by.username": request.form.get("username").lower()}}
-        mongo.db.recipes.update_many(query, update)
-        flash("User details updated successfuly")
-        return redirect(session["url"])
+            edit = {
+                "f_name": request.form.get("f_name").capitalize(),
+                "l_name": request.form.get("l_name").capitalize(),
+                "email": request.form.get("email"),
+                "username": request.form.get("username").lower(),
+                "photo_url": request.form.get("photo_url")
+            }
+            mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+                "$set": edit})
 
-    return render_template(
-        "edit_details.html",
-        editing=editing,
-        user=user)
+            query = {"created_by.user_id": editing["user_id"]}
+            update = {"$set": {
+                "created_by.username": request.form.get("username").lower()}}
+            mongo.db.recipes.update_many(query, update)
+            flash("User details updated successfuly")
+            return redirect(session["url"])
+
+        return render_template(
+            "edit_details.html",
+            editing=editing,
+            user=user)
+
+    flash("You are not signed in")
+    return redirect("/")
 
 
 @app.route("/delete_user/<user_id>")
@@ -267,93 +282,100 @@ def filter_recipes(category_name):
 
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
-    user = get_user(session["user"])
+    if "user" in session:
+        user = get_user(session["user"])
 
-    if request.method == "POST":
-        selected_categories = request.form.getlist("category_name")
-        recipe_categories = []
-        for category in selected_categories:
-            category_object = mongo.db.categories.find_one(
-                {"category_name": category})
-            recipe_categories.append(category_object)
-        # gets ingredients and instructions lists and removed blank entries
-        ingredients = request.form.getlist("ingredient")
-        filtered_ingredients = [x for x in ingredients if x]
+        if request.method == "POST":
+            selected_categories = request.form.getlist("category_name")
+            recipe_categories = []
+            for category in selected_categories:
+                category_object = mongo.db.categories.find_one(
+                    {"category_name": category})
+                recipe_categories.append(category_object)
+            # gets ingredients and instructions lists and removed blank entries
+            ingredients = request.form.getlist("ingredient")
+            filtered_ingredients = [x for x in ingredients if x]
 
-        instructions = request.form.getlist("instruction")
-        filtered_instructions = [x for x in instructions if x]
+            instructions = request.form.getlist("instruction")
+            filtered_instructions = [x for x in instructions if x]
 
-        recipe = {
-            "categories": recipe_categories,
-            "recipe_name": request.form.get("recipe_name"),
-            "ingredients": filtered_ingredients,
-            "instructions": filtered_instructions,
-            "recipe_description": request.form.get("recipe_description"),
-            "created_by": {
-                "username": user["username"],
-                "user_id": user["user_id"]},
-            "serves": int(request.form.get("serves")),
-            "prep_time": int(request.form.get("prep_time")),
-            "cook_time": int(request.form.get("cook_time")),
-            "photo_url": request.form.get("photo_url"),
-            "likes": {
-                "count": 0,
-                "id": []},
-            "created_date": datetime.now()}
-        mongo.db.recipes.insert_one(recipe)
-        # returns the _id of the newly created recipe to use in the redirect
-        new_recipe_id = mongo.db.recipes.find_one(recipe)["_id"]
-        flash("Recipe successfully added")
-        return redirect(url_for("recipe_details", recipe_id=new_recipe_id))
+            recipe = {
+                "categories": recipe_categories,
+                "recipe_name": request.form.get("recipe_name"),
+                "ingredients": filtered_ingredients,
+                "instructions": filtered_instructions,
+                "recipe_description": request.form.get("recipe_description"),
+                "created_by": {
+                    "username": user["username"],
+                    "user_id": user["user_id"]},
+                "serves": int(request.form.get("serves")),
+                "prep_time": int(request.form.get("prep_time")),
+                "cook_time": int(request.form.get("cook_time")),
+                "photo_url": request.form.get("photo_url"),
+                "likes": {
+                    "count": 0,
+                    "id": []},
+                "created_date": datetime.now()}
+            mongo.db.recipes.insert_one(recipe)
+            # returns the _id of the newly created recipe to use in the redirect
+            new_recipe_id = mongo.db.recipes.find_one(recipe)["_id"]
+            flash("Recipe successfully added")
+            return redirect(url_for("recipe_details", recipe_id=new_recipe_id))
 
-    categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template(
-        "add_recipe.html",
-        categories=categories,
-        user=user)
+        categories = mongo.db.categories.find().sort("category_name", 1)
+        return render_template(
+            "add_recipe.html",
+            categories=categories,
+            user=user)
+
+    flash("You are not signed in")
+    return redirect("/")
 
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
-    user = get_user(session["user"])
+    if "user" in session:
+        user = get_user(session["user"])
 
-    if request.method == "POST":
-        selected_categories = request.form.getlist("category_name")
-        recipe_categories = []
-        for category in selected_categories:
-            category_object = mongo.db.categories.find_one(
-                {"category_name": category})
-            recipe_categories.append(category_object)
-        # gets ingredients and instructions lists and removed blank entries
-        ingredients = request.form.getlist("ingredient")
-        filtered_ingredients = [x for x in ingredients if x]
+        if request.method == "POST":
+            selected_categories = request.form.getlist("category_name")
+            recipe_categories = []
+            for category in selected_categories:
+                category_object = mongo.db.categories.find_one(
+                    {"category_name": category})
+                recipe_categories.append(category_object)
+            # gets ingredients and instructions lists and removed blank entries
+            ingredients = request.form.getlist("ingredient")
+            filtered_ingredients = [x for x in ingredients if x]
 
-        instructions = request.form.getlist("instruction")
-        filtered_instructions = [x for x in instructions if x]
+            instructions = request.form.getlist("instruction")
+            filtered_instructions = [x for x in instructions if x]
 
-        edit = {
-            "categories": recipe_categories,
-            "recipe_name": request.form.get("recipe_name"),
-            "ingredients": filtered_ingredients,
-            "instructions": filtered_instructions,
-            "recipe_description": request.form.get("recipe_description"),
-            "serves": int(request.form.get("serves")),
-            "prep_time": int(request.form.get("prep_time")),
-            "cook_time": int(request.form.get("cook_time")),
-            "photo_url": request.form.get("photo_url")}
+            edit = {
+                "categories": recipe_categories,
+                "recipe_name": request.form.get("recipe_name"),
+                "ingredients": filtered_ingredients,
+                "instructions": filtered_instructions,
+                "recipe_description": request.form.get("recipe_description"),
+                "serves": int(request.form.get("serves")),
+                "prep_time": int(request.form.get("prep_time")),
+                "cook_time": int(request.form.get("cook_time")),
+                "photo_url": request.form.get("photo_url")}
 
-        mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
-            "$set": edit})
-        flash("Recipe successfully updated")
-        return redirect(session["url"])
+            mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
+                "$set": edit})
+            flash("Recipe successfully updated")
+            return redirect(session["url"])
 
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template(
-        "edit_recipe.html",
-        categories=categories,
-        recipe=recipe,
-        user=user)
+        recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+        categories = mongo.db.categories.find().sort("category_name", 1)
+        return render_template(
+            "edit_recipe.html",
+            categories=categories,
+            recipe=recipe,
+            user=user)
+
+    return redirect("/")
 
 
 @app.route("/delete_recipe/<recipe_id>")
@@ -400,54 +422,60 @@ def categories():
 
 @app.route("/add_category", methods=["GET", "POST"])
 def add_category():
-    user = get_user(session["user"])
+    if "user" in session:
+        user = get_user(session["user"])
 
-    if request.method == "POST":
-        # Adds new category to the database
-        category = {
-            "category_name": request.form.get("category_name"),
-            "category_description": request.form.get("category_description"),
-            "category_color": request.form.get("category_color")}
-        mongo.db.categories.insert_one(category)
+        if request.method == "POST":
+            # Adds new category to the database
+            category = {
+                "category_name": request.form.get("category_name"),
+                "category_description": request.form.get("category_description"),
+                "category_color": request.form.get("category_color")}
+            mongo.db.categories.insert_one(category)
 
-        flash("New category added!")
-        return redirect(url_for("categories"))
+            flash("New category added!")
+            return redirect(url_for("categories"))
 
-    return render_template("add_category.html", user=user)
+        return render_template("add_category.html", user=user)
+
+    return redirect("/")
 
 
 @app.route("/edit_category/<category_id>", methods=["GET", "POST"])
 def edit_category(category_id):
-    user = get_user(session["user"])
-    if request.method == "POST":
-        # Updates the category in the database
-        edit = {
-            "category_name": request.form.get("category_name"),
-            "category_description": request.form.get("category_description"),
-            "category_color": request.form.get("category_color")}
-        mongo.db.categories.update_one({"_id": ObjectId(category_id)}, {
-            "$set": edit})
-        # Updates the category on all applicable recipes in recipe database
-        query = {
-            "categories._id": ObjectId(category_id)}
-        update = {"$set": {
-            "categories.$.category_name":
-            request.form.get("category_name"),
-            "categories.$.category_description":
-            request.form.get("category_description"),
-            "categories.$.category_color":
-            request.form.get("category_color")}
-        }
-        mongo.db.recipes.update_many(query, update)
+    if "user" in session:
+        user = get_user(session["user"])
+        if request.method == "POST":
+            # Updates the category in the database
+            edit = {
+                "category_name": request.form.get("category_name"),
+                "category_description": request.form.get("category_description"),
+                "category_color": request.form.get("category_color")}
+            mongo.db.categories.update_one({"_id": ObjectId(category_id)}, {
+                "$set": edit})
+            # Updates the category on all applicable recipes in recipe database
+            query = {
+                "categories._id": ObjectId(category_id)}
+            update = {"$set": {
+                "categories.$.category_name":
+                request.form.get("category_name"),
+                "categories.$.category_description":
+                request.form.get("category_description"),
+                "categories.$.category_color":
+                request.form.get("category_color")}
+            }
+            mongo.db.recipes.update_many(query, update)
 
-        flash("Category successfully updated")
-        return redirect(url_for("categories"))
+            flash("Category successfully updated")
+            return redirect(url_for("categories"))
 
-    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
-    return render_template(
-        "edit_category.html",
-        category=category,
-        user=user)
+        category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+        return render_template(
+            "edit_category.html",
+            category=category,
+            user=user)
+
+    return redirect("/")
 
 
 @app.route("/delete_category/<category_id>")
