@@ -237,19 +237,30 @@ def edit_details(user_id):
     return redirect(url_for("home"))
 
 
-@app.route("/delete_user/<user_id>")
+@app.route("/delete_user/<user_id>", methods=["GET", "POST"])
 def delete_user(user_id):
-    deleted = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    # Remove user from session and recirect to home if they delete themself
-    if deleted["user_id"] == session["user"]:
-        session.pop("user")
-        mongo.db.users.delete_one({"_id": ObjectId(user_id)})
-        flash("Account successfully removed")
-        return redirect(url_for("home"))
+    if "user" in session:
+        user = get_user(session["user"])
+        if request.method == "POST":
+            if check_password_hash(
+                    user["password"],
+                    request.form.get("password_confirm")):
+                deleted = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+                # Remove user from session and recirect to home if they delete themself
+                if deleted["user_id"] == user["user_id"]:
+                    session.pop("user")
+                    mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+                    flash("Account successfully removed")
+                    return redirect(url_for("home"))
 
-    mongo.db.users.delete_one({"_id": ObjectId(user_id)})
-    flash("Account successfully removed")
-    return redirect(session["url"])
+                mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+                flash("Account successfully removed")
+                return redirect(session["url"])
+        
+            flash("Incorrect Password")
+            return redirect(session["url"])
+
+    return redirect(url_for("home"))
 
 
 @app.route("/recipe_details/<recipe_id>")
@@ -354,44 +365,46 @@ def add_recipe():
 def edit_recipe(recipe_id):
     if "user" in session:
         user = get_user(session["user"])
+        recipe_user = mongo.db.recipes.find_one(
+            {"_id": ObjectId(recipe_id)})["created_by"]
+        if user["user_id"] == recipe_user["user_id"] or user["is_admin"]:
+            if request.method == "POST":
+                selected_categories = request.form.getlist("category_name")
+                recipe_categories = []
+                for category in selected_categories:
+                    category_object = mongo.db.categories.find_one(
+                        {"category_name": category})
+                    recipe_categories.append(category_object)
+                # gets ingredients and instructions lists and removed blank entries
+                ingredients = request.form.getlist("ingredient")
+                filtered_ingredients = [x for x in ingredients if x]
 
-        if request.method == "POST":
-            selected_categories = request.form.getlist("category_name")
-            recipe_categories = []
-            for category in selected_categories:
-                category_object = mongo.db.categories.find_one(
-                    {"category_name": category})
-                recipe_categories.append(category_object)
-            # gets ingredients and instructions lists and removed blank entries
-            ingredients = request.form.getlist("ingredient")
-            filtered_ingredients = [x for x in ingredients if x]
+                instructions = request.form.getlist("instruction")
+                filtered_instructions = [x for x in instructions if x]
 
-            instructions = request.form.getlist("instruction")
-            filtered_instructions = [x for x in instructions if x]
+                edit = {
+                    "categories": recipe_categories,
+                    "recipe_name": request.form.get("recipe_name"),
+                    "ingredients": filtered_ingredients,
+                    "instructions": filtered_instructions,
+                    "recipe_description": request.form.get("recipe_description"),
+                    "serves": int(request.form.get("serves")),
+                    "prep_time": int(request.form.get("prep_time")),
+                    "cook_time": int(request.form.get("cook_time")),
+                    "photo_url": request.form.get("photo_url")}
 
-            edit = {
-                "categories": recipe_categories,
-                "recipe_name": request.form.get("recipe_name"),
-                "ingredients": filtered_ingredients,
-                "instructions": filtered_instructions,
-                "recipe_description": request.form.get("recipe_description"),
-                "serves": int(request.form.get("serves")),
-                "prep_time": int(request.form.get("prep_time")),
-                "cook_time": int(request.form.get("cook_time")),
-                "photo_url": request.form.get("photo_url")}
+                mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
+                    "$set": edit})
+                flash("Recipe successfully updated")
+                return redirect(session["url"])
 
-            mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
-                "$set": edit})
-            flash("Recipe successfully updated")
-            return redirect(session["url"])
-
-        recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-        categories = mongo.db.categories.find().sort("category_name", 1)
-        return render_template(
-            "edit_recipe.html",
-            categories=categories,
-            recipe=recipe,
-            user=user)
+            recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+            categories = mongo.db.categories.find().sort("category_name", 1)
+            return render_template(
+                "edit_recipe.html",
+                categories=categories,
+                recipe=recipe,
+                user=user)
 
     return redirect(url_for("home"))
 
@@ -400,8 +413,9 @@ def edit_recipe(recipe_id):
 def delete_recipe(recipe_id):
     if "user" in session:
         user = get_user(session["user"])
-        recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-        if user["user_id"] == recipe["created_by"]["user_id"] or user["is_admin"]:
+        recipe_user = mongo.db.recipes.find_one(
+            {"_id": ObjectId(recipe_id)})["created_by"]
+        if user["user_id"] == recipe_user["user_id"] or user["is_admin"]:
             mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
             flash("Recipe successfully deleted")
             # Redirects the user to recipes page if they

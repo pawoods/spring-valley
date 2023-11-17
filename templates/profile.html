@@ -35,14 +35,26 @@
 </div>
 
 <div id="modal" class="modal">
-	<div class="modal-content">
-		<h4>{{ user.username }}</h4>
-		<p>Are you sure you want to delete your account? This action cannot be undone.</p>
-	</div>
-	<div class="modal-footer">
-		<a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-		<a href="{{ url_for('delete_user', user_id=user._id) }}" class="waves-effect waves-red btn-flat">Delete</a>
-	</div>
+	<form method="POST" action="{{ url_for('delete_user', user_id=user._id) }}" >
+		<div class="modal-content">
+			<h4>{{ user.username }}</h4>
+			<p>Please confirm your password to delete your account.</p>
+			<div class="row input-container">
+				<div class="input-field col s11">
+					<i class="material-icons prefix teal-text text-darken-4">key</i>
+					<input id="password_confirm" name="password_confirm" type="password" class="validate" required>
+					<label for="password_confirm">Password Confirm</label>
+				</div>
+				<div class="col s1">
+					<i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+			<button type="submit" class="waves-effect waves-red btn-flat">Delete</button>
+		</div>
+	</form>
 </div>
 
 <h3 class="center-align teal-text text-darken-4">

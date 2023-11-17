@@ -55,8 +55,8 @@
                         </a>
                     </div>
                     <div class="col s3 center-align">
-                        <a href="#modal{{ loop.index }}" class="modal-trigger"
-                            class="tooltipped" data-position="bottom" data-tooltip="Delete">
+                        <a href="#modal{{ loop.index }}" class="modal-trigger tooltipped" 
+                            data-position="bottom" data-tooltip="Delete">
                             <i class="material-icons red-text text-darken-4">delete</i>
                         </a>
                     </div>
@@ -74,15 +74,26 @@
         </div>
     </div>
     <div id="modal{{ loop.index }}" class="modal">
-        <div class="modal-content">
-            <h4>{{ user.username }}</h4>
-            <p>Are you sure you want to delete {{ u.username }}? This action cannot be undone.</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-            <a href="{{ url_for('delete_user', user_id=u._id) }}" 
-                class="waves-effect waves-red btn-flat">Delete</a>
-        </div>
+        <form method="POST" action="{{ url_for('delete_user', user_id=u._id) }}">
+            <div class="modal-content">
+                <h4>{{ user.username }}</h4>
+                <p>Please input your password to delete {{ u.username }}</p>
+                <div class="row input-container">
+                    <div class="input-field col s11">
+                        <i class="material-icons prefix teal-text text-darken-4">key</i>
+                        <input id="password_confirm" name="password_confirm" type="password" class="validate" required>
+                        <label for="password_confirm">Password Confirm</label>
+                    </div>
+                    <div class="col s1">
+                        <i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                <button type="submit" class="waves-effect waves-red btn-flat">Delete</a>
+            </div>
+        </form>
     </div>
     {% endfor %}
 {% endblock %}
