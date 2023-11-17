@@ -36,6 +36,31 @@
                     <span class="helper-text" data-error="Username must be 5-15 characters long and may include uppercase letters, lowercase letters, numbers and special characters @._-" data-success=""></span>
                 </div>
             </div>
+            <div class="row input-container">
+                <div class="input-field col s11">
+                    <i class="material-icons prefix teal-text text-darken-4">key</i>
+                    <input id="password" name="password" type="password" pattern="^[a-zA-Z0-9!&$?@#_\-]{8,}$" 
+                        minlength="8" class="validate">
+                    <label for="password">Password</label>
+                    <span class="helper-text" data-error="Password must be at least 8 characters long and may contain lowercase letters, uppercase letters, numbers and special characters !&$?@#_-" data-success=""></span>
+                </div>
+                <div class="col s1">
+                    <i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
+                </div>
+            </div>
+            <!-- password_check -->
+            <div class="row input-container">
+                <div class="input-field col s11">
+                    <i class="material-icons prefix teal-text text-darken-4">key</i>
+                    <input id="password_check" name="password_check" type="password" pattern="^[a-zA-Z0-9!&$?@#_\-]{8,}$" 
+                        minlength="8" class="validate">
+                    <label for="password_check">Re-type Password</label>
+                    <span class="helper-text" data-error="Password must be at least 8 characters long and may contain lowercase letters, uppercase letters, numbers and special characters !&$?@#_-" data-success=""></span>
+                </div>
+                <div class="col s1">
+                    <i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
+                </div>
+            </div>
             <!-- photo_url -->
             <div class="row">
                 <div class="input-field col s12">
@@ -46,12 +71,37 @@
             </div>
             <!-- Submit -->
             <div class="row">
-                <button type="submit" class="col s10 offset-s1 teal darken-4 btn-large">
+                <a href="#modal" class="col s10 offset-s1 teal darken-4 btn-large modal-trigger">
                     Update
                     <i class="material-icons white-text">forward</i>
-                </button>
+                </a>
+            </div>
+        </div>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h4>{{ editing.username }}</h4>
+                {% if user._id == editing._id %}
+                <p>Please confirm your current password to update details.</p>
+                {% else %}
+                <p>Please confirm your password to update this user's details.</p>
+                {% endif %}
+                <div class="row input-container">
+                    <div class="input-field col s11">
+                        <i class="material-icons prefix teal-text text-darken-4">key</i>
+                        <input id="password_confirm" name="password_confirm" type="password" class="validate" required>
+                        <label for="password_confirm">Password Confirm</label>
+                    </div>
+                    <div class="col s1">
+                        <i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                <button type="submit" class="waves-effect waves-red btn-flat">Confirm</button>
             </div>
         </div>
     </form>
 </div>
+
 {% endblock %}

@@ -167,53 +167,71 @@ def edit_details(user_id):
         user = get_user(session["user"])
         editing = mongo.db.users.find_one({"_id": ObjectId(user_id)})
 
-        if request.method == "POST":
-            # check if username and email are already in users collection
-            # excluding current user
-            existing_user = mongo.db.users.find_one({
-                "$and": [{"_id": {"$ne": ObjectId(user_id)}}, {
-                    "username": request.form.get("username")}]})
-            existing_email = mongo.db.users.find_one({
-                "$and": [{"_id": {"$ne": ObjectId(user_id)}}, {
-                    "email": request.form.get("email")}]})
+        if user["is_admin"] or user["_id"] == editing["_id"]:
+            if request.method == "POST":
+                # check if username and email are already in users collection
+                # excluding current user
+                existing_user = mongo.db.users.find_one({
+                    "$and": [{"_id": {"$ne": ObjectId(user_id)}}, {
+                        "username": request.form.get("username")}]})
+                existing_email = mongo.db.users.find_one({
+                    "$and": [{"_id": {"$ne": ObjectId(user_id)}}, {
+                        "email": request.form.get("email")}]})
 
-            if existing_user and existing_email:
-                flash("Username and email already exist")
-                return redirect(url_for(
-                    "edit_details",
-                    user_id=user_id))
-            elif existing_user:
-                flash("Username already exists")
-                return redirect(url_for(
-                    "edit_details",
-                    user_id=user_id))
-            elif existing_email:
-                flash("Email already exists")
-                return redirect(url_for(
-                    "edit_details",
-                    user_id=user_id))
+                if not check_password_hash(
+                        user["password"],
+                        request.form.get("password_confirm")):
+                    return redirect(url_for(
+                        "edit_details",
+                        user_id=user_id))
 
-            edit = {
-                "f_name": request.form.get("f_name").capitalize(),
-                "l_name": request.form.get("l_name").capitalize(),
-                "email": request.form.get("email"),
-                "username": request.form.get("username").lower(),
-                "photo_url": request.form.get("photo_url")
-            }
-            mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
-                "$set": edit})
+                if existing_user and existing_email:
+                    flash("Username and email already exist")
+                    return redirect(url_for(
+                        "edit_details",
+                        user_id=user_id))
+                elif existing_user:
+                    flash("Username already exists")
+                    return redirect(url_for(
+                        "edit_details",
+                        user_id=user_id))
+                elif existing_email:
+                    flash("Email already exists")
+                    return redirect(url_for(
+                        "edit_details",
+                        user_id=user_id))
+                elif request.form.get("password") != request.form.get(
+                    "password_check"):
+                    flash("Passwords do not match")
+                    return redirect(url_for(
+                        "edit_details",
+                        user_id=user_id))
+                edit = {
+                    "f_name": request.form.get("f_name").capitalize(),
+                    "l_name": request.form.get("l_name").capitalize(),
+                    "email": request.form.get("email"),
+                    "username": request.form.get("username").lower(),
+                    "photo_url": request.form.get("photo_url"),
+                }
+                if request.form.get("password"):
+                    edit["password"] = generate_password_hash(
+                        request.form.get("password"))
+                mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
+                    "$set": edit})
 
-            query = {"created_by.user_id": editing["user_id"]}
-            update = {"$set": {
-                "created_by.username": request.form.get("username").lower()}}
-            mongo.db.recipes.update_many(query, update)
-            flash("User details updated successfuly")
-            return redirect(session["url"])
+                query = {"created_by.user_id": editing["user_id"]}
+                update = {"$set": {
+                    "created_by.username": request.form.get("username").lower()}}
+                mongo.db.recipes.update_many(query, update)
+                flash("User details updated successfuly")
+                return redirect(session["url"])
 
-        return render_template(
-            "edit_details.html",
-            editing=editing,
-            user=user)
+            return render_template(
+                "edit_details.html",
+                editing=editing,
+                user=user)
+
+        return redirect(url_for("home"))
 
     flash("You are not signed in")
     return redirect(url_for("home"))
