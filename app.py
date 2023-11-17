@@ -252,10 +252,12 @@ def delete_user(user_id):
                     mongo.db.users.delete_one({"_id": ObjectId(user_id)})
                     flash("Account successfully removed")
                     return redirect(url_for("home"))
+                elif user["is_admin"]:
 
-                mongo.db.users.delete_one({"_id": ObjectId(user_id)})
-                flash("Account successfully removed")
-                return redirect(session["url"])
+                    mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+                    flash("Account successfully removed")
+                    return redirect(session["url"])
+                return redirect(url_for("home"))
         
             flash("Incorrect Password")
             return redirect(session["url"])
