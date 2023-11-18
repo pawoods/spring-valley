@@ -244,7 +244,7 @@ def delete_user(user_id):
         if request.method == "POST":
             if check_password_hash(
                     user["password"],
-                    request.form.get("password_confirm")):
+                    request.form.get("password_confirm{0}".format(user_id))):
                 deleted = mongo.db.users.find_one({"_id": ObjectId(user_id)})
                 # Remove user from session and recirect to home if they delete themself
                 if deleted["user_id"] == user["user_id"]:
