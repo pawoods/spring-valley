@@ -45,8 +45,6 @@ function visibility(event) {
 }
 
 function closeFlash(event) {
-
     let element = event.target.closest(".flashes");
     element.classList.add("hidden")
-    console.log(element)
 }
