@@ -107,6 +107,13 @@
                 class="waves-effect waves-red btn-flat">Delete</a>
         </div>
     </div>
+    {% else %}
+	<div class="row center-align">
+		<p class="col s12">There are no {{ category_name }} recipes yet, get started by adding one now!</p>
+		<div class="col s12 m8 l4 offset-m2 offset-l4 center-align">
+			<a class="btn col s10 offset-s1 teal darken-4" href="{{ url_for('add_recipe') }}">Add Recipe</a>
+		</div>
+	</div>
     {% endfor %}
 </div>
 {% if user %}

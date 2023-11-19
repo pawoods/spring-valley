@@ -110,10 +110,17 @@
                     class="waves-effect waves-red btn-flat">Delete</a>
             </div>
         </div>
+        {% else %}
+        <div class="row center-align">
+            <p class="col s12">There are no new recipes yet, get started by adding one now!</p>
+            <div class="col s12 m8 l4 offset-m2 offset-l4 center-align">
+                <a class="btn col s10 offset-s1 teal darken-4" href="{{ url_for('add_recipe') }}">Add Recipe</a>
+            </div>
+        </div>
         {% endfor %}
     </div>
 
-    <h4 class="center-align teal-text text-darken-4">Most Liked Recipes</h4>
+    <h4 class="center-align teal-text text-darken-4">Popular Recipes</h4>
     <div class="row">
         {% for popular_recipe in popular_recipes %}
         <!-- Popular Recipe Card -->
@@ -216,6 +223,13 @@
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
                 <a href="{{ url_for('delete_recipe', recipe_id=popular_recipe._id) }}" class="waves-effect waves-red btn-flat">Delete</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="row center-align">
+            <p class="col s12">There are no popular recipes yet, get started by browsing all recipes now!</p>
+            <div class="col s12 m8 l4 offset-m2 offset-l4 center-align">
+                <a class="btn col s10 offset-s1 teal darken-4" href="{{ url_for('recipes') }}">View Recipes</a>
             </div>
         </div>
         {% endfor %}
