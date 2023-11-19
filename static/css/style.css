@@ -14,6 +14,10 @@ body, button, input, optgroup, select, textarea {
     margin: 0 16px 0 0;
 }
 
+span.subheader {
+    padding-left: 32px;
+}
+
 .indent {
     margin-left: 20px;
 }
@@ -34,6 +38,10 @@ body, button, input, optgroup, select, textarea {
 
 i[onclick] {
     cursor: pointer;
+}
+
+p a {
+    color: rgb(18, 138, 156);
 }
 
 .flashes i {
@@ -141,7 +149,7 @@ ol li.col.s12 {
 }
 
 ol.row .label.col.s12 {
-    margin-left: -2rem;
+    margin-left: -1.25rem;
 }
 
 .li-container, .input-container {
@@ -194,7 +202,6 @@ li.col.s12 i {
 }
 
 footer .contact.btn {
-    margin-top: 5px;
     font-weight: bolder;
 }
 

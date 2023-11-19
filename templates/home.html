@@ -11,9 +11,9 @@
             <div class="card sticky-action">
                 <div class="card-image waves-effect waves-block waves-light">
                     {% if new_recipe.photo_url %}
-                    <img class="activator" src="{{ new_recipe.photo_url }}">
+                    <img class="activator" src="{{ new_recipe.photo_url }}" alt="{{ new_recipe.recipe_name }}">
                     {% else %}
-                    <img class="activator" src="{{ url_for('static', filename='images/dinnertable.webp') }}">
+                    <img class="activator" src="{{ url_for('static', filename='images/dinnertable.webp') }}" alt="Dinner Table">
                     {% endif %}
                 </div>
                 <!-- Card Content -->
@@ -128,9 +128,9 @@
             <div class="card sticky-action">
                 <div class="card-image waves-effect waves-block waves-light">
                     {% if popular_recipe.photo_url %}
-                    <img class="activator" src="{{ popular_recipe.photo_url }}">
+                    <img class="activator" src="{{ popular_recipe.photo_url }}" alt="{{ popular_recipe.recipe_name }}">
                     {% else %}
-                    <img class="activator" src="{{ url_for('static', filename='images/dinnertable.webp') }}">
+                    <img class="activator" src="{{ url_for('static', filename='images/dinnertable.webp') }}" alt="Dinner Table">
                     {% endif %}
                 </div>
                 <!-- Card Content -->

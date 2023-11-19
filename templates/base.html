@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Social recipe sharing, discover new dishes and contribute your own!">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon/favicon-16x16.png') }}">
@@ -49,7 +50,7 @@
                     {% endif %}
                 </div>
             </li>
-            <li><a class="subheader">Menu</a></li>
+            <li><span class="subheader">Menu</span></li>
             <li>
                 <div class="divider"></div>
             </li>
@@ -119,28 +120,31 @@
         <div class="container center-align">
             <div class="row">
                 <div class="col l6 s12">
-                    <h5 class="white-text">Contact Us!</h5>
+                    <h4 class="white-text">Contact Us!</h4>
                     <p class="grey-text text-lighten-4">
                         Want to talk to us about any of the recipes on our site, got some suggestions for us or just want to say hi?<br>
-                        <a href="{{ url_for('contact') }}" class="contact btn white teal-text text-darken-4">Get in touch!</a>
                     </p>
+                    <a href="{{ url_for('contact') }}" class="contact btn white teal-text text-darken-4">Get in touch!</a>
                 </div>
                 <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text">Social Media</h5>
+                    <h4 class="white-text">Social Media</h4>
                     <ul class="social-links">
                         <li>
                             <a class="grey-text text-lighten-3" href="http://www.instagram.com" target="_blank">
                                 <i class="fa-brands fa-instagram"></i>
+                                <span class="sr-only">Instagram</span>
                             </a>
                         </li>
                         <li>
                             <a class="grey-text text-lighten-3" href="http://www.facebook.com" target="_blank">
                                 <i class="fa-brands fa-square-facebook"></i>
+                                <span class="sr-only">Facebook</span>
                             </a>
                         </li>
                         <li>
                             <a class="grey-text text-lighten-3" href="http://www.youtube.com" target="_blank">
                                 <i class="fa-brands fa-square-youtube"></i>
+                                <span class="sr-only">Youtube</span>
                             </a>
                         </li>
                     </ul>
