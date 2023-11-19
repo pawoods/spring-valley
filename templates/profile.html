@@ -42,8 +42,8 @@
 			<div class="row input-container">
 				<div class="input-field col s11">
 					<i class="material-icons prefix teal-text text-darken-4">key</i>
-					<input id="password_confirm" name="password_confirm" type="password" class="validate" required>
-					<label for="password_confirm">Password Confirm</label>
+					<input id="password_confirm{{ user._id }}" name="password_confirm{{ user._id }}" type="password" class="validate" required>
+					<label for="password_confirm{{ user._id }}">Password Confirm</label>
 				</div>
 				<div class="col s1">
 					<i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
