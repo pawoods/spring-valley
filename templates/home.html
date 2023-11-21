@@ -1,9 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
 <section>
-    <h3 class="center-align teal-text text-darken-4">Home</h3>
 
-    <h4 class="center-align teal-text text-darken-4">New Recipes</h4>
+    <div class="row">
+        <h3 class="col s12 center-align teal-text text-darken-4">About Us</h3>
+        <p class="col s10 offset-s1 center-align">
+            We are <span class="brand-logo">CookBook,</span> we believe cooking should be more of a social activity and
+            our flavours and food experiences should be shared with others. You wont find lengthy blog posts or adverts
+            galore here, we prefer to focus on the food!
+        </p>
+        <p class="col s10 offset-s1 center-align">Have a browse through our new and popular recipes and see if you find something that is just you flavour! If you want to get involved, save your favorite recipes and create your own, sign up now!</p>
+        <a href="{{ url_for('register') }}" class="col s6 offset-s3 btn deep-red white-text">Sign Up!</a>
+    </div>
+
+    <div class="row">
+        <h4 class="col s12 center-align teal-text text-darken-4">New Recipes</h4>
+        <p class="col s10 offset-s1 center-align">These are the newest recipes added by our users, keep things fresh by making one tonight!</p>
+    </div>
+    
     <div class="row">
         {% for new_recipe in new_recipes %}
         <!-- New Recipe Card -->
@@ -120,7 +134,10 @@
         {% endfor %}
     </div>
 
-    <h4 class="center-align teal-text text-darken-4">Popular Recipes</h4>
+    <div class="row">
+        <h4 class="col s12 center-align teal-text text-darken-4">New Recipes</h4>
+        <p class="col s10 offset-s1 center-align">These are the recipes our users like most, try one yourself and see if you agree!</p>
+    </div>
     <div class="row">
         {% for popular_recipe in popular_recipes %}
         <!-- Popular Recipe Card -->
