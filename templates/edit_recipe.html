@@ -65,7 +65,7 @@
                     <div class="li-container">
                         <input class="col s10" type="text" name="ingredient" value="{{ ingredient }}">
                         <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
-                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
+                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event, 'ingredient')">remove</i>
                     </div>
                 </li>
                 {% endfor %}
@@ -74,7 +74,7 @@
                     <div class="li-container">
                         <input class="col s10" type="text" name="ingredient">
                         <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
-                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
+                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event, 'ingredient')">remove</i>
                     </div>
                 </li>
                 {% endif %}
@@ -91,7 +91,7 @@
                     <div class="li-container">
                         <input class="col s10" type="text" name="instruction" value="{{ instruction }}">
                         <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
-                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
+                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event, 'instruction')">remove</i>
                     </div>
                 </li>
                 {% endfor %}
@@ -100,7 +100,7 @@
                     <div class="li-container">
                         <input class="col s10" type="text" name="instruction">
                         <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
-                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
+                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event, 'instruction')">remove</i>
                     </div>
                 </li>
                 {% endif %}
