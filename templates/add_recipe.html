@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix teal-text text-darken-4">title</i>
-                    <input id="recipe_name" name="recipe_name" type="text" class="validate" required>
+                    <input id="recipe_name" name="recipe_name" type="text" class="validate" minlength="3" required>
                     <label for="recipe_name">Recipe Name</label>
                 </div>
             </div>
@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix teal-text text-darken-4">subject</i>
-                    <textarea id="recipe_description" name="recipe_description"class="materialize-textarea validate" required></textarea>
+                    <textarea id="recipe_description" name="recipe_description"class="materialize-textarea validate" minlength="5" required></textarea>
                     <label for="recipe_description">Description</label>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 {% endfor %}
             </div>
             <!-- ingredients -->
-            <ul class="row" id="ingredients">
+            <ul class="row list" id="ingredients">
                 <li class="col s12 label">
                     <i class="material-icons teal-text text-darken-4">toc</i>
                     Ingredients
@@ -49,14 +49,14 @@
                 </li>
                 <li class="col s12">
                     <div class="li-container">
-                        <input class="col s10" type="text" name="ingredient">
+                        <input class="col s10" type="text" name="ingredient" required>
                         <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
-                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
+                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event, 'ingredient')">remove</i>
                     </div>
                 </li>
             </ul>
             <!-- instructions -->
-            <ol class="row" id="instructions">
+            <ol class="row list" id="instructions">
                 <li class="col s12 label">
                     <i class="material-icons teal-text text-darken-4">view_list</i>
                     Instructions
@@ -64,9 +64,9 @@
                 </li>
                 <li class="col s12">
                     <div class="li-container">
-                        <input class="col s10" type="text" name="instruction">
+                        <input class="col s10" type="text" name="instruction" required>
                         <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
-                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event)">remove</i>
+                        <i class="red-text col s1 center-align material-icons remove" onclick="remove(event, 'instruction')">remove</i>
                     </div>
                 </li>
             </ol>

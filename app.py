@@ -70,7 +70,7 @@ def register():
             return redirect(url_for("register"))
         else:
             # adds unique id to new user and stores this id to
-            # 
+            # used_id database for future reference in while loop
             user_id = 1
             existing_id = True
             while existing_id:
