@@ -300,6 +300,8 @@ def recipes():
 @app.route("/filter_recipes/<category_name>")
 def filter_recipes(category_name):
     session["url"] = request.url
+    category = mongo.db.categories.find_one({
+        "category_name": category_name})
     recipes = mongo.db.recipes.find({
         "categories.category_name": category_name})
     if "user" in session:
@@ -307,13 +309,13 @@ def filter_recipes(category_name):
         return render_template(
             "filter_recipes.html",
             recipes=recipes,
-            category_name=category_name,
+            category=category,
             user=user)
 
     return render_template(
         "filter_recipes.html",
         recipes=recipes,
-        category_name=category_name)
+        category=category)
 
 
 @app.route("/add_recipe", methods=["GET", "POST"])

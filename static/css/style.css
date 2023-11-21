@@ -1,9 +1,15 @@
 body, button, input, optgroup, select, textarea {
     font-family: 'Nunito', sans-serif;
+    font-weight: bolder;
+}
+
+p {
+    font-size: 16px;
 }
 
 .brand-logo, h3, h4 {
     font-family: 'Courgette', cursive;
+    font-weight: 400;
 }
 
 .sidenav {
@@ -176,12 +182,7 @@ li.col.s12 i {
     padding: 0 0 0 10px;
 }
 
-.title.row {
-    display: flex;
-    align-items: center;
-}
-
-.title .circle {
+.profile.circle {
     max-width: 100%;    
 }
 

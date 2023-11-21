@@ -7,6 +7,7 @@ $(document).ready(function () {
     $('.fixed-action-btn').floatingActionButton({hoverEnabled: false});
 });
 
+// Adds input at the start of relevent list on add/edit recipe
 function newItem(event, name) {
     let element = event.target.parentNode;
     let newElement = document.createElement("li");
@@ -19,6 +20,7 @@ function newItem(event, name) {
     element.insertAdjacentElement('afterend', newElement);
 }   
 
+// Adds another input after current on add/edit recipe
 function add(event) {
     let element = event.target.parentNode.parentNode;
     let newElement = element.cloneNode(true);
@@ -26,6 +28,7 @@ function add(event) {
     element.insertAdjacentElement('afterend', newElement);
 }
 
+// Removes the relevent input field on add/edit recipe, if only input from list is deleted, adds another one
 function remove(event, name) {
     let element = event.target.parentNode.parentNode;
     let list = element.parentNode;
@@ -55,6 +58,7 @@ function visibility(event) {
     }
 }
 
+// Closes flashed message when "X" clicked
 function closeFlash(event) {
     let element = event.target.closest(".flashes");
     element.classList.add("hidden")

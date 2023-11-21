@@ -76,7 +76,7 @@ Desktop
 
 As a data driven project, I wanted to make sure I thoroughly planned the data that would be stored in the database, how each document would link to eachother and how the user would interact with the data on the front end, considering full CRUD functionality. I Wrote up the following document plans to keep in mind when writing the python logic and applicable forms.
 
-users:
+Users:
 ```
 {
     _id: ObjectId,
@@ -228,6 +228,11 @@ To help guide me within the development process and ensure I made all features a
 | Delete                   |       ❌       |    If Owner     |  If Owner  |  ✅   |
 
 ### Future Features
+
+Features that were part of my initial scope but deemed a lower priority and therefore forming my future features are as follows:
+
+- Direct photo upload from user, using cloudinary or similar technology - As noted in testing, the URL links add the risk of large files and therefore long page loads and lower performance.
+- Add shopping list feature to user profile where users can click an icon next to ingredients on a recipe to add to a shopping list for future use.
 
 ## Languages and Technologies
 
