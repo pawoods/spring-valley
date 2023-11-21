@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<h3 class="center-align teal-text text-darken-4">{{ category_name }} Recipes</h3>
+<h3 class="center-align teal-text text-darken-4">{{ category.category_name }} Recipes</h3>
+<p class="center-align">{{ category.category_description }}</p>
 <div class="row">
     {% for recipe in recipes %}
     <!-- Card -->
