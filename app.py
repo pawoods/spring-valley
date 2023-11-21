@@ -69,15 +69,20 @@ def register():
             flash("Passwords do not match")
             return redirect(url_for("register"))
         else:
-            # adds unique id to new user
+            # adds unique id to new user and stores this id to
+            # 
             user_id = 1
             existing_id = True
             while existing_id:
-                if not mongo.db.users.find_one({"user_id": user_id}):
+                if user_id not in mongo.db.used_ids.find_one({
+                        "name": "used_ids"})["ids"]:
                     existing_id = False
                     break
                 else:
                     user_id += 1
+
+            mongo.db.used_ids.update_one({"name": "used_ids"}, {
+                "$push": {"ids": user_id} })
 
             # builds new user dict with default superuser and admin permissions
             new_user = {
