@@ -36,29 +36,32 @@
                     <span class="helper-text" data-error="Username must be 5-15 characters long and may include uppercase letters, lowercase letters, numbers and special characters @._-" data-success=""></span>
                 </div>
             </div>
-            <div class="row input-container">
-                <div class="input-field col s11">
-                    <i class="material-icons prefix teal-text text-darken-4">key</i>
-                    <input id="password" name="password" type="password" pattern="^[a-zA-Z0-9!&$?@#_\-]{8,}$" 
+            <div class="">
+                <!-- password -->
+                <div class="row input-container">
+                    <div class="input-field col s11">
+                        <i class="material-icons prefix teal-text text-darken-4">key</i>
+                        <input id="password" name="password" type="password" pattern="^[a-zA-Z0-9!&$?@#_\-]{8,}$" 
                         minlength="8" class="validate">
-                    <label for="password">Password</label>
-                    <span class="helper-text" data-error="Password must be at least 8 characters long and may contain lowercase letters, uppercase letters, numbers and special characters !&$?@#_-" data-success=""></span>
+                        <label for="password">New Password (optional)</label>
+                        <span class="helper-text" data-error="Password must be at least 8 characters long and may contain lowercase letters, uppercase letters, numbers and special characters !&$?@#_-" data-success=""></span>
+                    </div>
+                    <div class="col s1">
+                        <i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
+                    </div>
                 </div>
-                <div class="col s1">
-                    <i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
-                </div>
-            </div>
-            <!-- password_check -->
-            <div class="row input-container">
-                <div class="input-field col s11">
-                    <i class="material-icons prefix teal-text text-darken-4">key</i>
-                    <input id="password_check" name="password_check" type="password" pattern="^[a-zA-Z0-9!&$?@#_\-]{8,}$" 
+                <!-- password_check -->
+                <div class="row input-container">
+                    <div class="input-field col s11">
+                        <i class="material-icons prefix teal-text text-darken-4">key</i>
+                        <input id="password_check" name="password_check" type="password" pattern="^[a-zA-Z0-9!&$?@#_\-]{8,}$" 
                         minlength="8" class="validate">
-                    <label for="password_check">Re-type Password</label>
-                    <span class="helper-text" data-error="Password must be at least 8 characters long and may contain lowercase letters, uppercase letters, numbers and special characters !&$?@#_-" data-success=""></span>
-                </div>
-                <div class="col s1">
-                    <i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
+                        <label for="password_check">Re-type New Password</label>
+                        <span class="helper-text" data-error="Password must be at least 8 characters long and may contain lowercase letters, uppercase letters, numbers and special characters !&$?@#_-" data-success=""></span>
+                    </div>
+                    <div class="col s1">
+                        <i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
+                    </div>
                 </div>
             </div>
             <!-- photo_url -->

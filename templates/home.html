@@ -1,255 +1,259 @@
 {% extends "base.html" %}
 {% block content %}
-<section>
+<div class="row">
+    <section class="col s12">
+        <div class="row">
+            <h3 class="col s12 center-align teal-text text-darken-4">About Us</h3>
+            <p class="col s10 offset-s1 center-align">
+                We are <span class="brand-logo">CookBook,</span> we believe cooking should be more of a social activity and
+                our flavours and food experiences should be shared with others. You wont find lengthy blog posts or adverts
+                galore here, we prefer to focus on the food!
+            </p>
+            <p class="col s10 offset-s1 center-align">Have a browse through our new and popular recipes and see if you find something that is just you flavour! If you want to get involved, save your favorite recipes and create your own, sign up now!</p>
+            <a href="{{ url_for('register') }}" class="col s6 offset-s3 btn deep-red white-text">Sign Up!</a>
+        </div>        
+    </section>
 
-    <div class="row">
-        <h3 class="col s12 center-align teal-text text-darken-4">About Us</h3>
-        <p class="col s10 offset-s1 center-align">
-            We are <span class="brand-logo">CookBook,</span> we believe cooking should be more of a social activity and
-            our flavours and food experiences should be shared with others. You wont find lengthy blog posts or adverts
-            galore here, we prefer to focus on the food!
-        </p>
-        <p class="col s10 offset-s1 center-align">Have a browse through our new and popular recipes and see if you find something that is just you flavour! If you want to get involved, save your favorite recipes and create your own, sign up now!</p>
-        <a href="{{ url_for('register') }}" class="col s6 offset-s3 btn deep-red white-text">Sign Up!</a>
-    </div>
-
-    <div class="row">
-        <h4 class="col s12 center-align teal-text text-darken-4">New Recipes</h4>
-        <p class="col s10 offset-s1 center-align">These are the newest recipes added by our users, keep things fresh by making one tonight!</p>
-    </div>
-    
-    <div class="row">
-        {% for new_recipe in new_recipes %}
-        <!-- New Recipe Card -->
-        <div class="col s12 m6 l4">
-            <div class="card sticky-action">
-                <div class="card-image waves-effect waves-block waves-light">
-                    {% if new_recipe.photo_url %}
-                    <img class="activator" src="{{ new_recipe.photo_url }}" alt="{{ new_recipe.recipe_name }}">
-                    {% else %}
-                    <img class="activator" src="{{ url_for('static', filename='images/dinnertable.webp') }}" alt="Dinner Table">
-                    {% endif %}
-                </div>
-                <!-- Card Content -->
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">{{ new_recipe.recipe_name }}
-                        <i class="material-icons right">more_vert</i>
-                    </span>
-                    <p>
-                        <em>{{ new_recipe.created_by.username }} - {{ new_recipe.created_date.day }}/
-                            {{ new_recipe.created_date.month }}/{{ new_recipe.created_date.year }}</em><br>
-                        Total time: {{ new_recipe.prep_time + new_recipe.cook_time }} Minutes<br>
-                        Serves: {{ new_recipe.serves }} People
-                    </p>
-                </div>
-                <!-- Card Action -->
-                <div class="card-action amber lighten-5">
-                    <div class="row">
-                        {% if user %}
-                        {% if user.user_id in new_recipe.likes.id %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('recipe_like', recipe_id=new_recipe._id) }}" 
-                                class="tooltipped" data-position="bottom" data-tooltip="Like">
-                                <i class="material-icons pink-text">favorite</i>
-                            </a>
-                            <span>{{ new_recipe.likes.count }}</span>
-                        </div>
+    <section class="col s12">
+        <div class="row">
+            <h4 class="col s12 center-align teal-text text-darken-4">New Recipes</h4>
+            <p class="col s10 offset-s1 center-align">These are the newest recipes added by our users, keep things fresh by making one tonight!</p>
+        </div>
+        <div class="row">
+            {% for new_recipe in new_recipes %}
+            <!-- New Recipe Card -->
+            <div class="col s12 m6 l4">
+                <div class="card sticky-action">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        {% if new_recipe.photo_url %}
+                        <img class="activator" src="{{ new_recipe.photo_url }}" alt="{{ new_recipe.recipe_name }}">
                         {% else %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('recipe_like', recipe_id=new_recipe._id) }}" 
-                                class="tooltipped" data-position="bottom" data-tooltip="Like">
-                                <i class="material-icons">favorite</i>
-                            </a>
-                            <span>{{ new_recipe.likes.count }}</span>
-                        </div>
+                        <img class="activator" src="{{ url_for('static', filename='images/dinnertable.webp') }}" alt="Dinner Table">
                         {% endif %}
-                        {% else %}
-                        <div class="col s3 center-align">
-                            <span>
-                                <i class="material-icons">favorite</i>
-                            </span>
-                            <span>{{ new_recipe.likes.count }}</span>
-                        </div>
-                        {% endif %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('recipe_details', recipe_id=new_recipe._id) }}" 
-                                class="tooltipped" data-position="bottom" data-tooltip="See full recipe">
-                                <i class="material-icons">open_in_new</i>
-                            </a>
-                        </div>
-                        {% if user %}
-                        {% if new_recipe.created_by.user_id == user.user_id or user.is_admin %}
+                    </div>
+                    <!-- Card Content -->
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">{{ new_recipe.recipe_name }}
+                            <i class="material-icons right">more_vert</i>
+                        </span>
+                        <p>
+                            <em>{{ new_recipe.created_by.username }} - {{ new_recipe.created_date.day }}/
+                                {{ new_recipe.created_date.month }}/{{ new_recipe.created_date.year }}</em><br>
+                            Total time: {{ new_recipe.prep_time + new_recipe.cook_time }} Minutes<br>
+                            Serves: {{ new_recipe.serves }} People
+                        </p>
+                    </div>
+                    <!-- Card Action -->
+                    <div class="card-action amber lighten-5">
+                        <div class="row">
+                            {% if user %}
+                            {% if user.user_id in new_recipe.likes.id %}
                             <div class="col s3 center-align">
-                                <a href="{{ url_for('edit_recipe', recipe_id=new_recipe._id) }}" 
+                                <a href="{{ url_for('recipe_like', recipe_id=new_recipe._id) }}" 
+                                    class="tooltipped" data-position="bottom" data-tooltip="Like">
+                                    <i class="material-icons pink-text">favorite</i>
+                                </a>
+                                <span>{{ new_recipe.likes.count }}</span>
+                            </div>
+                            {% else %}
+                            <div class="col s3 center-align">
+                                <a href="{{ url_for('recipe_like', recipe_id=new_recipe._id) }}" 
+                                    class="tooltipped" data-position="bottom" data-tooltip="Like">
+                                    <i class="material-icons">favorite</i>
+                                </a>
+                                <span>{{ new_recipe.likes.count }}</span>
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            <div class="col s3 center-align">
+                                <span>
+                                    <i class="material-icons">favorite</i>
+                                </span>
+                                <span>{{ new_recipe.likes.count }}</span>
+                            </div>
+                            {% endif %}
+                            <div class="col s3 center-align">
+                                <a href="{{ url_for('recipe_details', recipe_id=new_recipe._id) }}" 
+                                    class="tooltipped" data-position="bottom" data-tooltip="See full recipe">
+                                    <i class="material-icons">open_in_new</i>
+                                </a>
+                            </div>
+                            {% if user %}
+                            {% if new_recipe.created_by.user_id == user.user_id or user.is_admin %}
+                                <div class="col s3 center-align">
+                                    <a href="{{ url_for('edit_recipe', recipe_id=new_recipe._id) }}" 
+                                        class="tooltipped" data-position="bottom" data-tooltip="Edit">
+                                        <i class="material-icons green-text text-darken-2">edit</i>
+                                    </a>
+                                </div>
+                                <div class="col s3 center-align">
+                                    <a href="#modalA{{ loop.index }}" class="modal-trigger tooltipped" 
+                                        data-position="bottom" data-tooltip="Delete">
+                                        <i class="material-icons red-text text-darken-4">delete</i>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- Card Reveal -->
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">
+                            {{ new_recipe.recipe_name }}
+                            <i class="material-icons right">close</i>
+                        </span>
+                        <p>{{ new_recipe.recipe_description }}</p>
+                        {% for category in new_recipe.categories %}
+                        <a href="{{ url_for('filter_recipes', category_name=category.category_name) }}">
+                            <div class="card-panel black-text center-align {{ category.category_color }}">
+                                {{ category.category_name }}
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div id="modalA{{ loop.index }}" class="modal">
+                <div class="modal-content">
+                    <h4>{{ new_recipe.recipe_name }}</h4>
+                    <p>Are you sure you want to delete "{{ new_recipe.recipe_name }}"? 
+                        This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                    <a href="{{ url_for('delete_recipe', recipe_id=new_recipe._id) }}" 
+                        class="waves-effect waves-red btn-flat">Delete</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="row center-align">
+                <p class="col s12">There are no new recipes yet, get started by adding one now!</p>
+                <div class="col s12 m8 l4 offset-m2 offset-l4 center-align">
+                    <a class="btn col s10 offset-s1 teal darken-4" href="{{ url_for('add_recipe') }}">Add Recipe</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="col s12">
+        <div class="row">
+            <h4 class="col s12 center-align teal-text text-darken-4">Popular Recipes</h4>
+            <p class="col s10 offset-s1 center-align">These are the recipes our users like most, try one yourself and see if you agree!</p>
+        </div>
+        <div class="row">
+            {% for popular_recipe in popular_recipes %}
+            <!-- Popular Recipe Card -->
+            <div class="col s12 m6 l4">
+                <div class="card sticky-action">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        {% if popular_recipe.photo_url %}
+                        <img class="activator" src="{{ popular_recipe.photo_url }}" alt="{{ popular_recipe.recipe_name }}">
+                        {% else %}
+                        <img class="activator" src="{{ url_for('static', filename='images/dinnertable.webp') }}" alt="Dinner Table">
+                        {% endif %}
+                    </div>
+                    <!-- Card Content -->
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">{{ popular_recipe.recipe_name }}<i
+                                class="material-icons right">more_vert</i></span>
+                        <p>
+                            <em>{{ popular_recipe.created_by.username }} - {{ popular_recipe.created_date.day }}/
+                                {{ popular_recipe.created_date.month }}/{{ popular_recipe.created_date.year }}</em><br>
+                            Total time: {{ popular_recipe.prep_time + popular_recipe.cook_time }} Minutes<br>
+                            Serves: {{ popular_recipe.serves }} People
+                        </p>
+                    </div>
+                    <!-- Card Action -->
+                    
+                    <div class="card-action amber lighten-5">
+                        <div class="row">
+                            {% if user %}
+                            {% if user.user_id in popular_recipe.likes.id %}
+                            <div class="col s3 center-align">
+                                <a href="{{ url_for('recipe_like', recipe_id=popular_recipe._id) }}" 
+                                    class="tooltipped" data-position="bottom" data-tooltip="Like">
+                                    <i class="material-icons pink-text">favorite</i></a>
+                                <span>{{ popular_recipe.likes.count }}</span>
+                            </div>
+                            {% else %}
+                            <div class="col s3 center-align">
+                                <a href="{{ url_for('recipe_like', recipe_id=popular_recipe._id) }}" 
+                                    class="tooltipped" data-position="bottom" data-tooltip="Like">
+                                    <i class="material-icons">favorite</i>
+                                </a>
+                                <span>{{ popular_recipe.likes.count }}</span>
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            <div class="col s3 center-align">
+                                <span>
+                                    <i class="material-icons">favorite</i>
+                                </span>
+                                <span>{{ popular_recipe.likes.count }}</span>
+                            </div>
+                            {% endif %}
+                            <div class="col s3 center-align">
+                                <a href="{{ url_for('recipe_details', recipe_id=popular_recipe._id) }}" 
+                                    class="tooltipped" data-position="bottom" data-tooltip="See full recipe">
+                                    <i class="material-icons">open_in_new</i>
+                                </a>
+                            </div>
+                            {% if user %}
+                            {% if popular_recipe.created_by.user_id == user.user_id or user.is_admin %}
+                            <div class="col s3 center-align">
+                                <a href="{{ url_for('edit_recipe', recipe_id=popular_recipe._id) }}" 
                                     class="tooltipped" data-position="bottom" data-tooltip="Edit">
                                     <i class="material-icons green-text text-darken-2">edit</i>
                                 </a>
                             </div>
                             <div class="col s3 center-align">
-                                <a href="#modalA{{ loop.index }}" class="modal-trigger tooltipped" 
+                                <a href="#modalB{{ loop.index }}" class="modal-trigger tooltipped"
                                     data-position="bottom" data-tooltip="Delete">
                                     <i class="material-icons red-text text-darken-4">delete</i>
                                 </a>
                             </div>
-                        {% endif %}
-                        {% endif %}
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- Card Reveal -->
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">
+                            {{ popular_recipe.recipe_name }}
+                            <i class="material-icons right">close</i>
+                        </span>
+                        <p>{{ popular_recipe.recipe_description }}</p>
+                        {% for category in popular_recipe.categories %}
+                        <a href="{{ url_for('filter_recipes', category_name=category.category_name) }}">
+                            <div class="card-panel black-text center-align {{ category.category_color }}">
+                                {{ category.category_name }}
+                            </div>
+                        </a>
+                        {% endfor %}
                     </div>
                 </div>
-                <!-- Card Reveal -->
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">
-                        {{ new_recipe.recipe_name }}
-                        <i class="material-icons right">close</i>
-                    </span>
-                    <p>{{ new_recipe.recipe_description }}</p>
-                    {% for category in new_recipe.categories %}
-                    <a href="{{ url_for('filter_recipes', category_name=category.category_name) }}">
-                        <div class="card-panel black-text center-align {{ category.category_color }}">
-                            {{ category.category_name }}
-                        </div>
-                    </a>
-                    {% endfor %}
+            </div>
+            <div id="modalB{{ loop.index }}" class="modal">
+                <div class="modal-content">
+                    <h4>{{ popular_recipe.recipe_name }}</h4>
+                    <p>Are you sure you want to delete "{{ popular_recipe.recipe_name }}"? 
+                        This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                    <a href="{{ url_for('delete_recipe', recipe_id=popular_recipe._id) }}" class="waves-effect waves-red btn-flat">Delete</a>
                 </div>
             </div>
-        </div>
-        <div id="modalA{{ loop.index }}" class="modal">
-            <div class="modal-content">
-                <h4>{{ new_recipe.recipe_name }}</h4>
-                <p>Are you sure you want to delete "{{ new_recipe.recipe_name }}"? 
-                    This action cannot be undone.</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-                <a href="{{ url_for('delete_recipe', recipe_id=new_recipe._id) }}" 
-                    class="waves-effect waves-red btn-flat">Delete</a>
-            </div>
-        </div>
-        {% else %}
-        <div class="row center-align">
-            <p class="col s12">There are no new recipes yet, get started by adding one now!</p>
-            <div class="col s12 m8 l4 offset-m2 offset-l4 center-align">
-                <a class="btn col s10 offset-s1 teal darken-4" href="{{ url_for('add_recipe') }}">Add Recipe</a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-
-    <div class="row">
-        <h4 class="col s12 center-align teal-text text-darken-4">New Recipes</h4>
-        <p class="col s10 offset-s1 center-align">These are the recipes our users like most, try one yourself and see if you agree!</p>
-    </div>
-    <div class="row">
-        {% for popular_recipe in popular_recipes %}
-        <!-- Popular Recipe Card -->
-        <div class="col s12 m6 l4">
-            <div class="card sticky-action">
-                <div class="card-image waves-effect waves-block waves-light">
-                    {% if popular_recipe.photo_url %}
-                    <img class="activator" src="{{ popular_recipe.photo_url }}" alt="{{ popular_recipe.recipe_name }}">
-                    {% else %}
-                    <img class="activator" src="{{ url_for('static', filename='images/dinnertable.webp') }}" alt="Dinner Table">
-                    {% endif %}
-                </div>
-                <!-- Card Content -->
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">{{ popular_recipe.recipe_name }}<i
-                            class="material-icons right">more_vert</i></span>
-                    <p>
-                        <em>{{ popular_recipe.created_by.username }} - {{ popular_recipe.created_date.day }}/
-                            {{ popular_recipe.created_date.month }}/{{ popular_recipe.created_date.year }}</em><br>
-                        Total time: {{ popular_recipe.prep_time + popular_recipe.cook_time }} Minutes<br>
-                        Serves: {{ popular_recipe.serves }} People
-                    </p>
-                </div>
-                <!-- Card Action -->
-                
-                <div class="card-action amber lighten-5">
-                    <div class="row">
-                        {% if user %}
-                        {% if user.user_id in popular_recipe.likes.id %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('recipe_like', recipe_id=popular_recipe._id) }}" 
-                                class="tooltipped" data-position="bottom" data-tooltip="Like">
-                                <i class="material-icons pink-text">favorite</i></a>
-                            <span>{{ popular_recipe.likes.count }}</span>
-                        </div>
-                        {% else %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('recipe_like', recipe_id=popular_recipe._id) }}" 
-                                class="tooltipped" data-position="bottom" data-tooltip="Like">
-                                <i class="material-icons">favorite</i>
-                            </a>
-                            <span>{{ popular_recipe.likes.count }}</span>
-                        </div>
-                        {% endif %}
-                        {% else %}
-                        <div class="col s3 center-align">
-                            <span>
-                                <i class="material-icons">favorite</i>
-                            </span>
-                            <span>{{ popular_recipe.likes.count }}</span>
-                        </div>
-                        {% endif %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('recipe_details', recipe_id=popular_recipe._id) }}" 
-                                class="tooltipped" data-position="bottom" data-tooltip="See full recipe">
-                                <i class="material-icons">open_in_new</i>
-                            </a>
-                        </div>
-                        {% if user %}
-                        {% if popular_recipe.created_by.user_id == user.user_id or user.is_admin %}
-                        <div class="col s3 center-align">
-                            <a href="{{ url_for('edit_recipe', recipe_id=popular_recipe._id) }}" 
-                                class="tooltipped" data-position="bottom" data-tooltip="Edit">
-                                <i class="material-icons green-text text-darken-2">edit</i>
-                            </a>
-                        </div>
-                        <div class="col s3 center-align">
-                            <a href="#modalB{{ loop.index }}" class="modal-trigger tooltipped"
-                                data-position="bottom" data-tooltip="Delete">
-                                <i class="material-icons red-text text-darken-4">delete</i>
-                            </a>
-                        </div>
-                        {% endif %}
-                        {% endif %}
-                    </div>
-                </div>
-                <!-- Card Reveal -->
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">
-                        {{ popular_recipe.recipe_name }}
-                        <i class="material-icons right">close</i>
-                    </span>
-                    <p>{{ popular_recipe.recipe_description }}</p>
-                    {% for category in popular_recipe.categories %}
-                    <a href="{{ url_for('filter_recipes', category_name=category.category_name) }}">
-                        <div class="card-panel black-text center-align {{ category.category_color }}">
-                            {{ category.category_name }}
-                        </div>
-                    </a>
-                    {% endfor %}
+            {% else %}
+            <div class="row center-align">
+                <p class="col s12">There are no popular recipes yet, get started by browsing all recipes now!</p>
+                <div class="col s12 m8 l4 offset-m2 offset-l4 center-align">
+                    <a class="btn col s10 offset-s1 teal darken-4" href="{{ url_for('recipes') }}">View Recipes</a>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        <div id="modalB{{ loop.index }}" class="modal">
-            <div class="modal-content">
-                <h4>{{ popular_recipe.recipe_name }}</h4>
-                <p>Are you sure you want to delete "{{ popular_recipe.recipe_name }}"? 
-                    This action cannot be undone.</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-                <a href="{{ url_for('delete_recipe', recipe_id=popular_recipe._id) }}" class="waves-effect waves-red btn-flat">Delete</a>
-            </div>
-        </div>
-        {% else %}
-        <div class="row center-align">
-            <p class="col s12">There are no popular recipes yet, get started by browsing all recipes now!</p>
-            <div class="col s12 m8 l4 offset-m2 offset-l4 center-align">
-                <a class="btn col s10 offset-s1 teal darken-4" href="{{ url_for('recipes') }}">View Recipes</a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</section>
+    </section>
+</div>
 {% endblock %}

@@ -172,13 +172,13 @@ li.col.s12 i {
     padding: 0;
 }
 
-.form button {
+.form button, .form a {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.form button i {
+.form button i, .form a i {
     padding: 0 0 0 10px;
 }
 
