@@ -1,16 +1,33 @@
+/* General */
 body, button, input, optgroup, select, textarea {
     font-family: 'Nunito', sans-serif;
     font-weight: bolder;
 }
 
-p {
+p, .form .label {
     font-size: 16px;
+}
+
+p a {
+    color: rgb(18, 138, 156);
+}
+
+i[onclick] {
+    cursor: pointer;
 }
 
 .brand-logo, h3, h4 {
     font-family: 'Courgette', cursive;
     font-weight: 400;
 }
+
+/* Custom colour class */
+
+.deep-red, .deep-red:hover, .deep-red:visited {
+    background-color: #380000;
+}
+
+/* Sidenav Menu */
 
 .sidenav {
     width: 250px;
@@ -37,17 +54,11 @@ span.subheader {
     width: 100%;
 }
 
+/* Flash Message Element */
+
 .flashes {
     padding: 10px;
     margin: 0 auto;
-}
-
-i[onclick] {
-    cursor: pointer;
-}
-
-p a {
-    color: rgb(18, 138, 156);
 }
 
 .flashes i {
@@ -59,6 +70,8 @@ p a {
     margin: 10px 30px 10px 30px;
     font-size: 20px;
 }
+
+/* Card Elements */
 
 .card, .card-image, .card-action, .card .card-action:last-child {
     border-radius: 20px;
@@ -88,7 +101,6 @@ p a {
 
 .card .card-action .col {
     display: flex;
-    flex-direction: row;
     justify-content: center;
 }
 
@@ -119,14 +131,10 @@ p a {
     padding-left: 25px;
 }
 
+/* Form Elements */
+
 .form, .details {
     padding: 24px;
-}
-
-.form .label {
-    font-size: 16px;
-    display: flex;
-    align-items: center;
 }
 
 .form .label i {
@@ -158,7 +166,7 @@ ol.row .label.col.s12 {
     margin-left: -1.25rem;
 }
 
-.li-container, .input-container {
+.form .label, .li-container, .input-container {
     display: flex;
     align-items: center;
 }
@@ -182,6 +190,8 @@ li.col.s12 i {
     padding: 0 0 0 10px;
 }
 
+/* Profile elements */
+
 .profile.circle {
     max-width: 100%;    
 }
@@ -190,17 +200,7 @@ li.col.s12 i {
     margin-bottom: 10px;
 }
 
-.deep-red {
-    background-color: #380000;
-}
-
-.deep-red:hover {
-    background-color: #380000;
-}
-
-.deep-red:visited {
-    background-color: #380000;
-}
+/* Footer */
 
 footer .contact.btn {
     font-weight: bolder;
@@ -208,7 +208,7 @@ footer .contact.btn {
 
 .social-links {
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
     justify-content: center;
 }
 

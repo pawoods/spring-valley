@@ -28,9 +28,14 @@
                         <i class="material-icons teal-text text-darken-4" onclick="visibility(event)">visibility</i>
                     </div>
                 </div>
-                <!-- Register -->
                 <div class="row">
-                    <button type="submit" class="col s10 offset-s1 teal darken-4 btn-large">
+                    <!-- Cancel -->
+                    <a class="col s5 deep-red btn-large center-align" href="{{ url_for('cancel') }}">
+                        Cancel
+                        <i class="material-icons prefix white-text">undo</i>
+                    </a>
+                    <!-- Submit -->
+                    <button type="submit" class="col s5 right offset-s1 teal darken-4 btn-large">
                         Sign In
                         <i class="material-icons prefix white-text">forward</i>
                     </button>

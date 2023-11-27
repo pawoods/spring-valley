@@ -6,13 +6,9 @@ With a user profile page also comes a way of storing, managing and easily access
 
 The majority of data is displayed on the front-end as cards (recipes, categories, users) so as to give a consistent feel to the site no matter which page the user is viewing.
 
-🔽
-🔽
-🔽
-Am I responsive screenshot
-🔼
-🔼
-🔼
+🔽🔽🔽🔽🔽
+**_Am I responsive screenshot_**
+🔼🔼🔼🔼🔼
 
 [View Live Site Here](https://project-3-pawoods-dcf83ae94f0f.herokuapp.com/)
 
@@ -23,10 +19,10 @@ Am I responsive screenshot
     -   [Design](#design)
         -   [Wireframes](#wireframes)
         -   [Data Design](#data-design)
-    -   [Themes](#themes)
-        -   [Colours](#colours)
-        -   [Fonts](#fonts)
-        -   [Icons](#icons)
+        -   [Visual Design](#visual-design)
+            -   [Colours](#colours)
+            -   [Fonts](#fonts)
+            -   [Icons](#icons)
 -   [Features](#features)
     -   [Current Features](#current-features)
         -   [Page Features Matrix](#page-features-matrix)
@@ -40,7 +36,12 @@ Am I responsive screenshot
 -   [Deployment](#deployment)
     -   [Live Deployment](#live-deployment)
     -   [Local Deployment](#local-deployment)
+    -   [Requirements and env](#requirements-and-env)
+    -   [MongoDB](#mongodb)
+    -   [Heroku](#heroku)
 -   [Credits](#credits)
+    -   [Code Credits](#code-credits)
+    -   [Support Credits](#support-credits)
 
 ## UX
 
@@ -78,19 +79,19 @@ I wrote up the below user stories to ensure I kept the users in mind when creati
 
 ### Design
 
-🔽
-🔽
-🔽
+☑️☑️☑️☑️☑️
 
 #### Wireframes
 
-🔼
-🔼
-🔼
+For all page wireframes, including mobile, tablet and desktop, please see [WIREFRAMES.md](WIREFRAMES.md) file.
+
+☑️☑️☑️☑️☑️
 
 #### Data design
 
 As a data driven project, I wanted to make sure I thoroughly planned the data that would be stored in the database, how each document would link to eachother and how the user would interact with the data on the front end, considering full CRUD functionality. I Wrote up the following document plans to keep in mind when writing the python logic and applicable forms.
+
+The project uses a non-relational database, meaning each collection is not directly related to one another as in a relational database. This meant that where a document on one collection needed to reference one in another, I had to ensure the correct data type and structure to allow this. 
 
 Users:
 
@@ -171,25 +172,51 @@ Messages:
 }
 ```
 
-### Themes
+#### Visual Design
 
-#### Colours
+##### Colours
 
 I used [coolors](https://coolors.co/) to design my colour palette, I wanted to keep the majority of the site light in colour to give a clean and simple look while using some darker accent colours on the header, footer, menu and buttons. This was the palette I settled on as it gave a good contrast between the light and dark colours while not being visually overwhelming for the user.
 
-🔽
-🔽
-🔽
+🔽🔽🔽🔽🔽
+**_coolors palette screenshot_**
+🔼🔼🔼🔼🔼
 
-coolors palette screenshot
+##### Fonts
 
-#### Fonts
+I used [Google Fonts](https://fonts.google.com/) for the fonts on the site, choosing to user one font for the logo and page/section headers and another for the majority of the text on the site. Using sample text for the site, I settled on "Courgette" for the logo and header font and "Nunito" for the main body text as these fonts work well together, provide good readability for the site users with the accent text giving an extra flourish to the headers.
 
-#### Icons
+Courgette
 
-🔼
-🔼
-🔼
+🔽🔽🔽🔽🔽
+**_Courgette Screenshot_**
+🔼🔼🔼🔼🔼
+
+Nunito
+
+🔽🔽🔽🔽🔽
+**_Nunito Screenshot_**
+🔼🔼🔼🔼🔼
+
+##### Icons
+
+I used a mixture of icon sources on the site, initially using the built in Google Icons bundled with Materialize.
+
+🔽🔽🔽🔽🔽
+**_Materialize Icons Screenshot_**
+🔼🔼🔼🔼🔼
+
+As I needed more icon choice for the menu element of the site, I chose to add Font Awesome to the project to make use of the wider range of icons available here.
+
+🔽🔽🔽🔽🔽
+**_Font Awesome Icons Screenshot_**
+🔼🔼🔼🔼🔼
+
+I also added a favicon to the project using [Favicon](https://favicon.io/). I replicated the main dark green colour of the site as the background colour with white text and rounded edges to match the card elements on the site.
+
+🔽🔽🔽🔽🔽
+**_Favicon Image_**
+🔼🔼🔼🔼🔼
 
 ## Features
 
@@ -200,73 +227,181 @@ To keep aligned with the user stories, an extensive list of features for the sit
 <details>
 <summary>Recipe Cards</summary>
 
+-   Found on home, recipes, _filtered_ recipes and profile pages. Has backup image if users doesn't input one on create.
+
+🔽🔽🔽🔽🔽
+**_Recipe Card Image_**
+🔼🔼🔼🔼🔼
+
 </details>
 <details>
 <summary>Category Cards</summary>
+
+-   Found on categories page.
+
+🔽🔽🔽🔽🔽
+**_Category Card Image_**
+🔼🔼🔼🔼🔼
 
 </details>
 <details>
 <summary>User Cards</summary>
 
+-   Found on the users page. Has backup blank user image if no photo on account.
+
+🔽🔽🔽🔽🔽
+**_User Card Image_**
+🔼🔼🔼🔼🔼
+
 </details>
 <details>
 <summary>Profile Card</summary>
+
+-   Full card found on the individual users profile. Reduced info found at top of menu element when signed in. Has backup blank user image if user hasn't added photo.
+
+🔽🔽🔽🔽🔽
+**_Profile Card Image_**
+🔼🔼🔼🔼🔼
 
 </details>
 <details>
 <summary>Slide-out Menu</summary>
 
+-   Found on every page by clicking the lines in the top right of the header element.
+
+🔽🔽🔽🔽🔽
+**_Menu Image_**
+🔼🔼🔼🔼🔼
+
 </details>
 <details>
-<summary>Sign-In Button</summary>
+<summary>Register CTA Button</summary>
+
+-   Found on the home page at the end of the "About" section. Link also found on the slide out menu and sign in pages.
+
+🔽🔽🔽🔽🔽
+**_Register CTA Button Image_**
+🔼🔼🔼🔼🔼
 
 </details>
 <details>
 <summary>Likes Button with Counter</summary>
 
+-   Found on all recipe cards. Button without counter can also be found on the "More" button on each recipe details page if signed in.
+
+🔽🔽🔽🔽🔽
+**_Likes Buttons Image_**
+🔼🔼🔼🔼🔼
+
 </details>
 <details>
 <summary>Pop Out Button</summary>
+
+-   Found on all recipe cards.
+
+🔽🔽🔽🔽🔽
+**_Pop Out Button Image_**
+🔼🔼🔼🔼🔼
 
 </details>
 <details>
 <summary>Edit Button</summary>
 
+-   Found on all recipe cards if user is the recipe owner or admin. Found on all full category cards if the user is super user or admin. Found on all user profiles and user cards.
+
+🔽🔽🔽🔽🔽
+**_Edit Button Image_**
+🔼🔼🔼🔼🔼
+
 </details>
 <details>
 <summary>Delete Button</summary>
+
+-   Found on all recipe cards if user is the recipe owner or admin. Found on all full category cards if the user is super user or admin. Found on all user profiles and user cards.
+
+🔽🔽🔽🔽🔽
+**_Delete Button Image_**
+🔼🔼🔼🔼🔼
 
 </details>
 <details>
 <summary>Floating Action Button</summary>
 
+-   Found on recipes, _filtered_ recipes, recipe details and categories pages.
+
+🔽🔽🔽🔽🔽
+**_Floating Action Button Image_**
+🔼🔼🔼🔼🔼
+
 </details>
 <details>
 <summary>Recipe Filter Button</summary>
+
+-   Found on all category cards, in the reveal section of recipe cards and in the "Categories" section of the recipe details accrodion.
+
+🔽🔽🔽🔽🔽
+**_Recipe Filter Image_**
+🔼🔼🔼🔼🔼
 
 </details>
 <details>
 <summary>Password Visibility Button</summary>
 
+-   Found at the end of all password input elements; Register, sign in, edit details and in the confirmation modal when editing or deleting users.
+
+🔽🔽🔽🔽🔽
+**_Password Visibility Button Image_**
+🔼🔼🔼🔼🔼
+
 </details>
 <details>
 <summary>Password Confirmation Modal</summary>
+
+-   Found when attempting to update user details or delete profile.
+
+🔽🔽🔽🔽🔽
+**_Password confirmation modal Image_**
+🔼🔼🔼🔼🔼
 
 </details>
 <details>
 <summary>Defensive Modal</summary>
 
+-   Found when attempting to complete any destructive action, delete recipe, category or account or sign out.
+
+🔽🔽🔽🔽🔽
+**_Defensive Image_**
+🔼🔼🔼🔼🔼
+
 </details>
 <details>
 <summary>Recipe Details Accordion</summary>
+
+-   Found on recipe details page, containing ingredients, instructions, description and categories.
+
+🔽🔽🔽🔽🔽
+**_Recipe details accordion Image_**
+🔼🔼🔼🔼🔼
 
 </details>
 <details>
 <summary>Messages Accordion</summary>
 
+-   Found on messages page, containing header info of user and time and message content in the body.
+
+🔽🔽🔽🔽🔽
+**_Messages accordion Image_**
+🔼🔼🔼🔼🔼
+
 </details>
 <details>
 <summary>Dynamic Ingredients/Instructions Form Fields</summary>
+
+-   Found on add and edit recipe pages, adds input after current with ➕ icon and removes current with ➖ icon. Javascript code written to add one input if all in that section are deleted.
+
+🔽🔽🔽🔽🔽
+**_Ingr/Instr Fields Image_**
+🔼🔼🔼🔼🔼
 
 </details>
 
@@ -344,12 +479,36 @@ Features that were part of my initial scope but deemed a lower priority and ther
 
 ## Languages and Technologies
 
-| Language/Technology | Use/location in Project |
-| :------------------ | :---------------------- |
+The below table shows the technologies and languages used in this project and their use or location across the site/project.
+
+| Language/Technology | Use/location in Project                                                                                                                                                                                                                |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| HTML                | Used to build templates for all pages on site                                                                                                                                                                                          |
+| CSS                 | Used to customise materialize styling on all elements                                                                                                                                                                                  |
+| JavaScript          | Used to initialize Materialize elements, add and remove buttons for recipe instructions and ingedients and to remove the flashed messages element                                                                                      |
+| Python              | Used for majority of logic on site, processing data between database and front end                                                                                                                                                     |
+| MongoDB             | Storing data entered by users                                                                                                                                                                                                          |
+| Flask               | Used within app.py file with app.routes housing majority of python logic                                                                                                                                                               |
+| Jinja               | Used to template front end sites, using loops over lists and if statements to check user status                                                                                                                                        |
+| Werkzeug            | Used during development process to debug when issues were present                                                                                                                                                                      |
+| Codeanywhere        | Used as the main dev environment in the first half of the project                                                                                                                                                                      |
+| GitHub        | Used to store project repo                                                                                                                                                                      |
+| Visual Studio Code  | Used as the main dev environment in the second half of the project (codeanywhere down)                                                                                                                                                 |
+| Datetime            | Imported to get datetime objects for users registry dates and recipe and message creation dates                                                                                                                                        |
+| Heroku              | Used to deploy the live site                                                                                                                                                                                                           |
+| Materialize         | Used for many individual elements; menu, accordion, cards, reveal elements, modals, tooltipped elements and action buttons. Also used for basic styling with helper classes for colour, button size, element positioning and size etc. |
+| Google Fonts        | Used for site fonts; Courgette and Nunito                                                                                                                                                                                              |
+| Google Icons        | Used for icons across site, primarily forms and cards                                                                                                                                                                                  |
+| Font Awesome        | Used for icons within the menu element                                                                                                                                                                                                 |
+| Favicon             | Used for site favicon                                                                                                                                                                                                                  |
 
 ## Testing
 
+☑️☑️☑️☑️☑️
+
 For all manual user testing, lighthouse performance testing and code validation, please see [TESTING.md](TESTING.md) file.
+
+☑️☑️☑️☑️☑️
 
 ### Bugs
 
@@ -400,20 +559,83 @@ During the development process, I used Google Chrome Devtools to manually test t
 
 1. Redirect using the session url works well in majority of normal use cases, although where a user navigates using back button, the browser will load a cahced version of the page and won't overwrite the url in session. Meaning, when a user then triggers another function (like, delete etc.), they will be returned to the last page that stores the url in session.
 
-🔽
-🔽
-🔽
-
 ## Deployment
 
 ### Live
 
+The site was deployed to [Heroku](https://www.heroku.com/platform). View the live site [here!](https://project-3-pawoods-dcf83ae94f0f.herokuapp.com/)
+
 ### Local
 
+To access this [GitHub Repository](https://github.com/pawoods/project2) locally, you can follow the below guides to either clone or fork the repo.
+
+#### Cloning
+
+Cloning this repository will pull down a full copy to a local computer or remote virtual machine within a codespace. You can then `push` or `pull` your own or other users changes to the original repo. To clone this repo, follow the below step by step instructions:
+
+1. Navigate to the [GitHub Repository](https://github.com/pawoods/project3) for this project.
+2. Click the `<> Code` button above the list of files.
+3. Chose whether to clone using HTTPS, SSH, or GitHub CLI and copy the URL.
+4. Open Git Bash or Terminal.
+5. Change the current working directory to the location where you want the cloned repo.
+6. Use the `git clone` command followed by the copied URL.
+   ```
+   git clone https://github.com/pawoods/project3.git
+   ```
+7. Press enter to create your local clone.
+
+#### Forking
+
+Forking this repository will create a parallel version in your own GitHub account, allowing changes to be made with no change to the original repo. To fork this repo, follow the below step by step instructions:
+
+1. Navigate to the [GitHub Repository](https://github.com/pawoods/project2) for this project.
+2. Click `Fork` button in top right under main navigation bar.
+3. A copy of this repo should now exist in your GitHub account.
+
+#### Requirements and env
+
+After cloning or forking the repo, the dependancies within the requirements.txt need to be installed using the command `pip3 install -r requirements.txt`
+
+Any other packages installed in the project after cloning or forking the repo can be added to the requirements.txt file by using the command `pip3 freeze --local > requirements.txt`
+
+An `env.py` file will also need to be created at root-level to contain environment variables that should not be pushed to GitHub, the `env.py` file is listed in the `.gitignore` file to ensure this.
+
+The local `env.py` file will look something like below but with values unique to the user where indicated, these will be covered in the [MongoDB](#mongodb) section.
+
+```
+import os
+
+os.environ.setdefault("IP", "0.0.0.0")
+os.environ.setdefault("PORT", "5000")
+os.environ.setdefault("SECRET_KEY", "any string value")
+os.environ.setdefault("MONGO_DBNAME", "name of user's mongoDB database")
+os.environ.setdefault("MONGO_URI", "user's mongoDB connection string")
+```
+
+#### MongoDB
+
+The project uses [MongoDB](https://www.mongodb.com/cloud/atlas/register?utm_content=rlsapostreg&utm_source=google&utm_campaign=search_gs_pl_evergreen_atlas_general_retarget-brand-postreg_gic-null_emea-all_ps-all_desktop_eng_lead&utm_term=&utm_medium=cpc_paid_search&utm_ad=&utm_ad_campaign_id=14412646473&adgroup=131761130372&cq_cmp=14412646473&gad_source=1&gclid=CjwKCAiA9ourBhAVEiwA3L5RFqrqGrd12Y8t-DXSb2zA7gWH0_9lTYiylpHAfvjeRKf9R8fJvlMgHhoCrt8QAvD_BwE) non relational database. To connect your repo up to the database, these are the steps to follow:
+
+🔽🔽🔽🔽🔽
+1. Sign up for an account with MongoDB.
+2. 
+
+#### Heroku
+
+To deploy your app on [Heroku](https://www.heroku.com/platform), these are the steps to follow: 
+
+1. Sign up for an account with Heroku.
+2. 
+
+🔼🔼🔼🔼🔼
 ## Credits
 
-🔼
-🔼
-🔼
+### Code Credits
 
-$ne operator learned from <https://developerslogblog.wordpress.com/2019/10/15/mongodb-how-to-filter-by-multiple-fields/>
+$ne operator learned from [Developers Log Blog](https://developerslogblog.wordpress.com/2019/10/15/mongodb-how-to-filter-by-multiple-fields/)
+
+### Support Credits
+
+A big thank you to my mentor Martina Terlevic and cohort facilitator Iris Smok for their help and encouragement with the project.
+
+Another big thank you goes out to my Code Institute cohort team and the wider Code Institute community on Slack for providing help, testing and encouragement when needed.

@@ -145,6 +145,13 @@ def sign_in():
     return render_template("sign_in.html")
 
 
+@app.route("/cancel")
+def cancel():
+    if "url" in session:
+        return redirect(session["url"])
+    return redirect(url_for("home"))
+
+
 @app.route("/profile")
 def profile():
     session["url"] = request.url

@@ -72,9 +72,14 @@
                     <label for="photo_url">Photo URL Link (optional)</label>
                 </div>
             </div>
-            <!-- Submit -->
             <div class="row">
-                <a href="#modal" class="col s10 offset-s1 teal darken-4 btn-large modal-trigger">
+                <!-- Cancel -->
+                <a class="col s5 deep-red btn-large center-align" href="{{ url_for('cancel') }}">
+                    Cancel
+                    <i class="material-icons prefix white-text">undo</i>
+                </a>
+                <!-- submit -->
+                <a href="#modal" class="col s5 right teal darken-4 btn-large modal-trigger">
                     Update
                     <i class="material-icons white-text">forward</i>
                 </a>

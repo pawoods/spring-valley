@@ -140,9 +140,14 @@
                     <label for="photo_url">Photo URL Link (optional)</label>
                 </div>
             </div>
-            <!-- submit -->
             <div class="row">
-                <button type="submit" class="col s10 offset-s1 teal darken-4 btn-large">
+                <!-- Cancel -->
+                <a class="col s5 deep-red btn-large center-align" href="{{ url_for('cancel') }}">
+                    Cancel
+                    <i class="material-icons prefix white-text">undo</i>
+                </a>
+                <!-- submit -->
+                <button type="submit" class="col s5 right teal darken-4 btn-large">
                     Submit
                     <i class="material-icons prefix white-text">forward</i>
                 </button>

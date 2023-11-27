@@ -75,12 +75,13 @@
                     <label for="photo_url">Photo URL Link (optional)</label>
                 </div>
             </div>
-            <!-- Register -->
             <div class="row">
-                <button type="reset" class="col s5 deep-red btn-large">
-                    Clear
-                    <i class="material-icons white-text">undo</i>
-                </button>
+                <!-- Cancel -->
+                <a class="col s5 deep-red btn-large center-align" href="{{ url_for('cancel') }}">
+                    Cancel
+                    <i class="material-icons prefix white-text">undo</i>
+                </a>
+                <!-- Register -->
                 <button type="submit" class="col s5 right teal darken-4 btn-large">
                     Register
                     <i class="material-icons white-text">forward</i>
