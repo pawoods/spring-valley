@@ -16,7 +16,7 @@ i[onclick] {
     cursor: pointer;
 }
 
-.brand-logo, h3, h4 {
+.brand-logo, h1, h3, h4 {
     font-family: 'Courgette', cursive;
     font-weight: 400;
 }
