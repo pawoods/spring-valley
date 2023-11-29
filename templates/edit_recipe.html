@@ -63,7 +63,7 @@
                 {% for ingredient in recipe.ingredients %}
                 <li class="col s12">
                     <div class="li-container">
-                        <input class="col s10" type="text" name="ingredient" value="{{ ingredient }}">
+                        <input class="col s10 validate" type="text" name="ingredient" value="{{ ingredient }}" required>
                         <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
                         <i class="red-text col s1 center-align material-icons remove" onclick="remove(event, 'ingredient')">remove</i>
                     </div>
@@ -72,7 +72,7 @@
                 {% if recipe.ingredients|length < 1 %}
                 <li class="col s12">
                     <div class="li-container">
-                        <input class="col s10" type="text" name="ingredient">
+                        <input class="col s10 validate" type="text" name="ingredient" required>
                         <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
                         <i class="red-text col s1 center-align material-icons remove" onclick="remove(event, 'ingredient')">remove</i>
                     </div>
@@ -89,7 +89,7 @@
                 {% for instruction in recipe.instructions %}
                 <li class="col s12">
                     <div class="li-container">
-                        <input class="col s10" type="text" name="instruction" value="{{ instruction }}">
+                        <input class="col s10 validate" type="text" name="instruction" value="{{ instruction }}" required>
                         <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
                         <i class="red-text col s1 center-align material-icons remove" onclick="remove(event, 'instruction')">remove</i>
                     </div>
@@ -98,7 +98,7 @@
                 {% if recipe.instructions|length < 1 %}
                 <li class="col s12">
                     <div class="li-container">
-                        <input class="col s10" type="text" name="instruction">
+                        <input class="col s10 validate" type="text" name="instruction" required>
                         <i class="green-text col s1 center-align material-icons add" onclick="add(event)">add</i>
                         <i class="red-text col s1 center-align material-icons remove" onclick="remove(event, 'instruction')">remove</i>
                     </div>
