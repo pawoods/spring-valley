@@ -4,74 +4,50 @@ All wireframes were created using [Balsamiq](https://balsamiq.com/)
 
 ## Home
 
-|Phone|Tablet|Desktop|
-|:---:|:----:|:-----:|
-|     |      |       |
+![Home Wrieframe Screenshot](/static/images/readme/wireframes/home.webp)
 
 ## Recipes/Filtered Recipes
 
-|Phone|Tablet|Desktop|
-|:---:|:----:|:-----:|
-|     |      |       |
+![Recipes Wrieframe Screenshot](/static/images/readme/wireframes/recipes.webp)
 
 ## Add Recipe
 
-|Phone|Tablet|Desktop|
-|:---:|:----:|:-----:|
-|     |      |       |
+![Add Recipe Wrieframe Screenshot](/static/images/readme/wireframes/addrecipe.webp)
 
 ## Categories
 
-|Phone|Tablet|Desktop|
-|:---:|:----:|:-----:|
-|     |      |       |
+![Categories Wrieframe Screenshot](/static/images/readme/wireframes/categories.webp)
 
 ## Add Category
 
-|Phone|Tablet|Desktop|
-|:---:|:----:|:-----:|
-|     |      |       |
+![Add Category Wrieframe Screenshot](/static/images/readme/wireframes/addcategory.webp)
 
 ## Users
 
-|Phone|Tablet|Desktop|
-|:---:|:----:|:-----:|
-|     |      |       |
+![Users Wrieframe Screenshot](/static/images/readme/wireframes/users.webp)
 
 ## Messages
 
-|Phone|Tablet|Desktop|
-|:---:|:----:|:-----:|
-|     |      |       |
+![Messages Wrieframe Screenshot](/static/images/readme/wireframes/messages.webp)
 
 ## Contact
 
-|Phone|Tablet|Desktop|
-|:---:|:----:|:-----:|
-|     |      |       |
+![Contact Wrieframe Screenshot](/static/images/readme/wireframes/contact.webp)
 
 ## Profile
 
-|Phone|Tablet|Desktop|
-|:---:|:----:|:-----:|
-|     |      |       |
+![Profile Wrieframe Screenshot](/static/images/readme/wireframes/profile.webp)
 
 ## Register
 
-|Phone|Tablet|Desktop|
-|:---:|:----:|:-----:|
-|     |      |       |
+![Register Wrieframe Screenshot](/static/images/readme/wireframes/register.webp)
 
 ## Sign In
 
-|Phone|Tablet|Desktop|
-|:---:|:----:|:-----:|
-|     |      |       |
+![Sign In Wrieframe Screenshot](/static/images/readme/wireframes/signin.webp)
 
 ## Menu
 
-|Phone|Tablet|Desktop|
-|:---:|:----:|:-----:|
-|     |      |       |
+![Menu Wrieframe Screenshot](/static/images/readme/wireframes/menu.webp)
 
 Back to [README](README.md)

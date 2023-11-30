@@ -6,9 +6,7 @@ With a user profile page also comes a way of storing, managing and easily access
 
 The majority of data is displayed on the front-end as cards (recipes, categories, users) so as to give a consistent feel to the site no matter which page the user is viewing.
 
-🔽🔽🔽🔽🔽
-**_Am I responsive screenshot_**
-🔼🔼🔼🔼🔼
+![Am I Responsive Screenshot](/static/images/readme/amiresponsive.webp)
 
 [View Live Site Here](https://project-3-pawoods-dcf83ae94f0f.herokuapp.com/)
 
@@ -79,13 +77,9 @@ I wrote up the below user stories to ensure I kept the users in mind when creati
 
 ### Design
 
-☑️☑️☑️☑️☑️
-
 #### Wireframes
 
 For all page wireframes, including mobile, tablet and desktop, please see [WIREFRAMES.md](WIREFRAMES.md) file.
-
-☑️☑️☑️☑️☑️
 
 #### Data design
 
@@ -178,9 +172,7 @@ Messages:
 
 I used [coolors](https://coolors.co/) to design my colour palette, I wanted to keep the majority of the site light in colour to give a clean and simple look while using some darker accent colours on the header, footer, menu and buttons. This was the palette I settled on as it gave a good contrast between the light and dark colours while not being visually overwhelming for the user.
 
-🔽🔽🔽🔽🔽
-**_coolors palette screenshot_**
-🔼🔼🔼🔼🔼
+![Coolors Screenshot](/static/images/readme/coolors.webp)
 
 ##### Fonts
 
@@ -188,35 +180,21 @@ I used [Google Fonts](https://fonts.google.com/) for the fonts on the site, choo
 
 Courgette
 
-🔽🔽🔽🔽🔽
-**_Courgette Screenshot_**
-🔼🔼🔼🔼🔼
+![Courgette Font Screenshot](/static/images/readme/courgette.webp)
 
 Nunito
 
-🔽🔽🔽🔽🔽
-**_Nunito Screenshot_**
-🔼🔼🔼🔼🔼
+![Nunito Font Screenshot](/static/images/readme/nunito.webp)
 
 ##### Icons
 
-I used a mixture of icon sources on the site, initially using the built in Google Icons bundled with Materialize.
+I used a mixture of icon sources on the site, initially using the built in Google Icons bundled with Materialize. As I got further into the project, i realised i needed more icon choice for the menu element of the site, so I chose to add Font Awesome to the project to make use of the wider range of icons available here. Below is a graphic representation of the icons used on different parts of the site.
 
-🔽🔽🔽🔽🔽
-**_Materialize Icons Screenshot_**
-🔼🔼🔼🔼🔼
-
-As I needed more icon choice for the menu element of the site, I chose to add Font Awesome to the project to make use of the wider range of icons available here.
-
-🔽🔽🔽🔽🔽
-**_Font Awesome Icons Screenshot_**
-🔼🔼🔼🔼🔼
+![Icons Screenshot](/static/images/readme/icons.webp)
 
 I also added a favicon to the project using [Favicon](https://favicon.io/). I replicated the main dark green colour of the site as the background colour with white text and rounded edges to match the card elements on the site.
 
-🔽🔽🔽🔽🔽
-**_Favicon Image_**
-🔼🔼🔼🔼🔼
+![Favicon Screenshot](/static/images/readme/favicon.webp)
 
 ## Features
 
@@ -229,9 +207,11 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on home, recipes, _filtered_ recipes and profile pages. Has backup image if users doesn't input one on create.
 
-🔽🔽🔽🔽🔽
-**_Recipe Card Image_**
-🔼🔼🔼🔼🔼
+![Recipe Card Screenshot](/static/images/readme/features/recipecard.webp)
+
+- More information revealed by clicking on more (three vertical dots) icon.
+
+![Recipe Card Screenshot 2](/static/images/readme/features/recipecard2.webp)
 
 </details>
 <details>
@@ -239,9 +219,7 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on categories page.
 
-🔽🔽🔽🔽🔽
-**_Category Card Image_**
-🔼🔼🔼🔼🔼
+![Category Card Screenshot](/static/images/readme/features/categorycard.webp)
 
 </details>
 <details>
@@ -249,9 +227,11 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on the users page. Has backup blank user image if no photo on account.
 
-🔽🔽🔽🔽🔽
-**_User Card Image_**
-🔼🔼🔼🔼🔼
+![User Card Screenshot](/static/images/readme/features/usercard.webp)
+
+- More information revealed by clicking on more (three vertical dots) icon.
+
+![User Card Screenshot 2](/static/images/readme/features/usercard2.webp)
 
 </details>
 <details>
@@ -259,9 +239,9 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Full card found on the individual users profile. Reduced info found at top of menu element when signed in. Has backup blank user image if user hasn't added photo.
 
-🔽🔽🔽🔽🔽
-**_Profile Card Image_**
-🔼🔼🔼🔼🔼
+![Profile Card Screenshot](/static/images/readme/features/profilecard.webp)
+
+![Profile Card Screenshot2](/static/images/readme/features/profilecard2.webp)
 
 </details>
 <details>
@@ -269,9 +249,13 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on every page by clicking the lines in the top right of the header element.
 
-🔽🔽🔽🔽🔽
-**_Menu Image_**
-🔼🔼🔼🔼🔼
+Signed in
+
+![Menu Signed In Screenshot](/static/images/readme/features/menusignedin.webp)
+
+Signed out
+
+![Menu Signed Out Screenshot](/static/images/readme/features/menusignedout.webp)
 
 </details>
 <details>
@@ -279,9 +263,9 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on the home page at the end of the "About" section. Link also found on the slide out menu and sign in pages.
 
-🔽🔽🔽🔽🔽
-**_Register CTA Button Image_**
-🔼🔼🔼🔼🔼
+![Register CTA Button Screenshot](/static/images/readme/features/registercta.webp)
+
+![Register Menu Link Screenshot](/static/images/readme/features/menusignedout.webp)
 
 </details>
 <details>
@@ -289,9 +273,13 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on all recipe cards. Button without counter can also be found on the "More" button on each recipe details page if signed in.
 
-🔽🔽🔽🔽🔽
-**_Likes Buttons Image_**
-🔼🔼🔼🔼🔼
+Liked
+
+![Liked Button Screenshot](/static/images/readme/features/liked.webp)
+
+Unliked
+
+![Unliked Button Screenshot](/static/images/readme/features/unliked.webp)
 
 </details>
 <details>
@@ -299,9 +287,7 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on all recipe cards.
 
-🔽🔽🔽🔽🔽
-**_Pop Out Button Image_**
-🔼🔼🔼🔼🔼
+![Pop Out Button Screenshot](/static/images/readme/features/popout.webp)
 
 </details>
 <details>
@@ -309,9 +295,7 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on all recipe cards if user is the recipe owner or admin. Found on all full category cards if the user is super user or admin. Found on all user profiles and user cards.
 
-🔽🔽🔽🔽🔽
-**_Edit Button Image_**
-🔼🔼🔼🔼🔼
+![Edit Button Screenshot](/static/images/readme/features/editbutton.webp)
 
 </details>
 <details>
@@ -319,9 +303,7 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on all recipe cards if user is the recipe owner or admin. Found on all full category cards if the user is super user or admin. Found on all user profiles and user cards.
 
-🔽🔽🔽🔽🔽
-**_Delete Button Image_**
-🔼🔼🔼🔼🔼
+![Delete Button Screenshot](/static/images/readme/features/deletebutton.webp)
 
 </details>
 <details>
@@ -329,9 +311,13 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on recipes, _filtered_ recipes, recipe details and categories pages.
 
-🔽🔽🔽🔽🔽
-**_Floating Action Button Image_**
-🔼🔼🔼🔼🔼
+Add New 
+
+![Add Action Button Screenshot](/static/images/readme/features/addaction.webp)
+
+More
+
+![More Action Button Screenshot](/static/images/readme/features/moreaction.webp)
 
 </details>
 <details>
@@ -339,9 +325,13 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on all category cards, in the reveal section of recipe cards and in the "Categories" section of the recipe details accrodion.
 
-🔽🔽🔽🔽🔽
-**_Recipe Filter Image_**
-🔼🔼🔼🔼🔼
+Category Card
+
+![Filter Button Screenshot](/static/images/readme/features/filterbutton.webp)
+
+Recipe Card
+
+![Filter Buttons Screenshot](/static/images/readme/features/filterbuttons.webp)
 
 </details>
 <details>
@@ -349,9 +339,7 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found at the end of all password input elements; Register, sign in, edit details and in the confirmation modal when editing or deleting users.
 
-🔽🔽🔽🔽🔽
-**_Password Visibility Button Image_**
-🔼🔼🔼🔼🔼
+![Password Visibility Button Screenshot](/static/images/readme/features/passwordvisibility.webp)
 
 </details>
 <details>
@@ -359,9 +347,7 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found when attempting to update user details or delete profile.
 
-🔽🔽🔽🔽🔽
-**_Password confirmation modal Image_**
-🔼🔼🔼🔼🔼
+![Password Confirmation Modal Screenshot](/static/images/readme/features/passwordcheck.webp)
 
 </details>
 <details>
@@ -369,9 +355,9 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found when attempting to complete any destructive action, delete recipe, category or account or sign out.
 
-🔽🔽🔽🔽🔽
-**_Defensive Image_**
-🔼🔼🔼🔼🔼
+![Defensive Modal Screenshot](/static/images/readme/features/defensivemodal.webp)
+
+![Defensive Modal Screenshot 2](/static/images/readme/features/defensivemodal2.webp)
 
 </details>
 <details>
@@ -379,9 +365,13 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on recipe details page, containing ingredients, instructions, description and categories.
 
-🔽🔽🔽🔽🔽
-**_Recipe details accordion Image_**
-🔼🔼🔼🔼🔼
+Closed
+
+![Recipe Accordion Closed Screenshot](/static/images/readme/features/recipeaccordionclosed.webp)
+
+Open
+
+![Recipe Accordion Open Screenshot](/static/images/readme/features/recipeaccordionopen.webp)
 
 </details>
 <details>
@@ -389,9 +379,7 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on messages page, containing header info of user and time and message content in the body.
 
-🔽🔽🔽🔽🔽
-**_Messages accordion Image_**
-🔼🔼🔼🔼🔼
+![Messages Accordion Screenshot](/static/images/readme/features/messagesaccordion.webp)
 
 </details>
 <details>
@@ -399,9 +387,7 @@ To keep aligned with the user stories, an extensive list of features for the sit
 
 -   Found on add and edit recipe pages, adds input after current with ➕ icon and removes current with ➖ icon. Javascript code written to add one input if all in that section are deleted.
 
-🔽🔽🔽🔽🔽
-**_Ingr/Instr Fields Image_**
-🔼🔼🔼🔼🔼
+![Input Fields Screenshot](/static/images/readme/features/inputfields.webp)
 
 </details>
 
