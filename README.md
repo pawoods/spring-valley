@@ -263,7 +263,7 @@ Signed out
 
 -   Found underneath page header when user completes action that triggers feedback.
 
-![Flashed Messages Banner Screenshot](/static/images/readme/features/flashbanner.webp)
+![Flash Banner Screenshot](/static/images/readme/features/flashbanner.webp)
 
 </details>
 
