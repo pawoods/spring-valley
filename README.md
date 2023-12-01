@@ -259,6 +259,15 @@ Signed out
 
 </details>
 <details>
+<summary>Flashed Messages Banner</summary>
+
+-   Found underneath page header when user completes action that triggers feedback.
+
+![Flashed Messages Banner Screenshot](/static/images/readme/features/flashbanner.webp)
+
+</details>
+
+<details>
 <summary>Register CTA Button</summary>
 
 -   Found on the home page at the end of the "About" section. Link also found on the slide out menu and sign in pages.
