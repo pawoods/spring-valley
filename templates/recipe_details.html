@@ -10,9 +10,9 @@
             <div class="title row">
                 <div class="detail-image col s12">
                     {% if recipe.photo_url %}
-                    <img src="{{ recipe.photo_url }}" alt="{{ recipe.title }}"/>
+                    <img src="{{ recipe.photo_url }}" alt="{{ recipe.title }}">
                     {% else %}
-                    <img src="{{ url_for('static', filename='images/dinnertable.webp') }}" alt="Dinner Table"/>
+                    <img src="{{ url_for('static', filename='images/dinnertable.webp') }}" alt="Dinner Table">
                     {% endif %}
                 </div>
             </div>
