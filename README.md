@@ -203,6 +203,66 @@ I also added a favicon to the project using [Favicon](https://favicon.io/). I re
 To keep aligned with the user stories, an extensive list of features for the site was compiled and prioritised to meet all the points of each user. Below is a list of each feature included, with site locations. Features not included but considered are contained in the [Future Features](#future-features) section.
 
 <details>
+<summary>Registration/Edit Details Form</summary>
+
+Both forms share the same input fields but Register is used for creating a user while Edit Details is used for updating that users details.
+
+ - Registration Form - Found when clicking on either the Register Here button on the home page, tnhe Register link in the menu or the Register Now link on the Sign In page.
+
+ ![Registration Form Screenshot](/static/images/readme/features/register.webp)
+
+- Edit Details Form - Found either by a user clicking the Edit Details button on their profile page or by an Admin user clicking the edit button on a User Card from the Users page.
+
+![Edit Details Screenshot](/static/images/readme/features/editdetails.webp)
+
+
+</details>
+<details>
+<summary>Sign In Form</summary>
+
+- Found when the user clicks the Sign In option from the menu or the Sign In link from the Register Page.
+
+![Sign In Screenshot](/static/images/readme/features/signin.webp)
+
+
+</details>
+<details>
+<summary>Contact Form</summary>
+
+- Found when the user clicks on the Get In Touch button in the footer or the Get In Touch link in the menu.
+
+![Contact Form Screenshot](/static/images/readme/features/contact1.webp)
+
+- If the user is signed in, the Contact Form will be auto populated with their details. 
+
+![Contact Form Screenshot](/static/images/readme/features/contact2.webp)
+
+</details>
+<details>
+<summary>Add/Edit Recipe Form</summary>
+
+- Add Recipe Form - Found when the user clicks + Add Recipe link in the Menu or + Button when on either Recipe or Filtered Recipe pages.
+
+![Add Recipe Form Screenshot](/static/images/readme/features/addrecipe.webp)
+
+- Edit Recipe Form - Found when a user clicks on the pencil icon on a recipe they created, admin have permission to edit all recipes so will see pencil icon button on all recipes. Details will be auto populated relating to the recipe selected to edit.
+
+![Edit Recipe Form Screenshot](/static/images/readme/features/editrecipe.webp)
+
+</details>
+<details>
+<summary>Add/Edit Category Form</summary>
+
+- Add Category Form - Found when a super user or admin clicks + Add Category link in the Menu or + Button when on Categories page.
+
+![Add Category Form Screenshot](/static/images/readme/features/addcategory.webp)
+
+- Edit Recipe Form - Found when a super user or admin clicks on the pencil icon on a cagegory card. Details will be auto populated relating to the category selected to edit.
+
+![Edit Category Form Screenshot](/static/images/readme/features/editcategory.webp)
+
+</details>
+<details>
 <summary>Recipe Cards</summary>
 
 -   Found on home, recipes, _filtered_ recipes and profile pages. Has backup image if users doesn't input one on create.
@@ -399,6 +459,15 @@ Open
 ![Input Fields Screenshot](/static/images/readme/features/inputfields.webp)
 
 </details>
+<details>
+<summary>Custom 404 Page</summary>
+
+- Found if the user navigates to a page that doesn't exist within the site
+
+![404 Page Screenshot](/static/images/readme/features/404.webp)
+
+
+</details>
 
 #### User Feature Permissions
 
@@ -498,14 +567,15 @@ The below table shows the technologies and languages used in this project and th
 | Font Awesome        | Used for icons within the menu element                                                                                                                                                                                                 |
 | Favicon             | Used for site favicon                                                                                                                                                                                                                  |
 |Code Institute Python Linter | Used to test the app.py file for Pep8 compliance |
+|W3 HTML Validator| Used to test all HTML files|
+|W3 CSS Validator|Used to test CSS file|
+|JsHint|Used to Test JavaScript File|
+|Chrome Dev Tools|Used as primary browser during development|
+|Lighthouse (Chrome)|Used to check code standards|
 
 ## Testing
 
-☑️☑️☑️☑️☑️
-
 For all manual user testing, lighthouse performance testing and code validation, please see [TESTING.md](TESTING.md) file.
-
-☑️☑️☑️☑️☑️
 
 ### Bugs
 

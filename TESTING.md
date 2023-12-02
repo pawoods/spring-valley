@@ -49,12 +49,108 @@ The below tables detail the paths I followed on the site to test each of the use
 |                See a page of messages sent through from the contact page and to be able to delete messages.                 | Click Menu, click Messages, click header to expand message and view details, click bin icon to delete, click to confirm in confirmation modal. Receive feedback message.          | ![User Story Screenshot](/static/images/readme/testing/user_stories/admin4a.webp)![User Story Screenshot](/static/images/readme/testing/user_stories/admin4b.webp)![User Story Screenshot](/static/images/readme/testing/user_stories/admin4c.webp)      |
 |          See a visual badge on my profile page to denote admin user status.          | Click Menu, click Profile picture, view Admin User icon with tooltip          | ![User Story Screenshot](/static/images/readme/testing/user_stories/admin5.webp)      |
 
-🔽🔽🔽🔽🔽
 ## Code Validators
 
 ### HTML
 
+I used [W3 HTML Validator](https://validator.w3.org/) to validate all HTML files by URI, pasting each page into the address bar and checking to ensure no errors were found. After changing one section element to a div and removing the trailing / from an img tag, all sites received no errors.
 
+<details>
+<summary>Home</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltesthome.webp)
+
+</details>
+<details>
+<summary>Recipes</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltestrecipe.webp)
+
+</details>
+<details>
+<summary>Filtered Recipes</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltestfilterrecipe.webp)
+
+</details>
+<details>
+<summary>Recipe Details</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltestrecipedetails.webp)
+
+</details>
+<details>
+<summary>Categories</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltestcategory.webp)
+
+</details>
+<details>
+<summary>Register</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltestregister.webp)
+
+</details>
+<details>
+<summary>Sign In</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltestsignin.webp)
+
+</details>
+<details>
+<summary>Profile</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltestprofile.webp)
+
+</details>
+<details>
+<summary>Edit Details</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltesteditdetails.webp)
+
+</details>
+<details>
+<summary>Add Recipe</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltestaddrecipe.webp)
+
+</details>
+<details>
+<summary>Edit Recipe</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltesteditrecipe.webp)
+
+</details>
+<details>
+<summary>Add Category</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltestaddcategory.webp)
+
+</details>
+<details>
+<summary>Edit Category</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltesteditcategory.webp)
+
+</details>
+<details>
+<summary>Contact</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltestcontact.webp)
+
+</details>
+<details>
+<summary>Users</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltestusers.webp)
+
+</details>
+<details>
+<summary>Messages</summary>
+
+![HTML Validation Screenshot](/static/images/readme/testing/htmltestmessages.webp)
+
+</details>
 
 ### CSS
 
@@ -78,93 +174,124 @@ I used the [Code Institue Python Linter](https://pep8ci.herokuapp.com/) to check
 
 I used Google Chrome Dev Tools Lighthouse function to check the performance, accessibility and search engine optimization with scores documented below and notes to explain reduced scores in certain areas.
 
-Home
+<details>
+<summary>Home</summary>
 
 -   Performance score reduction due to the images being URL linked rather than appropriately sized and formatted uploads direct from the user.
 
 ![Home Lighthouse Screenshot](/static/images/readme/testing/homelh.webp)
 
-Register
+</details>
+<details>
+<summary>Register</summary>
 
 -   Form card reducing accessibility score due to being the same colour as the background, this was a design choice to keep the colour pallete simple and clean so as to not become distracting to the user.
 
 ![Register Lighthouse Screenshot](/static/images/readme/testing/registerlh.webp)
 
-Sign In
+</details>
+<details>
+<summary>Sign In</summary>
 
 -   Form card reducing accessibility score due to being the same colour as the background, this was a design choice to keep the colour pallete simple and clean so as to not become distracting to the user.
 
 ![Sign In Lighthouse Screenshot](/static/images/readme/testing/signinlh.webp)
 
-Recipes
+</details>
+<details>
+<summary>Recipes</summary>
 
 -   Performance score reduction due to the images being URL linked rather than appropriately sized and formatted uploads direct from the user.
 
 ![Recipe Lighthouse Screenshot](/static/images/readme/testing/recipeslh.webp)
 
-Recipe Details
+</details>
+<details>
+<summary>Recipe Details</summary>
 
 -   Performance score reduction due to the images being URL linked rather than appropriately sized and formatted uploads direct from the user.
 -   SEO reduction due to the floating more options Materialize button not being crawlable.
 
 ![Recipe Details Lighthouse Screenshot](/static/images/readme/testing/recipedetailslh.webp)
 
-Add Recipe
+</details>
+<details>
+<summary>Add Recipe</summary>
 
 - lower accessibility score due to dynamic instructions and ingredients sections which do not have individual labels for the inputs, rather a group label
 -   Form card reducing accessibility score due to being the same colour as the background, this was a design choice to keep the colour pallete simple and clean so as to not become distracting to the user.
 
 ![Add Recipe Lighthouse Screenshot](/static/images/readme/testing/addrecipelh.webp)
 
-Edit Recipe
+</details>
+<details>
+<summary>Edit Recipe</summary>
 
 - lower accessibility score due to dynamic instructions and ingredients sections which do not have individual labels for the inputs, rather a group label
 -   Form card reducing accessibility score due to being the same colour as the background, this was a design choice to keep the colour pallete simple and clean so as to not become distracting to the user.
 
 ![Edit Recipe Lighthouse Screenshot](/static/images/readme/testing/editrecipelh.webp)
 
-Categories
+</details>
+<details>
+<summary>Categories</summary>
 
 ![Categories Lighthouse Screenshot](/static/images/readme/testing/categorylh.webp)
 
-Add Category
+</details>
+<details>
+<summary>Add Category</summary>
 
 -   Form card reducing accessibility score due to being the same colour as the background, this was a design choice to keep the colour pallete simple and clean so as to not become distracting to the user.
 
 ![Add Category Lighthouse Screenshot](/static/images/readme/testing/addcategorylh.webp)
 
-Edit Category
+</details>
+<details>
+<summary>Edit Category</summary>
 
 -   Form card reducing accessibility score due to being the same colour as the background, this was a design choice to keep the colour pallete simple and clean so as to not become distracting to the user.
 
 ![Edit Category Lighthouse Screenshot](/static/images/readme/testing/editcategorylh.webp)
 
-Profile
+</details>
+<details>
+<summary>Profile</summary>   
 
 -   Performance score reduction due to the images being URL linked rather than appropriately sized and formatted uploads direct from the user.
 
 ![Profile Lighthouse Screenshot](/static/images/readme/testing/profilelh.webp)
 
-Edit Details
+</details>
+<details>
+<summary>Edit Details</summary>
 
 -   Form card reducing accessibility score due to being the same colour as the background, this was a design choice to keep the colour pallete simple and clean so as to not become distracting to the user.
 
 ![Edit Details Lighthouse Screenshot](/static/images/readme/testing/editdetailslh.webp)
 
-Users
+</details>
+<details>
+<summary>Users</summary>
 
 -   Performance score reduction due to the images being URL linked rather than appropriately sized and formatted uploads direct from the user.
 
 ![Users Lighthouse Screenshot](/static/images/readme/testing/userslh.webp)
 
-Messages
+</details>
+<details>
+<summary>Messages</summary>
 
 ![Messages Lighthouse Screenshot](/static/images/readme/testing/messageslh.webp)
 
-Contact
+</details>
+<details>
+<summary>Contact</summary>
 
 -   Form card reducing accessibility score due to being the same colour as the background, this was a design choice to keep the colour pallete simple and clean so as to not become distracting to the user.
 
 ![Contact Lighthouse Screenshot](/static/images/readme/testing/contactlh.webp)
+
+</details>
 
 [Back to README](README.md)
