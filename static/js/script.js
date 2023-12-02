@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 $(document).ready(function () {
     $('.sidenav').sidenav({edge: "right"});
     $('.tooltipped').tooltip();
@@ -61,5 +63,5 @@ function visibility(event) {
 // Closes flashed message when "X" clicked
 function closeFlash(event) {
     let element = event.target.closest(".flashes");
-    element.classList.add("hidden")
+    element.classList.add("hidden");
 }

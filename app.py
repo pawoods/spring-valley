@@ -58,7 +58,7 @@ def register():
     if request.method == "POST":
         """
         Checks if username and email are already in users collection
-        and that passwords match, displays relevant flashed messages 
+        and that passwords match, displays relevant flashed messages
         and reloads page until user info is all valid
         """
         existing_user = mongo.db.users.find_one(
@@ -95,9 +95,11 @@ def register():
                     user_id += 1
 
             mongo.db.used_ids.update_one({"name": "used_ids"}, {
-                "$push": {"ids": user_id} })
+                "$push": {"ids": user_id}})
 
-            """builds new user dict with default superuser and admin permissions"""
+            """
+            builds new user dict with default superuser and admin permissions
+            """
             new_user = {
                 "user_id": user_id,
                 "f_name": request.form.get("f_name").capitalize(),
@@ -118,7 +120,7 @@ def register():
             return redirect(url_for("profile"))
 
     """
-    If user already signed in, redirects with 
+    If user already signed in, redirects with
     flashed message to their profile page
     """
     if "user" in session:
@@ -132,10 +134,10 @@ def register():
 def sign_in():
     if request.method == "POST":
         """
-        Checks if email exists on user in database and 
+        Checks if email exists on user in database and
         checks the input password matches the hashed password
         stored for the user. Puts signed in user into session
-        cookie if successful, redirects to sign in with flashed 
+        cookie if successful, redirects to sign in with flashed
         message if unsuccessful
         """
         existing_user = mongo.db.users.find_one(
@@ -158,7 +160,7 @@ def sign_in():
             return redirect(url_for("sign_in"))
 
     """
-    If user already signed in, redirects with 
+    If user already signed in, redirects with
     flashed message to their profile page
     """
     if "user" in session:
@@ -204,7 +206,7 @@ def profile():
 def edit_details(user_id):
     """
     Gets current user to check if they are admin or the user that
-    they are attempting to edit, otherwise redirects to home with 
+    they are attempting to edit, otherwise redirects to home with
     flashed message if not signed in
     """
     if "user" in session:
@@ -235,7 +237,7 @@ def edit_details(user_id):
                         "edit_details",
                         user_id=user_id))
                 """
-                Check if username and email are already in users 
+                Check if username and email are already in users
                 collection excluding current user so as not to allow
                 multiple users to have the same email when updating details,
                 checks both new passwords match, builds user object with new
@@ -257,7 +259,7 @@ def edit_details(user_id):
                         "edit_details",
                         user_id=user_id))
                 elif request.form.get("password") != request.form.get(
-                    "password_check"):
+                        "password_check"):
                     flash("Passwords do not match")
                     return redirect(url_for(
                         "edit_details",
@@ -270,7 +272,7 @@ def edit_details(user_id):
                     "photo_url": request.form.get("photo_url"),
                 }
                 """
-                Adds password to the edit user object if new password 
+                Adds password to the edit user object if new password
                 is entered in the edit details form
                 """
                 if request.form.get("password"):
@@ -280,12 +282,13 @@ def edit_details(user_id):
                     "$set": edit})
                 """
                 Changes the username on recipes created by user to the
-                new updated username, returns to previously stored url in session 
-                with flashed message
+                new updated username, returns to previously stored url in
+                session with flashed message
                 """
                 query = {"created_by.user_id": editing["user_id"]}
                 update = {"$set": {
-                    "created_by.username": request.form.get("username").lower()}}
+                    "created_by.username": request.form.get(
+                        "username").lower()}}
                 mongo.db.recipes.update_many(query, update)
                 flash("User details updated successfuly")
                 return redirect(session["url"])
@@ -304,10 +307,10 @@ def edit_details(user_id):
 @app.route("/delete_user/<user_id>", methods=["GET", "POST"])
 def delete_user(user_id):
     """
-    Checks user is in session, checks their confirmation password 
+    Checks user is in session, checks their confirmation password
     against their user object, deletes the user account if the
     current user is the same or admin and their confirmation password
-    is entered correctly. Removes user from session if they delete themself 
+    is entered correctly. Removes user from session if they delete themself
     """
     if "user" in session:
         user = get_user(session["user"])
@@ -327,7 +330,7 @@ def delete_user(user_id):
                     flash("Account successfully removed")
                     return redirect(session["url"])
                 return redirect(url_for("home"))
-        
+
             flash("Incorrect Password")
             return redirect(session["url"])
 
@@ -355,8 +358,8 @@ def recipe_details(recipe_id):
 @app.route("/recipes")
 def recipes():
     """
-    Puts page url into session cookie, gets all recipes and sorts alphabetically,
-    gets user if signed in
+    Puts page url into session cookie, gets all recipes
+    and sorts alphabetically, gets user if signed in
     """
     session["url"] = request.url
     recipes = mongo.db.recipes.find().sort("recipe_name", 1)
@@ -432,7 +435,9 @@ def add_recipe():
                     "id": []},
                 "created_date": datetime.now()}
             mongo.db.recipes.insert_one(recipe)
-            # returns the _id of the newly created recipe to use in the redirect
+            """
+            returns the _id of the newly created recipe to use in the redirect
+            """
             new_recipe_id = mongo.db.recipes.find_one(recipe)["_id"]
             flash("Recipe successfully added")
             return redirect(url_for("recipe_details", recipe_id=new_recipe_id))
@@ -452,7 +457,7 @@ def edit_recipe(recipe_id):
     """
     Gets user if signed in, redirects to home if not. Gets all categories,
     sorted alphabetically and recipe the user wants to edit.
-    checks if user attempting to edit is either the owner of the recipe 
+    checks if user attempting to edit is either the owner of the recipe
     or an admin user, recirects home if not. Builds object in the same way
     as the add_recipe function and updates the recipe in the recipes DB that
     matches the ObjectID of the selected recipe. Redirects with flashed message
@@ -476,7 +481,8 @@ def edit_recipe(recipe_id):
                     "recipe_name": request.form.get("recipe_name"),
                     "ingredients": request.form.getlist("ingredient"),
                     "instructions": request.form.getlist("instruction"),
-                    "recipe_description": request.form.get("recipe_description"),
+                    "recipe_description": request.form.get(
+                        "recipe_description"),
                     "serves": int(request.form.get("serves")),
                     "prep_time": int(request.form.get("prep_time")),
                     "cook_time": int(request.form.get("cook_time")),
@@ -501,7 +507,7 @@ def edit_recipe(recipe_id):
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
     """
-    Gets user if signed in, checks user is either owner of the selected recipe 
+    Gets user if signed in, checks user is either owner of the selected recipe
     or admin. Deletes the recipe that has been selected if the user has the
     right permission. Checks if the URL in session if for the recipe that is
     being deleted and if so, redirects to all recipes, otherwise redirects the
@@ -525,12 +531,13 @@ def recipe_like(recipe_id):
     """
     Checks if user is in session, otherwise recirects to URL in session cookie
     with flashed message. Gets 'Likes' array from selected recipe, checks if
-    User ID from session is in the array ids, if so, removes them and decrements
-    likes count by one, if not, adds them and increments likes count by one.
-    Redirects to URL in session cookie.
+    User ID from session is in the array ids, if so, removes them and
+    decrements likes count by one, if not, adds them and increments
+    likes count by one. Redirects to URL in session cookie.
     """
     if "user" in session:
-        likes = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})["likes"]
+        likes = mongo.db.recipes.find_one({
+            "_id": ObjectId(recipe_id)})["likes"]
         if session["user"] in likes["id"]:
             new_count = likes["count"]-1
             mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {
@@ -567,8 +574,8 @@ def categories():
 def add_category():
     """
     gets user if signed in, checks if user is super user or admin,
-    redirects home if not. 
-    Builds category object from request form and inserts into 
+    redirects home if not.
+    Builds category object from request form and inserts into
     categories DB
     """
     if "user" in session:
@@ -577,7 +584,8 @@ def add_category():
             if request.method == "POST":
                 category = {
                     "category_name": request.form.get("category_name"),
-                    "category_description": request.form.get("category_description"),
+                    "category_description": request.form.get(
+                        "category_description"),
                     "category_color": request.form.get("category_color")}
                 mongo.db.categories.insert_one(category)
 
@@ -594,7 +602,7 @@ def edit_category(category_id):
     """
     Gets user if signed in, Checks if user is super user or admin,
     redirects home if neither.
-    Builds category object in the same way as add_category function and 
+    Builds category object in the same way as add_category function and
     updates the entry in DB using the ObjectID.
     """
     if "user" in session:
@@ -603,13 +611,14 @@ def edit_category(category_id):
             if request.method == "POST":
                 edit = {
                     "category_name": request.form.get("category_name"),
-                    "category_description": request.form.get("category_description"),
+                    "category_description": request.form.get(
+                        "category_description"),
                     "category_color": request.form.get("category_color")}
-                mongo.db.categories.update_one({"_id": ObjectId(category_id)}, {
-                    "$set": edit})
+                mongo.db.categories.update_one({
+                    "_id": ObjectId(category_id)}, {"$set": edit})
                 """
-                Updates the instance of this category on all recipes that have it
-                tagged.
+                Updates the instance of this category on all recipes
+                that have it tagged.
                 """
                 query = {
                     "categories._id": ObjectId(category_id)}
@@ -626,7 +635,8 @@ def edit_category(category_id):
                 flash("Category successfully updated")
                 return redirect(url_for("categories"))
 
-            category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+            category = mongo.db.categories.find_one({
+                "_id": ObjectId(category_id)})
             return render_template(
                 "edit_category.html",
                 category=category,
@@ -639,7 +649,7 @@ def edit_category(category_id):
 def delete_category(category_id):
     """
     gets user is signed in, checks if user is super or admin,
-    redirects to home if not. 
+    redirects to home if not.
     Deletes category from any applicable recipes before removing it
     from the categories DB.
     """
@@ -661,7 +671,7 @@ def delete_category(category_id):
 def contact():
     """
     Builds message from all info within the contact form, inserts
-    the message into the messages DB. redirects back home with flash 
+    the message into the messages DB. redirects back home with flash
     message. Gets user if signed in to padd to the ront end for use
     on forms.
     """
@@ -679,7 +689,7 @@ def contact():
     if "user" in session:
         user = get_user(session["user"])
         return render_template("contact.html", user=user)
-        
+
     return render_template("contact.html")
 
 
@@ -697,6 +707,7 @@ def users():
             return render_template("users.html", users=users, user=user)
     return redirect(url_for("home"))
 
+
 @app.route("/messages")
 def messages():
     """
@@ -707,16 +718,19 @@ def messages():
         user = get_user(session["user"])
         if user["is_admin"]:
             messages = mongo.db.messages.find().sort("date", -1)
-            return render_template("messages.html", messages=messages, user=user)
+            return render_template(
+                "messages.html",
+                messages=messages,
+                user=user)
     return redirect(url_for("home"))
 
 
 @app.route("/delete_message/<message_id>")
 def delete_message(message_id):
     """
-    gets user if signed in, checks if admin, redirects home if not. 
-    Removes the selected message from the messages DB and redirects 
-    back to messages. 
+    gets user if signed in, checks if admin, redirects home if not.
+    Removes the selected message from the messages DB and redirects
+    back to messages.
     """
     if "user" in session:
         user = get_user(session["user"])
@@ -731,8 +745,8 @@ def delete_message(message_id):
 @app.route("/super_user/<user_id>")
 def super_user(user_id):
     """
-    gets user if signed in, checks if admin.. 
-    checks if selected user is super, removes the super user 
+    gets user if signed in, checks if admin.
+    checks if selected user is super, removes the super user
     status if so, adds super user status if not.
     redirects to URL in session.
     """
@@ -746,15 +760,15 @@ def super_user(user_id):
             else:
                 mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
                     "$set": {"is_super": True}})
-        
+
     return redirect(session["url"])
 
 
 @app.route("/admin_user/<user_id>")
 def admin_user(user_id):
     """
-    gets user if signed in, checks if admin.. 
-    checks if selected user is admin, removes the admin 
+    gets user if signed in, checks if admin.
+    checks if selected user is admin, removes the admin
     status if so, adds admin status if not.
     redirects to URL in session.
     """
@@ -768,7 +782,7 @@ def admin_user(user_id):
             else:
                 mongo.db.users.update_one({"_id": ObjectId(user_id)}, {
                     "$set": {"is_admin": True}})
-        
+
     return redirect(session["url"])
 
 
@@ -777,7 +791,7 @@ def sign_out():
     """
     gets user if signed in, pops them out of session cookie,
     recirects home with successful flash. Redirects non
-    signed in users back home with different flashed message. 
+    signed in users back home with different flashed message.
     """
     if "user" in session:
         # remove user_id from session cookie

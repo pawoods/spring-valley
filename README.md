@@ -47,14 +47,14 @@ The majority of data is displayed on the front-end as cards (recipes, categories
 
 I wrote up the below user stories to ensure I kept the users in mind when creating the site. As I planned to have a multi level permission structure, I made a note to ensure each next level had full visibility and functionality of the user level below:
 
-1. First time User
+1. First time User - I should...
 
     - See a description of the site and be able to view all recipe and category content, including detailed recipes.
     - Have a clear navigation menu that is consistently accessible.
     - Have prompts to register for an account to get more from the site and find an easy to complete registration form with helpful form field feedback.
     - Find a contact page to submit feedback to admin with queries or comments.
 
-2. Registered user (in addition to first time user)
+2. Registered user (in addition to first time user) - I should...
 
     - Find a simple sign in page to log in to my account, giving feedback on incorrect account information.
     - See my details on a profile page, including personal information, recipes I have created and recipes I have liked.
@@ -62,16 +62,16 @@ I wrote up the below user stories to ensure I kept the users in mind when creati
     - Update or delete my details, including recipes I have created.
     - Add/remove likes to recipes and view list of liked recipes on my profile page.
 
-3. Super user (in addition to registered user)
+3. Super user (in addition to registered user) - I should...
 
     - Add new categories for use on recipes with a consistent submission form.
-    - Update of delete category information on all categories and have changes show up across all existing applicable tags.
+    - Update or delete category information on all categories and have changes show up across all existing applicable tags.
     - See a visual badge on my profile page to denote super user status.
 
-4. Admin user (in addition to super user)
+4. Admin user (in addition to super user) - I should...
     - Have full access to update or delete recipes and categories directly from the cards.
-    - See dedicated buttons for changing the super user and admin status of all users.
     - See a page of all users with options to update details or delete users.
+    - See dedicated buttons for changing the super user and admin status of all users.
     - See a page of messages sent through the contact page.
     - See a visual badge on my profile page to denote admin user status.
 
@@ -487,8 +487,9 @@ The below table shows the technologies and languages used in this project and th
 | Jinja               | Used to template front end sites, using loops over lists and if statements to check user status                                                                                                                                        |
 | Werkzeug            | Used during development process to debug when issues were present                                                                                                                                                                      |
 | Codeanywhere        | Used as the main dev environment in the first half of the project                                                                                                                                                                      |
-| GitHub        | Used to store project repo                                                                                                                                                                      |
 | Visual Studio Code  | Used as the main dev environment in the second half of the project (codeanywhere down)                                                                                                                                                 |
+| Git        | Used for version control within development environment                                                                                                                                                                      |
+| GitHub        | Used to store project repo                                                                                                                                                                      |
 | Datetime            | Imported to get datetime objects for users registry dates and recipe and message creation dates                                                                                                                                        |
 | Heroku              | Used to deploy the live site                                                                                                                                                                                                           |
 | Materialize         | Used for many individual elements; menu, accordion, cards, reveal elements, modals, tooltipped elements and action buttons. Also used for basic styling with helper classes for colour, button size, element positioning and size etc. |
@@ -496,6 +497,7 @@ The below table shows the technologies and languages used in this project and th
 | Google Icons        | Used for icons across site, primarily forms and cards                                                                                                                                                                                  |
 | Font Awesome        | Used for icons within the menu element                                                                                                                                                                                                 |
 | Favicon             | Used for site favicon                                                                                                                                                                                                                  |
+|Code Institute Python Linter | Used to test the app.py file for Pep8 compliance |
 
 ## Testing
 
@@ -609,28 +611,57 @@ os.environ.setdefault("MONGO_URI", "user's mongoDB connection string")
 
 #### MongoDB
 
-The project uses [MongoDB](https://www.mongodb.com/cloud/atlas/register?utm_content=rlsapostreg&utm_source=google&utm_campaign=search_gs_pl_evergreen_atlas_general_retarget-brand-postreg_gic-null_emea-all_ps-all_desktop_eng_lead&utm_term=&utm_medium=cpc_paid_search&utm_ad=&utm_ad_campaign_id=14412646473&adgroup=131761130372&cq_cmp=14412646473&gad_source=1&gclid=CjwKCAiA9ourBhAVEiwA3L5RFqrqGrd12Y8t-DXSb2zA7gWH0_9lTYiylpHAfvjeRKf9R8fJvlMgHhoCrt8QAvD_BwE) non relational database. To connect your repo up to the database, these are the steps to follow:
+The project uses [MongoDB](https://www.mongodb.com/cloud/atlas/register?utm_content=rlsapostreg&utm_source=google&utm_campaign=search_gs_pl_evergreen_atlas_general_retarget-brand-postreg_gic-null_emea-all_ps-all_desktop_eng_lead&utm_term=&utm_medium=cpc_paid_search&utm_ad=&utm_ad_campaign_id=14412646473&adgroup=131761130372&cq_cmp=14412646473&gad_source=1&gclid=CjwKCAiA9ourBhAVEiwA3L5RFqrqGrd12Y8t-DXSb2zA7gWH0_9lTYiylpHAfvjeRKf9R8fJvlMgHhoCrt8QAvD_BwE) non relational database. To connect your repo up to your own database, these are the steps to follow:
 
-🔽🔽🔽🔽🔽
 1. Sign up for an account with MongoDB.
-2. 
+2. Select a tier, cloud provider and locality (As I am in the UK, I selected Ireland)
+3. Select a Cluster Name or Leave default Cluster0 and click create.
+4. Navigate to Database Access and set up a new database user. 
+5. Select Password as the authentication method and input a username and password, these will be used in the connection string within the env.py file. Only use letters and numbers to avoid connection issues.
+6. Select a built in role of read and write to any database.
+7. Click Create. 
+8. Navigate to Network Access and click Add IP Address.
+9. Select whether to add a local IP address or to allow access from anywhere.
+10. Confirm.
+11. Navigate to Database and click on Browse Collections next to the name of the Cluster set up in step 3.
+12. Click Add My Own Data and add a database name and collection name. This database name should be added to the env.py file as the value for "MONGO_DBNAME".
+13. Click the plus sign next to the database name to add further collections - You will need a total of four collections within the database: users, recipes, categories and messages. Any different names would need to then be updated everywhere the collections are called in the app.py file.
+14. From the Overview tab in the Cluster, click the Connect button. 
+15. Follow the connection instructions for your preferred connection method (I chose to connect using the Python Driver)
+16. Copy the connection string to the env.py file as the value for "MONGO_URI".
+
+- NOTE: You will need to replace the ``<password>`` placeholder with the user password created in step 5.
+- NOTE: I experienced issues when connecting with the above method and found I had to add the database name created in step 12 to the connection string between the / and ? - after this, I experienced no further connection issues.
 
 #### Heroku
 
 To deploy your app on [Heroku](https://www.heroku.com/platform), these are the steps to follow: 
 
 1. Sign up for an account with Heroku.
-2. 
+2. Click New button and select Create New App.
+3. Choose a name for your app. This must be unique.
+4. Select a region and click Create App.
+5. Choose your connection method, I used automatic deployment from GitHub repo. 
+6. Make sure your GitHub profile is displayed and search for the repository. You may need to connect to your GitHub account if not completed at registration.
+7. Once the repo is found, click connect.
+8. Navigate to Settings tab and click on Reveal Config Vars
+9. Each variable from the env.py file will need to be replicated here in key value pairs and without quotes e.g. key = ``PORT`` and value = ``5000``
+10. Once all config vars are added, you can now navigate back to the deploy tab and click Enable Automatic Deploys, select the branch to deploy and click Deploy.
+11. Once complete, you can click Open App to view the live site.
+- NOTE: The live site will now update any time changes are pushed to the connected GitHub repository.
 
-🔼🔼🔼🔼🔼
 ## Credits
 
 ### Code Credits
 
-$ne operator learned from [Developers Log Blog](https://developerslogblog.wordpress.com/2019/10/15/mongodb-how-to-filter-by-multiple-fields/)
+$ne operator - [Developers Log Blog](https://developerslogblog.wordpress.com/2019/10/15/mongodb-how-to-filter-by-multiple-fields/)
+
+Recipe card backup image of a set dinner table - [The Plainsman Museum](https://www.plainsmanmuseum.org/single-post/formal-table-setting)
+
+User backup profile image - [Pixabay](https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/)
 
 ### Support Credits
 
-A big thank you to my mentor Martina Terlevic and cohort facilitator Iris Smok for their help and encouragement with the project.
+A big thank you to my mentor Martina Terlevic and cohort facilitators Iris Smok and Irene Neville for their help and encouragement with the project.
 
 Another big thank you goes out to my Code Institute cohort team and the wider Code Institute community on Slack for providing help, testing and encouragement when needed.
