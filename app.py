@@ -86,16 +86,21 @@ def register():
             """
             user_id = 1
             existing_id = True
-            while existing_id:
-                if user_id not in mongo.db.used_ids.find_one({
-                        "name": "used_ids"})["ids"]:
-                    existing_id = False
-                    break
-                else:
-                    user_id += 1
+            used_id = mongo.db.used_ids.find_one({"name": "used_ids"})
+            if used_id:
+                while existing_id:
+                    if user_id not in mongo.db.used_ids.find_one({
+                            "name": "used_ids"})["ids"]:
+                        existing_id = False
+                        break
+                    else:
+                        user_id += 1
 
             mongo.db.used_ids.update_one({"name": "used_ids"}, {
-                "$push": {"ids": user_id}})
+                "$push": {"ids": user_id}}, upsert=True)
+            """
+            upsert=True inserts the document if none is found
+            """
 
             """
             builds new user dict with default superuser and admin permissions
